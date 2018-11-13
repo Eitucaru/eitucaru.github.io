@@ -1,7 +1,2940 @@
-<!DOCTYPE html>
-<html>
-<body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
-</body>
-</html>
+<html lang="en-US" class="gr__scratch_mit_edu"><!--<![endif]--><head>
+        <meta charset="UTF-8">
+
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Scratch - Imagine, Program, Share</title>
+
+        <!-- Prevent mobile Safari from making phone numbers -->
+        <meta name="format-detection" content="telephone=no">
+
+        <!-- Search & Open Graph-->
+        <meta name="description" content="Scratch is a free programming language and online community where you can create your own interactive stories, games, and animations.">
+        <meta name="google-site-verification" content="m_3TAXDreGTFyoYnEmU9mcKB4Xtw5mw6yRkuJtXRKxM">
+
+        <meta property="og:url" content="https://scratch.mit.edu/">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Scratch - Imagine, Program, Share">
+        <meta property="og:description" content="Scratch is a free programming language and online community where you can create your own interactive stories, games, and animations.">
+        <meta property="og:image" content="https://scratch.mit.edu/images/scratch-og.png">
+        <meta property="og:image:type" content="image/png">
+        <meta property="og:image:width" content="986">
+        <meta property="og:image:height" content="860">
+
+        <!-- Favicon & CSS normalize -->
+        <link rel="shortcut icon" href="/favicon.ico">
+        <link rel="stylesheet" href="/css/lib/normalize.min.css">
+
+        <!-- Polyfills -->
+        <script async="" src="//www.google-analytics.com/analytics.js"></script><script src="/js/polyfill.min.js"></script>
+
+        <!-- Analytics (GA) -->
+        <script>
+            /* eslint-disable */
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-30688952-1', {
+                'sampleRate': 10
+            });
+            ga('send', 'pageview');
+            /* eslint-enable */
+        </script>
+    <style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+/* Tags */
+html,
+body {
+  display: block;
+  margin: 0;
+  background-color: #4280d7;
+  padding: 0;
+  color: #575e75;
+  font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif; }
+
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  color: #575e75;
+  font-weight: bold; }
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold; }
+
+h2 {
+  font-size: 2rem;
+  font-weight: bold; }
+
+h3 {
+  font-size: 1.4rem;
+  font-weight: bold; }
+
+h4 {
+  font-size: 1rem;
+  font-weight: bold; }
+
+h5 {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: .85rem;
+  font-weight: bold; }
+
+p.legal {
+  font-size: .8rem; }
+
+p.intro {
+  font-size: 1.1rem; }
+
+p.callout {
+  margin: 1.5em 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: .5rem;
+  background-color: rgba(77, 151, 255, 0.1);
+  padding: 1.25em; }
+  p.callout.orange {
+    background-color: rgba(244, 157, 37, 0.1); }
+
+p a {
+  white-space: nowrap; }
+
+b,
+strong {
+  font-weight: bold; }
+
+/* Links */
+a {
+  cursor: pointer;
+  color: #4d97ff;
+  font-weight: bold; }
+  a:link, a:visited, a:active {
+    text-decoration: none;
+    color: #4d97ff; }
+  a:hover {
+    text-decoration: none;
+    color: #4280d7; }
+
+/* Classes */
+.empty {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background-color: rgba(77, 151, 255, 0.1);
+  padding: 10px;
+  text-align: center;
+  line-height: 2rem;
+  color: #575e75; }
+  .empty h4 {
+    color: #575e75; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  line-height: 1.7em;
+  color: #575e75; }
+
+p {
+  font-size: 1rem;
+  font-weight: normal; }
+
+::-moz-selection {
+  background-color: rgba(77, 151, 255, 0.25); }
+
+::selection {
+  background-color: rgba(77, 151, 255, 0.25); }
+
+ol,
+ul {
+  padding-left: 20px;
+  line-height: 1.5em;
+  font-size: 1rem;
+  font-weight: normal; }
+  ol li,
+  ul li {
+    margin: .75em 0; }
+
+dl {
+  line-height: 1.5rem;
+  font-size: 1rem;
+  font-weight: normal; }
+  dl dt {
+    font-weight: bold; }
+  dl dd {
+    margin: 0; }
+
+#view {
+  display: inline-block;
+  /* NOTE: Margin should match height in navigation.scss */
+  margin-top: 50px;
+  background-color: #fcfcfc;
+  padding: 20px 0;
+  min-width: 100%;
+  min-height: 768px; }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+.button {
+  display: inline-block;
+  margin: .5em 0;
+  border: 0;
+  border-radius: .5rem;
+  background-color: #4d97ff;
+  cursor: pointer;
+  padding: 1em 1.25em;
+  color: white;
+  font-size: .8rem;
+  font-weight: bold;
+  /* USER BUTTON STATES */
+  /* DATA BUTTON STATES */ }
+  .button:focus {
+    outline: none; }
+  .button.white {
+    background-color: white;
+    color: #4d97ff; }
+  .button.pass {
+    background-color: #0fbd8c; }
+  .button.fail {
+    background-color: #ffab1a; }
+  .button:disabled {
+    box-shadow: none; }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+.row label {
+  font-weight: 500; }
+
+.input {
+  transition: all .5s ease;
+  margin-bottom: .75rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background-color: #fafafa;
+  padding: 0 1rem;
+  height: 3rem;
+  color: #575e75;
+  font-size: .875rem;
+  /* IE10/11-specific style resets */ }
+  .input:focus {
+    transition: all .5s ease;
+    outline: none;
+    border: 1px solid #4d97ff; }
+  .input.fail {
+    border: 1px solid #ffab1a; }
+  .input.pass {
+    border: 1px solid #0fbd8c; }
+  .input::-ms-reveal, .input::-ms-clear {
+    display: none; }
+</style><style type="text/css">/*
+ * Styles for the Row component used by formsy-react-components
+ * Should be imported for each component that extends one of
+ * the formsy-react-components
+ */
+.row .required-symbol {
+  display: none; }
+
+.row label {
+  display: inline-block;
+  margin-bottom: .75rem; }
+
+.row.no-label label {
+  display: none; }
+
+.row-label {
+  margin-bottom: .75rem;
+  line-height: 1.7rem; }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+.dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 5px 5px;
+  background-color: #4d97ff;
+  padding: 10px;
+  max-width: 260px;
+  overflow: visible;
+  color: white;
+  font-size: .8125rem;
+  font-weight: normal; }
+  .dropdown.staging {
+    background-color: #ffab1a; }
+  .dropdown.open {
+    display: block; }
+  .dropdown a:link, .dropdown a:visited, .dropdown a:active {
+    background-color: transparent;
+    color: white; }
+  .dropdown input {
+    margin-bottom: 12px;
+    width: calc(100% - 30px); }
+  .dropdown label {
+    display: block;
+    margin-bottom: 5px; }
+  .dropdown > li {
+    display: block;
+    line-height: 30px; }
+    .dropdown > li.divider {
+      margin-top: 10px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1); }
+    .dropdown > li a {
+      display: block;
+      padding: 0 10px; }
+      .dropdown > li a:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+        text-decoration: none; }
+  .dropdown.with-arrow {
+    margin-top: 14px;
+    border-radius: 5px;
+    overflow: visible; }
+    .dropdown.with-arrow:before {
+      display: block;
+      position: absolute;
+      top: -7px;
+      right: 10%;
+      -webkit-transform: rotate(45deg);
+          -ms-transform: rotate(45deg);
+              transform: rotate(45deg);
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      border-left: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      background-color: #4d97ff;
+      width: 14px;
+      height: 14px;
+      content: ""; }
+  @media only screen and (max-width: 639px) {
+    .dropdown {
+      min-width: 160px; } }
+</style><style type="text/css">.studio-status-icon-spinner {
+  /* This class can be used on an icon that should spin.
+    It first plays the intro animation, then spins forever. */
+  animation-name: intro, spin;
+  animation-duration: .25s, .5s;
+  animation-timing-function: cubic-bezier(0.3, -3, 0.6, 3), linear;
+  animation-delay: 0s, .25s;
+  animation-iteration-count: 1, infinite;
+  -webkit-animation-direction: normal;
+          animation-direction: normal;
+  width: 1.4rem;
+  /* standard is 1.4 rem but can be overwritten by parent */
+  height: 1.4rem;
+  -webkit-animation-name: intro, spin;
+  -webkit-animation-duration: .25s, .5s;
+  -webkit-animation-iteration-count: 1, infinite;
+  -webkit-animation-delay: 0s, .25s;
+  -webkit-animation-timing-function: cubic-bezier(0.3, -3, 0.6, 3), linear;
+  -webkit-transform-origin: center;
+      -ms-transform-origin: center;
+          transform-origin: center; }
+
+@-webkit-keyframes intro {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+    -webkit-transform: scale(0); }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    -webkit-transform: scale(1); } }
+
+@keyframes intro {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+    -webkit-transform: scale(0); }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    -webkit-transform: scale(1); } }
+
+@-webkit-keyframes spin {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0); }
+  100% {
+    transform: rotate(359deg);
+    -webkit-transform: rotate(359deg); } }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0); }
+  100% {
+    transform: rotate(359deg);
+    -webkit-transform: rotate(359deg); } }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+.login {
+  padding: 10px;
+  width: 200px;
+  line-height: 1.5rem;
+  white-space: normal;
+  color: white;
+  font-size: .8125rem; }
+  .login .button {
+    padding: .75em; }
+  .login .row {
+    margin-bottom: 1.25rem; }
+  .login .input {
+    margin-bottom: 12px;
+    width: calc(100% - 30px);
+    height: 2.25rem; }
+  .login label {
+    padding-top: 5px;
+    font-weight: bold; }
+  .login .right {
+    float: right; }
+  .login .spinner {
+    margin: 0 .8rem;
+    width: 1rem;
+    vertical-align: middle; }
+  .login .submit-button {
+    margin-top: 5px; }
+  .login a {
+    margin-top: 15px;
+    color: white; }
+    .login a:link, .login a:visited, .login a:active {
+      color: white; }
+    .login a:hover {
+      background-color: transparent; }
+  .login .error {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    background-color: #ffab1a;
+    padding: .75em 1em; }
+</style><style type="text/css"></style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+.modal-content {
+  position: relative;
+  margin: 3.75rem auto;
+  border-radius: 1rem;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.15);
+  background-color: white;
+  padding: 0;
+  width: 48.75rem; }
+  .modal-content:focus {
+    outline: none; }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(77, 151, 255, 0.7); }
+
+.modal-content-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  border-radius: 1rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+  line-height: 2rem; }
+
+.modal-content-close-img {
+  padding-top: 0.5rem; }
+
+@media only screen and (max-width: 941px) {
+  .modal-content {
+    top: 0;
+    left: 0;
+    margin-top: 0;
+    border-radius: 0;
+    box-shadow: none;
+    width: 100%;
+    height: 100%;
+    overflow: scroll; }
+  .modal-content-close {
+    position: fixed; } }
+
+/* Close button, Submit button, etc. */
+.action-buttons {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 1.125rem .8275rem .9375rem .8275rem;
+  line-height: 1.5rem;
+  -webkit-justify-content: flex-end !important;
+      -ms-flex-pack: end !important;
+          justify-content: flex-end !important;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap; }
+
+/* setting overall modal to contain overflow looks good, but isn't
+compatible with elements (like validation popups) that need to bleed
+past modal boundary. This class can be used to force modal button
+row to appear to contain overflow. */
+.action-buttons-overflow-fix {
+  margin-bottom: .9375rem; }
+
+.action-button {
+  margin: 0 0 0 .54625rem;
+  border-radius: .25rem;
+  padding: 6px 1.25rem 14px 1.25rem;
+  height: 36px; }
+
+.action-button.close-button {
+  border: 1px solid rgba(0, 0, 0, 0.1); }
+
+.action-button-text {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+
+.action-button.disabled {
+  background-color: rgba(0, 0, 0, 0.2); }
+
+.error-text {
+  display: block;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background-color: #ffab1a;
+  padding: 1rem;
+  min-height: 1rem;
+  overflow: visible;
+  color: white; }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+#navigation {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+  background-color: #4d97ff;
+  width: 100%;
+  /* NOTE: Height should match offset settings in main.scss file */
+  height: 50px; }
+  #navigation.staging {
+    background-color: #ffab1a; }
+  .ie9 #navigation {
+    display: table;
+    table-layout: fixed; }
+  #navigation .inner > ul {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    height: 50px;
+    list-style: none;
+    -webkit-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+            flex-wrap: nowrap;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start; }
+    .ie9 #navigation .inner > ul {
+      display: table-row; }
+    #navigation .inner > ul > li {
+      display: inline-block;
+      position: relative;
+      float: left;
+      margin: 0;
+      height: 100%;
+      -webkit-align-self: flex-start;
+          -ms-flex-item-align: start;
+              align-self: flex-start; }
+      #navigation .inner > ul > li.right {
+        float: right;
+        margin-left: auto;
+        -webkit-align-self: flex-end;
+            -ms-flex-item-align: end;
+                align-self: flex-end; }
+        .ie9 #navigation .inner > ul > li.right {
+          float: none; }
+        #navigation .inner > ul > li.right a:hover {
+          background-color: rgba(0, 0, 0, 0.1); }
+      .ie9 #navigation .inner > ul > li {
+        display: table-cell;
+        float: none;
+        height: 50px;
+        vertical-align: bottom; }
+  #navigation .link > a {
+    display: block;
+    padding: 13px 15px 4px 15px;
+    height: 33px;
+    text-decoration: none;
+    white-space: nowrap;
+    color: white;
+    font-size: .85rem;
+    font-weight: bold; }
+    #navigation .link > a:hover {
+      background-color: rgba(0, 0, 0, 0.1); }
+</style><style type="text/css">/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+.modal-content-iframe {
+  border: 0; }
+</style><style type="text/css">/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+.modal-content.mod-registration {
+  width: 38.125rem;
+  overflow: hidden; }
+
+.modal-content-iframe.mod-registration {
+  width: 38.125rem;
+  min-height: 27.375rem; }
+
+@media only screen and (max-width: 941px) {
+  .modal-content.mod-registration {
+    width: 100%;
+    overflow: scroll; }
+  .modal-content-iframe.mod-registration {
+    height: 27.375rem; } }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+.account-nav .user-info {
+  display: inline-block;
+  padding: 14px 15px 4px 15px;
+  max-width: 260px;
+  height: 33px;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: white;
+  font-size: .8125rem;
+  font-weight: normal; }
+  .account-nav .user-info .avatar {
+    margin-right: 10px;
+    border-radius: 3px;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle; }
+  .account-nav .user-info:hover {
+    background-color: rgba(0, 0, 0, 0.1); }
+  .account-nav .user-info.open {
+    background-color: rgba(0, 0, 0, 0.1); }
+  .account-nav .user-info:after {
+    display: inline-block;
+    margin-left: 8px;
+    background-image: url("/images/dropdown.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50%;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    content: " "; }
+
+.account-nav .dropdown {
+  top: 50px;
+  padding: 0;
+  padding-top: 5px;
+  width: 100%;
+  box-sizing: border-box; }
+
+@media only screen and (max-width: 479px) {
+  .account-nav {
+    margin-left: 0; }
+    .account-nav .user-info .avatar {
+      margin-right: 0; }
+    .account-nav .user-info:after {
+      display: none; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  .account-nav {
+    margin-left: 0; }
+    .account-nav .user-info .avatar {
+      margin-right: 0; }
+    .account-nav .user-info:after {
+      display: none; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  .account-nav {
+    margin-left: 0; } }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+#navigation.staging .messages .message-count {
+  display: none; }
+  #navigation.staging .messages .message-count.show {
+    background-color: #4d97ff; }
+
+#navigation .logo {
+  margin-right: 10px; }
+  #navigation .logo a {
+    display: block;
+    transition: .15s ease all;
+    margin: 0 6px 0 0;
+    border: 0;
+    background-image: url("/images/logo_sm.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 95%;
+    width: 81px;
+    height: 50px; }
+    #navigation .logo a:hover {
+      transition: .15s ease all;
+      background-size: 100%; }
+
+#navigation .inner > ul > li.search {
+  margin: 0 20px;
+  border-right: 0;
+  color: white;
+  -webkit-flex-grow: 3;
+      -ms-flex-positive: 3;
+          flex-grow: 3; }
+  .ie9 #navigation .inner > ul > li.search {
+    width: 100%; }
+  #navigation .inner > ul > li.search .form {
+    margin: 0; }
+  #navigation .inner > ul > li.search .row .help-block {
+    display: none; }
+  #navigation .inner > ul > li.search .input,
+  #navigation .inner > ul > li.search .button {
+    display: inline-block;
+    margin-top: 5px;
+    outline: none;
+    border: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    height: 14px; }
+    #navigation .inner > ul > li.search .input[type=text],
+    #navigation .inner > ul > li.search .button[type=text] {
+      transition: .15s ease background-color;
+      padding: 0;
+      padding-right: 10px;
+      padding-left: 40px;
+      width: calc(100% - 50px);
+      height: 40px;
+      color: white;
+      font-size: .85em; }
+      #navigation .inner > ul > li.search .input[type=text]::-webkit-input-placeholder,
+      #navigation .inner > ul > li.search .button[type=text]::-webkit-input-placeholder {
+        color: rgba(255, 255, 255, 0.75); }
+      #navigation .inner > ul > li.search .input[type=text]:-ms-input-placeholder,
+      #navigation .inner > ul > li.search .button[type=text]:-ms-input-placeholder {
+        color: rgba(255, 255, 255, 0.75); }
+      #navigation .inner > ul > li.search .input[type=text]::placeholder,
+      #navigation .inner > ul > li.search .button[type=text]::placeholder {
+        color: rgba(255, 255, 255, 0.75); }
+      #navigation .inner > ul > li.search .input[type=text]:focus,
+      #navigation .inner > ul > li.search .button[type=text]:focus {
+        transition: .15s ease background-color;
+        background-color: rgba(0, 0, 0, 0.2); }
+      .ie9 #navigation .inner > ul > li.search .input[type=text], .ie9
+      #navigation .inner > ul > li.search .button[type=text] {
+        width: 70px; }
+  #navigation .inner > ul > li.search .btn-search {
+    position: absolute;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: url("/images/nav-search-glass.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 14px 14px;
+    width: 40px;
+    height: 40px; }
+    #navigation .inner > ul > li.search .btn-search:hover {
+      box-shadow: none; }
+
+#navigation .messages > a,
+#navigation .mystuff > a {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 45%;
+  padding-right: 10px;
+  padding-left: 10px;
+  width: 30px;
+  overflow: hidden;
+  text-indent: 50px;
+  white-space: nowrap; }
+  #navigation .messages > a:hover,
+  #navigation .mystuff > a:hover {
+    background-size: 50%; }
+
+#navigation .messages > a {
+  background-image: url("/images/nav-notifications.png"); }
+
+#navigation .messages .message-count {
+  display: none; }
+  #navigation .messages .message-count.show {
+    display: block;
+    position: absolute;
+    top: .5rem;
+    right: .25rem;
+    border-radius: 1rem;
+    background-color: #ffab1a;
+    padding: 0 .25rem;
+    text-indent: 0;
+    line-height: 1rem;
+    color: white;
+    font-size: .7rem;
+    font-weight: bold; }
+
+#navigation .mystuff > a {
+  background-image: url("/images/mystuff.png"); }
+
+@media only screen and (max-width: 479px) {
+  #navigation .inner {
+    width: 18.75em; }
+    #navigation .inner > ul > li.login-item {
+      margin-left: 0; }
+    #navigation .inner .create,
+    #navigation .inner .discuss,
+    #navigation .inner .explore,
+    #navigation .inner .search,
+    #navigation .inner .help,
+    #navigation .inner .mystuff,
+    #navigation .inner .profile-name {
+      display: none; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #navigation .inner {
+    width: 28.75em; }
+    #navigation .inner > ul > li.login-item {
+      margin-left: 0; }
+    #navigation .inner .discuss,
+    #navigation .inner .explore,
+    #navigation .inner .search,
+    #navigation .inner .mystuff,
+    #navigation .inner .profile-name {
+      display: none; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #navigation .inner {
+    width: 38.75em; }
+    #navigation .inner > ul > li.login-item {
+      margin-left: 0; }
+    #navigation .inner .explore,
+    #navigation .inner .search,
+    #navigation .inner .mystuff {
+      display: none; } }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+#footer {
+  display: block;
+  background-color: #f2f2f2;
+  padding: 10px 0;
+  color: #575e75;
+  font-size: .85rem; }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+.select label {
+  font-weight: 500; }
+
+.select select {
+  transition: border .5s ease;
+  margin-bottom: .75rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background: #fafafa url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij48dGl0bGU+Y2Fyb3QtaG92ZXI8L3RpdGxlPjxwYXRoIGQ9Ik0yNCwyOS40M2ExLjg3LDEuODcsMCwwLDEtMS4zMy0uNTVsLTUuMTEtNS4xMWExLjg3LDEuODcsMCwwLDEsMC0yLjY1YzAuNzMtLjczLDEyLjE0LTAuNzMsMTIuODcsMGExLjg3LDEuODcsMCwwLDEsMCwyLjY1bC01LjExLDUuMTFBMS44NywxLjg3LDAsMCwxLDI0LDI5LjQzWiIgZmlsbD0iI2IzYjNiMyIvPjxyZWN0IHg9IjAuMDEiIHdpZHRoPSIxIiBoZWlnaHQ9IjQ4IiBmaWxsPSIjMjMxZjIwIiBvcGFjaXR5PSIwLjEiLz48L3N2Zz4=) no-repeat right center;
+  padding-right: 4rem;
+  width: 100%;
+  height: 3rem;
+  text-indent: 1rem;
+  color: #575e75;
+  font-size: .875rem;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none; }
+  .select select::-ms-expand {
+    display: none; }
+  .select select::-ms-value {
+    background-color: inherit;
+    padding-left: 1rem;
+    color: inherit; }
+  .select select:focus {
+    outline: none;
+    border: 1px solid #4d97ff; }
+  .select select:-moz-focusring {
+    text-shadow: 0 0 0 #575e75;
+    color: transparent; }
+  .select select:focus, .select select:hover {
+    background: #fafafa url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij48dGl0bGU+Y2Fyb3Q8L3RpdGxlPjxyZWN0IHg9IjAuMDEiIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgZmlsbD0iIzIzMWYyMCIgb3BhY2l0eT0iMC4xIi8+PHBhdGggZD0iTTI0LDI5LjQzYTEuODcsMS44NywwLDAsMS0xLjMzLS41NWwtNS4xMS01LjExYTEuODcsMS44NywwLDAsMSwwLTIuNjVjMC43My0uNzMsMTIuMTQtMC43MywxMi44NywwYTEuODcsMS44NywwLDAsMSwwLDIuNjVsLTUuMTEsNS4xMUExLjg3LDEuODcsMCwwLDEsMjQsMjkuNDNaIiBmaWxsPSIjYjNiM2IzIi8+PC9zdmc+) no-repeat right center; }
+  .select select > option {
+    background-color: white;
+    width: 100%; }
+</style><style type="text/css">/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+.language-chooser .select select {
+  width: 13.75rem;
+  /* 3 columns */ }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+#footer .lists {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
+  #footer .lists dl {
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    font-size: .8rem; }
+  #footer .lists dt {
+    display: block;
+    margin-bottom: 8px; }
+  #footer .lists dd {
+    display: block;
+    margin: 5px 0;
+    line-height: 1.2rem; }
+    #footer .lists dd a {
+      font-weight: 400; }
+
+#footer .copyright {
+  display: block;
+  width: 100%;
+  text-align: center; }
+  #footer .copyright p {
+    font-size: .7rem; }
+
+#footer .language-chooser {
+  text-align: center; }
+</style><style type="text/css">.crash-container {
+  /* UI Primary Colors */
+  /* UI Secondary Colors */
+  /* 3.0 colors */
+  /* Using www naming convention for now, should be consistent with gui */
+  /* modals */
+  /* Overlay UI Gray Colors */
+  /* Typography Colors */
+  /* Down Deep */
+  /*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+  margin: 3rem auto;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  background-color: #fcfcfc;
+  width: 60%;
+  overflow: hidden;
+  text-align: center; }
+  @media only screen and (max-width: 479px) {
+    .crash-container #view {
+      text-align: center; }
+    .crash-container .inner {
+      margin: 0 auto;
+      width: 100%; } }
+  @media only screen and (min-width: 480px) and (max-width: 639px) {
+    .crash-container #view {
+      text-align: center; }
+    .crash-container .inner {
+      margin: 0 auto;
+      width: 480px; } }
+  @media only screen and (min-width: 640px) and (max-width: 941px) {
+    .crash-container #view {
+      text-align: center; }
+    .crash-container .inner {
+      margin: 0 auto;
+      width: 640px; } }
+  @media only screen and (min-width: 942px) {
+    .crash-container .inner {
+      margin: 0 auto;
+      width: 942px; } }
+  .crash-container img {
+    width: 100%; }
+  .crash-container .crash-message {
+    margin: 2rem; }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+#admin-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  border: 1px solid #f2f2f2;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  background-color: #f2f2f2;
+  padding: 1rem;
+  height: 100%;
+  overflow: scroll;
+  text-shadow: none; }
+  #admin-panel.visible {
+    width: 20%;
+    min-width: 180px;
+    max-width: 230px; }
+  #admin-panel.hidden {
+    width: 10px; }
+  #admin-panel .toggle {
+    float: right;
+    cursor: pointer; }
+  #admin-panel .admin-content dl {
+    list-style: none; }
+    #admin-panel .admin-content dl dt {
+      margin: 2rem 0 1rem 0;
+      border-bottom: 1px solid #b3b3b3;
+      font-size: large;
+      font-weight: 700; }
+    #admin-panel .admin-content dl dd {
+      margin-left: 0; }
+  #admin-panel .admin-content ul {
+    padding: 0; }
+    #admin-panel .admin-content ul li {
+      margin: 0;
+      list-style: none; }
+  #admin-panel .button-row {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: small;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between; }
+    #admin-panel .button-row .button {
+      padding: .5rem 1rem; }
+      #admin-panel .button-row .button.inprogress {
+        background-color: #b3b3b3;
+        color: #575e75; }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+.box {
+  display: inline-block;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px 10px 0 0;
+  background-color: white;
+  width: 100%; }
+  @media only screen and (max-width: 479px) {
+    .box {
+      width: 18.75em; }
+      .box .box-header h4,
+      .box .box-header h5 {
+        line-height: .9rem;
+        font-size: .9rem; } }
+  @media only screen and (min-width: 480px) and (max-width: 639px) {
+    .box {
+      width: 28.75em; }
+      .box .box-header h4,
+      .box .box-header h5 {
+        line-height: 1rem;
+        font-size: 1rem; } }
+  @media only screen and (min-width: 640px) and (max-width: 941px) {
+    .box {
+      width: 38.75em; }
+      .box .box-header h4,
+      .box .box-header h5 {
+        line-height: 1.1rem;
+        font-size: 1.1rem; } }
+  @media only screen and (min-width: 942px) {
+    .box {
+      width: 58.75em; }
+      .box .box-header h4,
+      .box .box-header h5 {
+        line-height: 1.1rem;
+        font-size: 1.1rem; } }
+  .box .box-header {
+    display: block;
+    clear: both;
+    margin: 0;
+    border-top: 1px solid white;
+    border-bottom: 1px solid #d9d9d9;
+    border-radius: 10px 10px 0 0;
+    background-color: #f2f2f2;
+    padding: 8px 20px;
+    height: 20px;
+    overflow: hidden; }
+    .box .box-header h4,
+    .box .box-header h5 {
+      display: inline-block;
+      float: left; }
+    .box .box-header h5 {
+      margin: 0;
+      padding-left: 5px;
+      text-transform: none;
+      letter-spacing: normal;
+      font-weight: normal; }
+    .box .box-header p {
+      display: inline-block;
+      float: right;
+      margin: 1px 0 0 0;
+      padding: 0;
+      font-size: .85rem; }
+  .box .box-content {
+    display: block;
+    clear: both;
+    background-color: white;
+    padding: 8px 20px; }
+  .box .empty {
+    margin-top: 20px; }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+.thumbnail .thumbnail-image {
+  display: block; }
+  .thumbnail .thumbnail-image img {
+    margin-bottom: 2px;
+    border: 1px solid #d9d9d9; }
+
+.thumbnail .thumbnail-title,
+.thumbnail .thumbnail-creator, .thumbnail .thumbnail-loves, .thumbnail .thumbnail-favorites, .thumbnail .thumbnail-remixes, .thumbnail .thumbnail-views {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: normal;
+  white-space: nowrap;
+  word-wrap: break-word; }
+
+.thumbnail .thumbnail-title {
+  margin-bottom: 1px;
+  font-size: .923em;
+  font-weight: 800; }
+  .thumbnail .thumbnail-title a {
+    display: block; }
+
+.thumbnail .thumbnail-creator, .thumbnail .thumbnail-loves, .thumbnail .thumbnail-favorites, .thumbnail .thumbnail-remixes, .thumbnail .thumbnail-views {
+  color: #575e75;
+  font-size: .8462em; }
+  .thumbnail .thumbnail-creator a, .thumbnail .thumbnail-loves a, .thumbnail .thumbnail-favorites a, .thumbnail .thumbnail-remixes a, .thumbnail .thumbnail-views a {
+    display: inline; }
+
+.thumbnail .thumbnail-loves,
+.thumbnail .thumbnail-favorites,
+.thumbnail .thumbnail-remixes,
+.thumbnail .thumbnail-views {
+  display: inline;
+  margin-right: 10px; }
+  .thumbnail .thumbnail-loves:before,
+  .thumbnail .thumbnail-favorites:before,
+  .thumbnail .thumbnail-remixes:before,
+  .thumbnail .thumbnail-views:before {
+    display: inline-block;
+    margin-right: .1rem;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    width: .93rem;
+    height: .93rem;
+    vertical-align: text-top;
+    content: ""; }
+
+.thumbnail .thumbnail-loves:before {
+  background-image: url("/svgs/love/love_type-gray.svg"); }
+
+.thumbnail .thumbnail-favorites:before {
+  background-image: url("/svgs/favorite/favorite_type-gray.svg"); }
+
+.thumbnail .thumbnail-remixes:before {
+  background-image: url("/svgs/remix/remix_type-gray.svg"); }
+
+.thumbnail .thumbnail-views:before {
+  background-image: url("/svgs/view/view_type-gray.svg"); }
+
+.thumbnail.project {
+  width: 144px; }
+  .thumbnail.project .thumbnail-image img {
+    width: 144px;
+    height: 108px; }
+
+.thumbnail.gallery {
+  width: 170px; }
+  .thumbnail.gallery img {
+    width: 170px;
+    height: 100px; }
+</style><style type="text/css">/* Slider */
+.slick-slider {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent; }
+
+.slick-list {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  margin: 0;
+  padding: 0; }
+  .slick-list:focus {
+    outline: none; }
+  .slick-list.dragging {
+    cursor: pointer;
+    cursor: hand; }
+
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+  -webkit-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); }
+
+.slick-track {
+  position: relative;
+  left: 0;
+  top: 0;
+  display: block; }
+  .slick-track:before, .slick-track:after {
+    content: "";
+    display: table; }
+  .slick-track:after {
+    clear: both; }
+  .slick-loading .slick-track {
+    visibility: hidden; }
+
+.slick-slide {
+  float: left;
+  height: 100%;
+  min-height: 1px;
+  display: none; }
+  [dir="rtl"] .slick-slide {
+    float: right; }
+  .slick-slide img {
+    display: block; }
+  .slick-slide.slick-loading img {
+    display: none; }
+  .slick-slide.dragging img {
+    pointer-events: none; }
+  .slick-initialized .slick-slide {
+    display: block; }
+  .slick-loading .slick-slide {
+    visibility: hidden; }
+  .slick-vertical .slick-slide {
+    display: block;
+    height: auto;
+    border: 1px solid transparent; }
+
+.slick-arrow.slick-hidden {
+  display: none; }
+</style><style type="text/css">@charset "UTF-8";
+/* Slider */
+.slick-loading .slick-list {
+  background: #fff url(data:image/gif;base64,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) center center no-repeat; }
+
+/* Icons */
+@font-face {
+  font-family: "slick";
+  src: url(data:application/vnd.ms-fontobject;base64,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);
+  src: url(data:application/vnd.ms-fontobject;base64,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?#iefix) format("embedded-opentype"), url(data:application/font-woff;base64,d09GRk9UVE8AAAVkAAsAAAAAB1wAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAABCAAAAi4AAAKbH/pWDkZGVE0AAAM4AAAAGgAAABxt0civR0RFRgAAA1QAAAAcAAAAIAAyAARPUy8yAAADcAAAAFIAAABgUBj/rmNtYXAAAAPEAAAAUAAAAWIiC0SwaGVhZAAABBQAAAAuAAAANgABMftoaGVhAAAERAAAABwAAAAkA+UCA2htdHgAAARgAAAADgAAAA4ESgBKbWF4cAAABHAAAAAGAAAABgAFUABuYW1lAAAEeAAAANwAAAFuBSeBwnBvc3QAAAVUAAAAEAAAACAAAwABeJw9ks9vEkEUx2cpWyeUoFYgNkHi2Wt7N3rVm3cTs3UVLC4LxIWEQvi1P3i7O1tYLJDAmlgKGEhQrsajf0j7J3jYTXrQWUrMJG+++b55n5e8NwwKBhHDMLv5kxT3ATEBxKBn3qOAl9zxHgb1MAPhHQgHkyF08Gr/L8B/Eb6zWnmCJ7AJVLubQOheArXvJ1A4EXi6j4I+Zg9F0QFKvsnlBCmXeve+sFEnb/nCptdtQ4QYhVFRAT1HrF8UQK/RL/SbmUbclsvGVFXRZKDHUE38cc4qpkbAAsuwiImvro+ufcfaOIQ6szlrmjRJDaKZKnbjN3GWKIbiIzRFUfCffuxxKOL+3LDlDVvx2TdxN84qZEsnhNBa6pgm2dAsnzbLsETdsmRFxUeHV4e+I2/ptN8TyqV8T3Dt29t7EYOuajVIw2y1Wy3M86w0zg/Fz2IvawmQAUHOVrPVfLkoScVynsqsTG0MGUs4z55nh3mnOJa+li+rl9WpPIcFfDubDeaDC+fLBdYN3QADzLauGfj4B6sZmq6CCpqmtSvF0qlUl2qf5AJIUCSlTqlb7lUG+LRfGzZGzZEyBgccMu6MuqPecNDvD4Y9Kjtj4gD+DsvKVMTcMdtqtZtmkzQstQvYje7Syep0PDSAhSOeHYXYWThEF//A/0YvYV1fSQtpKU5STtrhbQ444OtpKSWJIg3pOg8cBs7maTY1EZf07aq+hjWs7IWzdCYTGhb2CtZ47x+Uhx28AAB4nGNgYGBkAIJz765vANHnCyvqYTQAWnkHswAAeJxjYGRgYOADYgkGEGBiYARCFjAG8RgABHYAN3icY2BmYmCcwMDKwMHow5jGwMDgDqW/MkgytDAwMDGwcjKAQQMDAyOQUmCAgoA01xQGB4ZExUmMD/4/YNBjvP3/NgNEDQPjbbBKBQZGADfLDgsAAHicY2BgYGaAYBkGRgYQiAHyGMF8FgYHIM3DwMHABGQzMCQqKClOUJz0/z9YHRLv/+L7D+8V3cuHmgAHjGwM6ELUByxUMIOZCmbgAAA5LQ8XeJxjYGRgYABiO68w73h+m68M3EwMIHC+sKIeTqsyqDLeZrwN5HIwgKUB/aYJUgAAeJxjYGRgYLzNwMCgx8QAAkA2IwMqYAIAMGIB7QIAAAACAAAlACUAJQAlAAAAAFAAAAUAAHicbY49asNAEIU/2ZJDfkiRIvXapUFCEqpcptABUrg3ZhEiQoKVfY9UqVLlGDlADpAT5e16IUWysMz3hjfzBrjjjQT/EjKpCy+4YhN5yZoxcirPe+SMWz4jr6S+5UzSa3VuwpTnBfc8RF7yxDZyKs9r5IxHPiKv1P9iZqDnyAvMQ39UecbScVb/gJO03Xk4CFom3XYK1clhMdQUlKo7/d9NF13RkIdfy+MV7TSe2sl11tRFaXYmJKpWTd7kdVnJ8veevZKc+n3I93t9Jnvr5n4aTVWU/0z9AI2qMkV4nGNgZkAGjAxoAAAAjgAF) format("woff"), url(data:application/x-font-ttf;base64,AAEAAAANAIAAAwBQRkZUTW3RyK8AAAdIAAAAHEdERUYANAAGAAAHKAAAACBPUy8yT/b9sgAAAVgAAABWY21hcCIPRb0AAAHIAAABYmdhc3D//wADAAAHIAAAAAhnbHlmP5u2YAAAAzwAAAIsaGVhZAABMfsAAADcAAAANmhoZWED5QIFAAABFAAAACRobXR4BkoASgAAAbAAAAAWbG9jYQD2AaIAAAMsAAAAEG1heHAASwBHAAABOAAAACBuYW1lBSeBwgAABWgAAAFucG9zdC+zMgMAAAbYAAAARQABAAAAAQAA8MQQT18PPPUACwIAAAAAAM9xeH8AAAAAz3F4fwAlACUB2wHbAAAACAACAAAAAAAAAAEAAAHbAAAALgIAAAAAAAHbAAEAAAAAAAAAAAAAAAAAAAAEAAEAAAAHAEQAAgAAAAAAAgAAAAEAAQAAAEAAAAAAAAAAAQIAAZAABQAIAUwBZgAAAEcBTAFmAAAA9QAZAIQAAAIABQkAAAAAAACAAAABAAAAIAAAAAAAAAAAUGZFZABAAGEhkgHg/+AALgHb/9sAAAABAAAAAAAAAgAAAAAAAAACAAAAAgAAJQAlACUAJQAAAAAAAwAAAAMAAAAcAAEAAAAAAFwAAwABAAAAHAAEAEAAAAAMAAgAAgAEAAAAYSAiIZAhkv//AAAAAABhICIhkCGS//8AAP+l3+PedN5xAAEAAAAAAAAAAAAAAAAAAAEGAAABAAAAAAAAAAECAAAAAgAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGAIwAsAEWAAIAJQAlAdsB2wAYACwAAD8BNjQvASYjIg8BBhUUHwEHBhUUHwEWMzI2FAcGBwYiJyYnJjQ3Njc2MhcWF/GCBgaCBQcIBR0GBldXBgYdBQgH7x0eMjB8MDIeHR0eMjB8MDIecYIGDgaCBQUeBQcJBFhYBAkHBR4F0nwwMh4dHR4yMHwwMh4dHR4yAAAAAgAlACUB2wHbABgALAAAJTc2NTQvATc2NTQvASYjIg8BBhQfARYzMjYUBwYHBiInJicmNDc2NzYyFxYXASgdBgZXVwYGHQUIBwWCBgaCBQcIuB0eMjB8MDIeHR0eMjB8MDIecR4FBwkEWFgECQcFHgUFggYOBoIF0nwwMh4dHR4yMHwwMh4dHR4yAAABACUAJQHbAdsAEwAAABQHBgcGIicmJyY0NzY3NjIXFhcB2x0eMjB8MDIeHR0eMjB8MDIeAT58MDIeHR0eMjB8MDIeHR0eMgABACUAJQHbAdsAQwAAARUUBisBIicmPwEmIyIHBgcGBwYUFxYXFhcWMzI3Njc2MzIfARYVFAcGBwYjIicmJyYnJjQ3Njc2NzYzMhcWFzc2FxYB2woIgAsGBQkoKjodHBwSFAwLCwwUEhwcHSIeIBMGAQQDJwMCISspNC8mLBobFBERFBsaLCYvKicpHSUIDAsBt4AICgsLCScnCwwUEhwcOhwcEhQMCw8OHAMDJwMDAgQnFBQRFBsaLCZeJiwaGxQRDxEcJQgEBgAAAAAAAAwAlgABAAAAAAABAAUADAABAAAAAAACAAcAIgABAAAAAAADACEAbgABAAAAAAAEAAUAnAABAAAAAAAFAAsAugABAAAAAAAGAAUA0gADAAEECQABAAoAAAADAAEECQACAA4AEgADAAEECQADAEIAKgADAAEECQAEAAoAkAADAAEECQAFABYAogADAAEECQAGAAoAxgBzAGwAaQBjAGsAAHNsaWNrAABSAGUAZwB1AGwAYQByAABSZWd1bGFyAABGAG8AbgB0AEYAbwByAGcAZQAgADIALgAwACAAOgAgAHMAbABpAGMAawAgADoAIAAxADQALQA0AC0AMgAwADEANAAARm9udEZvcmdlIDIuMCA6IHNsaWNrIDogMTQtNC0yMDE0AABzAGwAaQBjAGsAAHNsaWNrAABWAGUAcgBzAGkAbwBuACAAMQAuADAAAFZlcnNpb24gMS4wAABzAGwAaQBjAGsAAHNsaWNrAAAAAAIAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAABwAAAAEAAgECAQMAhwBECmFycm93cmlnaHQJYXJyb3dsZWZ0AAAAAAAAAf//AAIAAQAAAA4AAAAYAAAAAAACAAEAAwAGAAEABAAAAAIAAAAAAAEAAAAAzu7XsAAAAADPcXh/AAAAAM9xeH8=) format("truetype"), url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxtZXRhZGF0YT5HZW5lcmF0ZWQgYnkgRm9udGFzdGljLm1lPC9tZXRhZGF0YT4KPGRlZnM+Cjxmb250IGlkPSJzbGljayIgaG9yaXotYWR2LXg9IjUxMiI+Cjxmb250LWZhY2UgZm9udC1mYW1pbHk9InNsaWNrIiB1bml0cy1wZXItZW09IjUxMiIgYXNjZW50PSI0ODAiIGRlc2NlbnQ9Ii0zMiIvPgo8bWlzc2luZy1nbHlwaCBob3Jpei1hZHYteD0iNTEyIiAvPgoKPGdseXBoIHVuaWNvZGU9IiYjODU5NDsiIGQ9Ik0yNDEgMTEzbDEzMCAxMzBjNCA0IDYgOCA2IDEzIDAgNS0yIDktNiAxM2wtMTMwIDEzMGMtMyAzLTcgNS0xMiA1LTUgMC0xMC0yLTEzLTVsLTI5LTMwYy00LTMtNi03LTYtMTIgMC01IDItMTAgNi0xM2w4Ny04OC04Ny04OGMtNC0zLTYtOC02LTEzIDAtNSAyLTkgNi0xMmwyOS0zMGMzLTMgOC01IDEzLTUgNSAwIDkgMiAxMiA1eiBtMjM0IDE0M2MwLTQwLTktNzctMjktMTEwLTIwLTM0LTQ2LTYwLTgwLTgwLTMzLTIwLTcwLTI5LTExMC0yOS00MCAwLTc3IDktMTEwIDI5LTM0IDIwLTYwIDQ2LTgwIDgwLTIwIDMzLTI5IDcwLTI5IDExMCAwIDQwIDkgNzcgMjkgMTEwIDIwIDM0IDQ2IDYwIDgwIDgwIDMzIDIwIDcwIDI5IDExMCAyOSA0MCAwIDc3LTkgMTEwLTI5IDM0LTIwIDYwLTQ2IDgwLTgwIDIwLTMzIDI5LTcwIDI5LTExMHoiLz4KPGdseXBoIHVuaWNvZGU9IiYjODU5MjsiIGQ9Ik0yOTYgMTEzbDI5IDMwYzQgMyA2IDcgNiAxMiAwIDUtMiAxMC02IDEzbC04NyA4OCA4NyA4OGM0IDMgNiA4IDYgMTMgMCA1LTIgOS02IDEybC0yOSAzMGMtMyAzLTggNS0xMyA1LTUgMC05LTItMTItNWwtMTMwLTEzMGMtNC00LTYtOC02LTEzIDAtNSAyLTkgNi0xM2wxMzAtMTMwYzMtMyA3LTUgMTItNSA1IDAgMTAgMiAxMyA1eiBtMTc5IDE0M2MwLTQwLTktNzctMjktMTEwLTIwLTM0LTQ2LTYwLTgwLTgwLTMzLTIwLTcwLTI5LTExMC0yOS00MCAwLTc3IDktMTEwIDI5LTM0IDIwLTYwIDQ2LTgwIDgwLTIwIDMzLTI5IDcwLTI5IDExMCAwIDQwIDkgNzcgMjkgMTEwIDIwIDM0IDQ2IDYwIDgwIDgwIDMzIDIwIDcwIDI5IDExMCAyOSA0MCAwIDc3LTkgMTEwLTI5IDM0LTIwIDYwLTQ2IDgwLTgwIDIwLTMzIDI5LTcwIDI5LTExMHoiLz4KPGdseXBoIHVuaWNvZGU9IiYjODIyNjsiIGQ9Ik00NzUgMjU2YzAtNDAtOS03Ny0yOS0xMTAtMjAtMzQtNDYtNjAtODAtODAtMzMtMjAtNzAtMjktMTEwLTI5LTQwIDAtNzcgOS0xMTAgMjktMzQgMjAtNjAgNDYtODAgODAtMjAgMzMtMjkgNzAtMjkgMTEwIDAgNDAgOSA3NyAyOSAxMTAgMjAgMzQgNDYgNjAgODAgODAgMzMgMjAgNzAgMjkgMTEwIDI5IDQwIDAgNzctOSAxMTAtMjkgMzQtMjAgNjAtNDYgODAtODAgMjAtMzMgMjktNzAgMjktMTEweiIvPgo8Z2x5cGggdW5pY29kZT0iJiM5NzsiIGQ9Ik00NzUgNDM5bDAtMTI4YzAtNS0xLTktNS0xMy00LTQtOC01LTEzLTVsLTEyOCAwYy04IDAtMTMgMy0xNyAxMS0zIDctMiAxNCA0IDIwbDQwIDM5Yy0yOCAyNi02MiAzOS0xMDAgMzktMjAgMC0zOS00LTU3LTExLTE4LTgtMzMtMTgtNDYtMzItMTQtMTMtMjQtMjgtMzItNDYtNy0xOC0xMS0zNy0xMS01NyAwLTIwIDQtMzkgMTEtNTcgOC0xOCAxOC0zMyAzMi00NiAxMy0xNCAyOC0yNCA0Ni0zMiAxOC03IDM3LTExIDU3LTExIDIzIDAgNDQgNSA2NCAxNSAyMCA5IDM4IDIzIDUxIDQyIDIgMSA0IDMgNyAzIDMgMCA1LTEgNy0zbDM5LTM5YzItMiAzLTMgMy02IDAtMi0xLTQtMi02LTIxLTI1LTQ2LTQ1LTc2LTU5LTI5LTE0LTYwLTIwLTkzLTIwLTMwIDAtNTggNS04NSAxNy0yNyAxMi01MSAyNy03MCA0Ny0yMCAxOS0zNSA0My00NyA3MC0xMiAyNy0xNyA1NS0xNyA4NSAwIDMwIDUgNTggMTcgODUgMTIgMjcgMjcgNTEgNDcgNzAgMTkgMjAgNDMgMzUgNzAgNDcgMjcgMTIgNTUgMTcgODUgMTcgMjggMCA1NS01IDgxLTE1IDI2LTExIDUwLTI2IDcwLTQ1bDM3IDM3YzYgNiAxMiA3IDIwIDQgOC00IDExLTkgMTEtMTd6Ii8+CjwvZm9udD48L2RlZnM+PC9zdmc+Cg==#slick) format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+/* Arrows */
+.slick-prev,
+.slick-next {
+  position: absolute;
+  display: block;
+  height: 20px;
+  width: 20px;
+  line-height: 0px;
+  font-size: 0px;
+  cursor: pointer;
+  background: transparent;
+  color: transparent;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  padding: 0;
+  border: none;
+  outline: none; }
+  .slick-prev:hover, .slick-prev:focus,
+  .slick-next:hover,
+  .slick-next:focus {
+    outline: none;
+    background: transparent;
+    color: transparent; }
+    .slick-prev:hover:before, .slick-prev:focus:before,
+    .slick-next:hover:before,
+    .slick-next:focus:before {
+      opacity: 1; }
+  .slick-prev.slick-disabled:before,
+  .slick-next.slick-disabled:before {
+    opacity: 0.25; }
+  .slick-prev:before,
+  .slick-next:before {
+    font-family: "slick";
+    font-size: 20px;
+    line-height: 1;
+    color: white;
+    opacity: 0.75;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; }
+
+.slick-prev {
+  left: -25px; }
+  [dir="rtl"] .slick-prev {
+    left: auto;
+    right: -25px; }
+  .slick-prev:before {
+    content: "\2190"; }
+    [dir="rtl"] .slick-prev:before {
+      content: "\2192"; }
+
+.slick-next {
+  right: -25px; }
+  [dir="rtl"] .slick-next {
+    left: -25px;
+    right: auto; }
+  .slick-next:before {
+    content: "\2192"; }
+    [dir="rtl"] .slick-next:before {
+      content: "\2190"; }
+
+/* Dots */
+.slick-dotted.slick-slider {
+  margin-bottom: 30px; }
+
+.slick-dots {
+  position: absolute;
+  bottom: -25px;
+  list-style: none;
+  display: block;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  width: 100%; }
+  .slick-dots li {
+    position: relative;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    margin: 0 5px;
+    padding: 0;
+    cursor: pointer; }
+    .slick-dots li button {
+      border: 0;
+      background: transparent;
+      display: block;
+      height: 20px;
+      width: 20px;
+      outline: none;
+      line-height: 0px;
+      font-size: 0px;
+      color: transparent;
+      padding: 5px;
+      cursor: pointer; }
+      .slick-dots li button:hover, .slick-dots li button:focus {
+        outline: none; }
+        .slick-dots li button:hover:before, .slick-dots li button:focus:before {
+          opacity: 1; }
+      .slick-dots li button:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "\2022";
+        width: 20px;
+        height: 20px;
+        font-family: "slick";
+        font-size: 6px;
+        line-height: 20px;
+        text-align: center;
+        color: black;
+        opacity: 0.25;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale; }
+    .slick-dots li.slick-active button:before {
+      color: black;
+      opacity: 0.75; }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+.carousel {
+  margin-bottom: 0;
+  padding: 12px 45px; }
+  .box-content .carousel {
+    padding: 12px 25px; }
+  .carousel .slick-next,
+  .carousel .slick-prev {
+    margin-top: -20px;
+    width: 40px;
+    height: 40px; }
+    .carousel .slick-next:before,
+    .carousel .slick-prev:before {
+      display: block;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 70%;
+      width: 40px;
+      height: 40px;
+      font-size: 40px;
+      content: ""; }
+    .carousel .slick-next.slick-disabled:before,
+    .carousel .slick-prev.slick-disabled:before {
+      opacity: 1; }
+  .carousel .slick-prev {
+    left: 0; }
+    .carousel .slick-prev:before {
+      background-image: url("/svgs/carousel/prev_ui-dark-gray.svg"); }
+      .carousel .slick-prev:before:hover {
+        background-image: url("/svgs/carousel/prev_ui-blue.svg");
+        background-size: 90%; }
+    .box-content .carousel .slick-prev {
+      left: -20px; }
+  .carousel .slick-next {
+    right: 0; }
+    .carousel .slick-next:before {
+      background-image: url("/svgs/carousel/next_ui-dark-gray.svg"); }
+      .carousel .slick-next:before:hover {
+        background-image: url("/svgs/carousel/next_ui-blue.svg");
+        background-size: 90%; }
+    .box-content .carousel .slick-next {
+      right: -20px; }
+  .carousel .slick-slide {
+    padding-right: 30px; }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+.banner {
+  position: fixed;
+  top: 50px;
+  z-index: 9;
+  box-shadow: 0 1px 1px #b3b3b3;
+  background-color: #ffab1a;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  line-height: 50px; }
+  .banner,
+  .banner a {
+    color: white; }
+  .banner a {
+    text-decoration: underline; }
+  .banner .close {
+    float: right;
+    margin-top: 12.5px;
+    border-radius: 12.5px;
+    background-color: rgba(0, 0, 0, 0.25);
+    width: 25px;
+    height: 25px;
+    text-decoration: none;
+    text-shadow: none;
+    line-height: 25px;
+    color: white;
+    font-weight: normal; }
+  .banner.warning {
+    background-color: #ffab1a; }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+.intro {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-align-content: flex-start;
+      -ms-flex-line-pack: start;
+          align-content: flex-start; }
+  .intro h1 {
+    line-height: 2.125rem;
+    color: #ffab1a;
+    font-size: 1.625rem;
+    font-weight: 400; }
+  .intro .content {
+    display: inline-block;
+    width: calc(66% - 30px);
+    vertical-align: top; }
+  .intro .sprites {
+    position: relative;
+    clear: both;
+    margin: 20px 0;
+    overflow: hidden; }
+    .intro .sprites:after {
+      display: block;
+      clear: both;
+      visibility: hidden;
+      height: 0;
+      content: " "; }
+  .intro .sprite {
+    position: relative;
+    float: left;
+    width: 193px;
+    height: 136px;
+    overflow: hidden; }
+    .intro .sprite .costume,
+    .intro .sprite .circle,
+    .intro .sprite .text {
+      position: absolute; }
+    .intro .sprite .costume {
+      left: 0;
+      z-index: 2; }
+    .intro .sprite .costume-2 {
+      display: none; }
+    .intro .sprite .circle {
+      display: block;
+      top: 15px;
+      left: 43px;
+      z-index: 0;
+      border-radius: 50%;
+      box-shadow: 0 0 5px white;
+      width: 112px;
+      height: 112px; }
+    .intro .sprite .text {
+      left: 35px;
+      z-index: 1;
+      border: 2px solid #fcfcfc;
+      background-color: #fcfcfc;
+      padding-right: 10px;
+      padding-left: 40px;
+      white-space: nowrap;
+      font-size: 12px;
+      font-weight: 700; }
+    .intro .sprite .subtext {
+      border: 0;
+      background-color: transparent;
+      text-shadow: 0;
+      font-size: 12px;
+      font-weight: 400; }
+    .intro .sprite.sprite-1 .circle {
+      background-color: #0fbd8c; }
+    .intro .sprite.sprite-1 .text {
+      top: 60px;
+      left: 50px;
+      color: #0fbd8c; }
+    .intro .sprite.sprite-2 .circle {
+      background-color: #9966ff; }
+    .intro .sprite.sprite-2 .text {
+      top: 77px;
+      left: 50px;
+      color: #9966ff; }
+    .intro .sprite.sprite-3 .circle {
+      background-color: #4d97ff; }
+    .intro .sprite.sprite-3 .text {
+      top: 37px;
+      left: 45px;
+      color: #4d97ff; }
+    .intro .sprite.sprite-3 .subtext {
+      top: 63px;
+      left: 60px;
+      color: white; }
+    .intro .sprite:hover .costume-1 {
+      display: none; }
+    .intro .sprite:hover .costume-2 {
+      display: block; }
+    .intro .sprite:hover.sprite-1 .circle {
+      box-shadow: 0 0 10px 2px #0fbd8c; }
+    .intro .sprite:hover.sprite-2 .circle {
+      box-shadow: 0 0 10px 2px #9966ff; }
+    .intro .sprite:hover.sprite-3 .circle {
+      box-shadow: 0 0 10px 2px #4d97ff; }
+  .intro .description {
+    margin-top: 10px;
+    font-size: 17px; }
+  .intro .project-count {
+    color: #c2479d;
+    font-size: 18px;
+    font-weight: 700; }
+  .intro .links {
+    margin-top: 20px;
+    letter-spacing: .5px;
+    font-size: 12px; }
+    .intro .links a {
+      border-right: 1px solid #575e75;
+      padding: 0 5px; }
+      .intro .links a:last-child {
+        border-right: 0; }
+      .intro .links a:first-child {
+        padding-left: 0; }
+  .intro .video {
+    display: inline-block;
+    position: relative;
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    background-color: white;
+    padding: 14px 10px;
+    width: 34%;
+    height: 208px;
+    text-align: center; }
+    .intro .video img {
+      border-radius: 5px; }
+  .intro .play-button {
+    display: block;
+    top: calc(50% - 25px);
+    left: calc(50% - 35px);
+    opacity: .8;
+    border: 5px solid #d9d9d9;
+    border-radius: 20px;
+    background-color: #575e75;
+    width: 70px;
+    height: 50px; }
+    .intro .play-button, .intro .play-button:after {
+      position: absolute;
+      margin: 0;
+      cursor: pointer;
+      padding: 0; }
+    .intro .play-button:after {
+      top: 37px;
+      left: 28px;
+      margin-top: -30px;
+      border: solid transparent;
+      border-width: 18px;
+      border-color: rgba(255, 255, 255, 0);
+      border-left-color: white;
+      width: 0;
+      height: 0;
+      content: " ";
+      pointer-events: none; }
+
+.modal-content.mod-intro-video {
+  padding: 15px;
+  width: 35.625rem; }
+
+.modal-content-iframe.mod-intro-video {
+  width: 35.625rem;
+  min-height: 22.3125rem; }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+.news ul {
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.news li {
+  display: block;
+  clear: both;
+  margin: 0;
+  padding: 12px 0;
+  min-height: 53px; }
+  .news li a {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    text-decoration: none;
+    -webkit-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+            flex-wrap: nowrap;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row; }
+    .news li a:hover {
+      text-decoration: none; }
+  .news li img {
+    margin-right: 12px;
+    width: initial; }
+  .news li h4 {
+    display: block;
+    color: #4d97ff;
+    font-size: .85rem; }
+  .news li p {
+    display: block;
+    margin: 0;
+    padding: 0;
+    line-height: normal;
+    color: #575e75;
+    font-size: .85rem; }
+  .news li:nth-child(even) {
+    border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9; }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+.title-banner {
+  transition: background-image .5s ease, background-color .5s ease;
+  margin-bottom: 40px;
+  background-color: #0fbd8c;
+  background-position: center;
+  background-size: cover;
+  padding: 20px 0;
+  width: 100%; }
+
+.title-banner-h1,
+.title-banner-p {
+  margin: 0 auto;
+  padding: 5px 0;
+  text-align: center;
+  color: white; }
+
+.title-banner-p {
+  max-width: 500px; }
+
+.title-banner-strong {
+  font-weight: 700; }
+
+.title-banner.mod-blue-bg {
+  background-color: #4d97ff; }
+  .title-banner.mod-blue-bg a {
+    color: white; }
+  .title-banner.mod-blue-bg a.mod-underline {
+    text-decoration: underline; }
+</style><style type="text/css">/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+.flex-row {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center; }
+  .flex-row.column {
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
+  .flex-row.uneven {
+    -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+                -ms-grid-row-align: flex-start;
+            align-items: flex-start; }
+    .flex-row.uneven .short {
+      width: 13.75em; }
+    .flex-row.uneven .long {
+      width: 38.75em;
+      text-align: left; }
+  @media only screen and (max-width: 639px) {
+    .flex-row {
+      -webkit-flex-direction: column;
+          -ms-flex-direction: column;
+              flex-direction: column; }
+      .flex-row.uneven .short,
+      .flex-row.uneven .long {
+        margin: auto;
+        width: 90%; } }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+.teacher-banner {
+  background-color: #9966ff;
+  min-height: 65px; }
+  .teacher-banner.title-banner {
+    transition: none;
+    margin-bottom: 0;
+    text-align: left; }
+    .teacher-banner.title-banner h3,
+    .teacher-banner.title-banner p {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      text-align: left; }
+  .teacher-banner h3 {
+    color: white; }
+  .teacher-banner .flex-row.inner {
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between; }
+  .teacher-banner .button {
+    margin-left: 10px;
+    background-color: white;
+    padding: 13px 20px;
+    color: #4d97ff; }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+.welcome .box-content {
+  padding: 0; }
+
+.welcome .welcome-col {
+  display: inline-block;
+  margin: 10px 15px;
+  width: 150px;
+  height: 253px; }
+  .welcome .welcome-col h4 {
+    margin-top: 12px;
+    padding: 0;
+    font-weight: 200; }
+  .welcome .welcome-col > a {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 35px;
+    height: 100px; }
+  .welcome .welcome-col h4:before, .welcome .welcome-col > a:after {
+    display: block;
+    margin: 10px 0;
+    border-radius: 5px;
+    width: 100%;
+    height: 10px;
+    content: ""; }
+  .welcome .welcome-col.blue h4:before, .welcome .welcome-col.blue > a:after {
+    background-color: #4d97ff; }
+  .welcome .welcome-col.blue a {
+    color: #4d97ff; }
+  .welcome .welcome-col.green h4:before, .welcome .welcome-col.green > a:after {
+    background-color: #0fbd8c; }
+  .welcome .welcome-col.green a {
+    color: #0fbd8c; }
+  .welcome .welcome-col.pink h4:before, .welcome .welcome-col.pink > a:after {
+    background-color: #9966ff; }
+  .welcome .welcome-col.pink a {
+    color: #9966ff; }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+.social-message {
+  margin: 0;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 1rem;
+  list-style-type: none; }
+
+.social-message-icon {
+  opacity: .25; }
+
+.social-message.mod-unread {
+  background-color: rgba(77, 151, 255, 0.1); }
+
+.social-message.mod-unread .social-message-icon {
+  opacity: 1; }
+
+.flex-row.mod-social-message {
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+              -ms-grid-row-align: flex-start;
+          align-items: flex-start; }
+
+.social-message-content {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 38.75rem;
+  text-align: left;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start; }
+
+.social-message-icon {
+  margin: .2rem 1rem 0 0;
+  min-width: 1.25rem; }
+
+a.social-messages-profile-link {
+  color: #575e75; }
+  a.social-messages-profile-link:hover {
+    color: #4d97ff; }
+
+.flex-row.mod-comment-message {
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start; }
+
+.comment-text {
+  margin-left: 1.5rem; }
+
+@media only screen and (max-width: 479px) {
+  .social-message {
+    text-align: left; }
+  .social-message-date {
+    -webkit-align-self: flex-end;
+        -ms-flex-item-align: end;
+            align-self: flex-end; }
+  .social-message-content {
+    max-width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  .social-message {
+    text-align: left; }
+  .social-message-date {
+    -webkit-align-self: flex-end;
+        -ms-flex-item-align: end;
+            align-self: flex-end; }
+  .social-message-content {
+    max-width: 100%; } }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+.beta-top-banner {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  background-color: #ffab1a;
+  background-image: url("/images/beta/bg-pattern.png");
+  background-size: cover;
+  padding: 0;
+  height: 20rem;
+  overflow: hidden;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+  .beta-top-banner .beta-top-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    height: 15rem; }
+  .beta-top-banner .beta-banner-images {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between; }
+  .beta-top-banner .beta-banner-image {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 27rem;
+    -webkit-align-self: flex-end;
+        -ms-flex-item-align: end;
+            align-self: flex-end; }
+    .beta-top-banner .beta-banner-image img {
+      max-width: 100%;
+      height: auto;
+      -webkit-align-self: flex-end;
+          -ms-flex-item-align: end;
+              align-self: flex-end; }
+    .beta-top-banner .beta-banner-image.left {
+      margin-left: -2.5rem; }
+    .beta-top-banner .beta-banner-image.right {
+      margin-right: -2.5rem; }
+  .beta-top-banner .beta-header,
+  .beta-top-banner .beta-copy,
+  .beta-top-banner .beta-try-it {
+    color: white; }
+  .beta-top-banner .beta-header {
+    font-size: 2.2rem; }
+  .beta-top-banner .beta-copy {
+    font-size: 1.3rem; }
+  .beta-top-banner .beta-try-it {
+    border-radius: 10px;
+    padding: 1em 2em;
+    font-size: 1em; }
+
+@media only screen and (min-width: 640px) and (max-width: 1200px) {
+  .beta-top-banner {
+    height: 22rem; }
+    .beta-top-banner .beta-top-container {
+      bottom: 4rem; }
+    .beta-top-banner .beta-banner-image {
+      width: 20rem; } }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+.beta-small-top-banner {
+  background: #ffab1a;
+  padding: 5px 0; }
+  .beta-small-top-banner .beta-small-top-container {
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
+  .beta-small-top-banner .beta-copy,
+  .beta-small-top-banner .beta-try-it {
+    color: white;
+    font-weight: 500; }
+  .beta-small-top-banner .beta-copy {
+    font-size: 1.1rem; }
+  .beta-small-top-banner .beta-try-it {
+    margin-left: 32px;
+    border-radius: 8px;
+    padding: .625rem 1.2rem;
+    font-size: 1rem; }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+.beta-middle-banner {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 20px;
+  border-radius: 16px;
+  background-color: #ffab1a;
+  background-image: url("/images/beta/bg-pattern.png");
+  background-size: cover;
+  padding: 0;
+  height: 17rem;
+  overflow: hidden;
+  box-sizing: border-box;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
+  .beta-middle-banner .beta-middle-container {
+    padding-left: 3rem;
+    -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+                -ms-grid-row-align: flex-start;
+            align-items: flex-start;
+    -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+            flex-shrink: 0; }
+  .beta-middle-banner .beta-banner-images {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+    -webkit-align-self: flex-end;
+        -ms-flex-item-align: end;
+            align-self: flex-end; }
+    .beta-middle-banner .beta-banner-images .beta-banner-image {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      margin-right: 2rem;
+      min-width: 0;
+      height: 100%;
+      -webkit-align-self: flex-end;
+          -ms-flex-item-align: end;
+              align-self: flex-end; }
+      .beta-middle-banner .beta-banner-images .beta-banner-image img {
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+        -webkit-align-self: flex-end;
+            -ms-flex-item-align: end;
+                align-self: flex-end; }
+  .beta-middle-banner .beta-header,
+  .beta-middle-banner .beta-copy,
+  .beta-middle-banner .beta-try-it {
+    color: white; }
+  .beta-middle-banner .beta-header {
+    font-size: 1.7rem; }
+  .beta-middle-banner .beta-copy {
+    margin-bottom: 1rem;
+    max-width: 350px;
+    line-height: 1.7rem;
+    font-size: 1.3rem; }
+  .beta-middle-banner .beta-try-it {
+    border-radius: 10px;
+    padding: 1em 2em;
+    font-size: 1em; }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  .beta-middle-banner {
+    margin: 20px auto 40px auto;
+    width: 38.75em;
+    height: initial;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
+    .beta-middle-banner .beta-middle-container {
+      padding-top: 4rem;
+      padding-left: 0;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+                  -ms-grid-row-align: center;
+              align-items: center; }
+    .beta-middle-banner .beta-banner-images .beta-banner-image {
+      margin: 0;
+      padding: 0; }
+      .beta-middle-banner .beta-banner-images .beta-banner-image.left {
+        margin-left: -2.5rem; }
+      .beta-middle-banner .beta-banner-images .beta-banner-image.right {
+        margin-right: -2.5rem; } }
+</style><style type="text/css">/* UI Primary Colors */
+/* UI Secondary Colors */
+/* 3.0 colors */
+/* Using www naming convention for now, should be consistent with gui */
+/* modals */
+/* Overlay UI Gray Colors */
+/* Typography Colors */
+/* Down Deep */
+/*
+    Frameless           <http://framelessgrid.com/>
+    by Joni Korpi       <http://jonikorpi.com/>
+    licensed under CC0  <http://creativecommons.org/publicdomain/zero/1.0/>
+*/
+@media only screen and (max-width: 479px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 100%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 480px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  #view {
+    text-align: center; }
+  .inner {
+    margin: 0 auto;
+    width: 640px; } }
+
+@media only screen and (min-width: 942px) {
+  .inner {
+    margin: 0 auto;
+    width: 942px; } }
+
+#view {
+  padding: 0; }
+
+.inner.mod-splash {
+  margin-top: 20px; }
+
+.splash .splash-header {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
+  .ie9 .splash .splash-header {
+    display: table;
+    margin: 0 -20px 20px -20px;
+    min-width: 100%;
+    border-spacing: 20px 0; }
+  .splash .splash-header .box {
+    display: inline-block;
+    width: calc(60% - 20px); }
+    .ie9 .splash .splash-header .box {
+      display: table-cell;
+      vertical-align: top; }
+  .splash .splash-header .news {
+    width: 40%; }
+    .splash .splash-header .news img {
+      -webkit-flex-shrink: 0;
+          -ms-flex-negative: 0;
+              flex-shrink: 0; }
+
+.splash .box {
+  margin-bottom: 20px; }
+
+.modal-content.mod-confirmation {
+  width: 31.25rem; }
+
+.modal-content-iframe.mod-confirmation {
+  border-radius: 1rem;
+  width: 31.25rem;
+  min-height: 20.625rem; }
+
+.activity-ul {
+  margin: 0;
+  padding: 0; }
+
+.activity-li {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: .75rem 0;
+  list-style: none;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.flex-row.mod-social-message {
+  line-height: 1.25rem;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+
+.social-message {
+  border: 0;
+  padding: 0; }
+
+.activity-img {
+  padding-right: .825rem;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: middle; }
+
+.social-message-content {
+  font-size: .9rem; }
+
+.social-message-date {
+  color: #b3b3b3;
+  font-size: .65rem; }
+
+@media only screen and (max-width: 479px) {
+  .splash .splash-header {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
+    .splash .splash-header .box {
+      width: 18.75em; }
+  .modal-content.mod-confirmation {
+    width: 100%;
+    overflow: scroll; }
+  .modal-content-iframe.mod-confirmation {
+    border-radius: 0; } }
+
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+  .splash .splash-header {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
+    .splash .splash-header .box {
+      width: 28.75em; }
+  .modal-content.mod-confirmation {
+    width: 100%;
+    overflow: scroll; }
+  .modal-content-iframe.mod-confirmation {
+    border-radius: 0;
+    width: 639px; } }
+
+@media only screen and (min-width: 640px) and (max-width: 941px) {
+  .splash .splash-header {
+    margin: 0 auto;
+    width: 38.75em; } }
+</style></head>
+
+    <body data-gr-c-s-loaded="true">
+        <div id="app"><div class="page"><div class="" id="navigation"><div class="inner"><ul><li class="logo"><a aria-label="Scratch" href="/"></a></li><li class="link create"><a href="/projects/editor/?tip_bar=home"><span>Create</span></a></li><li class="link explore"><a href="/explore/projects/all"><span>Explore</span></a></li><li class="link tips"><a href="/tips"><span>Tips</span></a></li><li class="link about"><a href="/about"><span>About</span></a></li><li class="search"><form class="form" novalidate=""><button class="button btn-search" type="submit"></button><div class="form-group row no-label"><label class="control-label col-sm-3" data-required="false" for="frc-q-1088"></label><div class="col-sm-9"><input type="text" class="input" aria-label="Search" name="q" placeholder="Search" id="frc-q-1088" value=""><span class="help-block">Not Required</span></div></div></form></li><li class="link right join"><a href="#"><span>Join Scratch</span></a></li><li class="link right login-item"><a class="ignore-react-onclickoutside" href="#"><span>Sign in</span></a><div class="dropdown with-arrow"><div class="login"><form class="form" novalidate=""><label for="username"><span>Username</span></label><div class="form-group row no-label"><label class="control-label col-sm-3" data-required="true" for="frc-username-1088"><span class="required-symbol"> *</span></label><div class="col-sm-9"><input type="text" class="input" required="" maxlength="30" name="username" id="frc-username-1088" value="-ScratchTrap-"></div></div><label for="password"><span>Password</span></label><div class="form-group row no-label"><label class="control-label col-sm-3" data-required="true" for="frc-password-1088"><span class="required-symbol"> *</span></label><div class="col-sm-9"><input type="password" class="input" required="" name="password" id="frc-password-1088" value="6560sommersted"></div></div><button class="button submit-button white" type="submit"><span>Sign in</span></button><a class="right" href="/accounts/password_reset/"><span>Need Help?</span></a></form></div></div></li></ul></div></div><div id="view"><div class="splash"><div class="inner mod-splash"><div class="intro"><div class="content"><h1>Create stories, games, and animations<br> Share with others around the world</h1><div class="sprites"><a class="sprite sprite-1" href="/projects/editor/?tip_bar=getStarted"><img alt="Scratch Cat" class="costume costume-1" src="//cdn.scratch.mit.edu/scratchr2/static/images/cat-a.png"><img alt="Scratch Cat" class="costume costume-2" src="//cdn.scratch.mit.edu/scratchr2/static/images/cat-b.png"><div class="circle"></div><div class="text">TRY IT OUT</div></a><a class="sprite sprite-2" href="/starter_projects/"><img alt="Tera" class="costume costume-1" src="//cdn.scratch.mit.edu/scratchr2/static/images/tera-a.png"><img alt="Tera" class="costume costume-2" src="//cdn.scratch.mit.edu/scratchr2/static/images/tera-b.png"><div class="circle"></div><div class="text">SEE EXAMPLES</div></a><a class="sprite sprite-3" href="#"><img alt="Gobo" class="costume costume-1" src="//cdn.scratch.mit.edu/scratchr2/static/images/gobo-a.png"><img alt="Gobo" class="costume costume-2" src="//cdn.scratch.mit.edu/scratchr2/static/images/gobo-b.png"><div class="circle"></div><div class="text">JOIN SCRATCH</div><div class="text subtext">it's free!</div></a></div><div class="description">A creative learning community with <span class="project-count"> 40,564,520 </span>projects shared</div><div class="links"><a href="/about/">ABOUT SCRATCH</a><a href="/educators/">FOR EDUCATORS</a><a class="last" href="/parents/">FOR PARENTS</a></div></div><div class="video"><div class="play-button"></div><img alt="Intro Video" src="//cdn.scratch.mit.edu/scratchr2/static/images/hp-video-screenshot.png"></div></div><div class="box"><div class="box-header"><h4>Featured Projects</h4><h5></h5><p><a></a></p></div><div class="box-content"><div class="slick-initialized slick-slider carousel"><button type="button" data-role="none" class="slick-arrow slick-prev slick-disabled" style="display: block;"> Previous</button><div class="slick-list"><div class="slick-track" style="opacity: 1; transform: translate3d(0px, 0px, 0px); width: 5400px;"><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/249408303/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/249408303.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/249408303/" title="How To Make an Origami Dog for ABSOLUTE BEGINNERS">How To Make an Origami Dog for ABSOLUTE BEGINNERS</a><div class="thumbnail-creator"><a href="/users/CatCarrie1219/">CatCarrie1219</a></div></div></div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/235829629/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/235829629.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/235829629/" title="Prehistoric Park Builder v0.1.6">Prehistoric Park Builder v0.1.6</a><div class="thumbnail-creator"><a href="/users/codahoop/">codahoop</a></div></div></div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/117475521/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/11747/5521.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/117475521/" title="Billiard">Billiard</a><div class="thumbnail-creator"><a href="/users/Thomas_Morus/">Thomas_Morus</a></div></div></div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/238421911/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/238421911.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/238421911/" title="Sunset | Parallax">Sunset | Parallax</a><div class="thumbnail-creator"><a href="/users/-PinPoint-/">-PinPoint-</a></div></div></div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/259507972/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/259507972.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/259507972/" title="Make A New Friend Today - Animation + Noteblocks">Make A New Friend Today - Animation + Noteblocks</a><div class="thumbnail-creator"><a href="/users/coolindri/">coolindri</a></div></div></div></div><div data-index="5" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="6" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="7" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="8" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="9" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="10" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="11" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="12" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="13" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="14" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="15" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="16" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="17" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="18" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="19" class="slick-slide" tabindex="-1" style="outline: none;"></div></div></div><button type="button" data-role="none" class="slick-arrow slick-next" style="display: block;"> Next</button></div></div></div><div class="box"><div class="box-header"><h4>Featured Studios</h4><h5></h5><p><a></a></p></div><div class="box-content"><div class="slick-initialized slick-slider carousel"><button type="button" data-role="none" class="slick-arrow slick-prev slick-disabled" style="display: block;"> Previous</button><div class="slick-list"><div class="slick-track" style="opacity: 1; transform: translate3d(0px, 0px, 0px); width: 2925px;"><div class="thumbnail gallery slick-slide slick-active"><a class="thumbnail-image" href="/studios/5615280/"><img alt="" src="//uploads.scratch.mit.edu/galleries/thumbnails/5615280.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/studios/5615280/" title="↜ Remixable Projects ↝">↜ Remixable Projects ↝</a></div></div></div><div class="thumbnail gallery slick-slide slick-active"><a class="thumbnail-image" href="/studios/5269334/"><img alt="" src="//uploads.scratch.mit.edu/galleries/thumbnails/5269334.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/studios/5269334/" title="|| Original Writing Pieces ||">|| Original Writing Pieces ||</a></div></div></div><div class="thumbnail gallery slick-slide slick-active"><a class="thumbnail-image" href="/studios/4650122/"><img alt="" src="//uploads.scratch.mit.edu/galleries/thumbnails/4650122.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/studios/4650122/" title="Original Noteblock Music Pieces">Original Noteblock Music Pieces</a></div></div></div><div class="thumbnail gallery slick-slide slick-active"><a class="thumbnail-image" href="/studios/5517614/"><img alt="" src="//uploads.scratch.mit.edu/galleries/thumbnails/5517614.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/studios/5517614/" title="• The Origami Studio •">• The Origami Studio •</a></div></div></div><div class="thumbnail gallery slick-slide"><a class="thumbnail-image" href="/studios/5328811/"><img alt="" src="//uploads.scratch.mit.edu/galleries/thumbnails/5328811.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/studios/5328811/" title="Word Search Studio">Word Search Studio</a></div></div></div></div></div><button type="button" data-role="none" class="slick-arrow slick-next" style="display: block;"> Next</button></div></div></div><div class="box"><div class="box-header"><h4>Projects Curated by tarekzaki</h4><h5></h5><p><a href="/studios/386359/">Learn More</a></p></div><div class="box-content"><div class="slick-initialized slick-slider carousel"><div class="slick-list"><div class="slick-track" style="opacity: 1; transform: translate3d(0px, 0px, 0px); width: 2700px;"><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/248251459/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/248251459.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/248251459/" title="()-Lost and Found Loop-()">()-Lost and Found Loop-()</a><div class="thumbnail-creator"><a href="/users/BelieverGirlSun/">BelieverGirlSun</a></div></div></div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/205483340/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/205483340.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/205483340/" title="In The Middle AMV">In The Middle AMV</a><div class="thumbnail-creator"><a href="/users/_Jasmine_Tea_/">_Jasmine_Tea_</a></div></div></div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/254476916/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/254476916.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/254476916/" title="2Spooky Movies (Halloween Speckel)">2Spooky Movies (Halloween Speckel)</a><div class="thumbnail-creator"><a href="/users/redchuck7/">redchuck7</a></div></div></div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/217964822/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/217964822.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/217964822/" title="Warriors Episode 1: The Blackberry bush">Warriors Episode 1: The Blackberry bush</a><div class="thumbnail-creator"><a href="/users/snowfall2234/">snowfall2234</a></div></div></div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/171019697/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/171019697.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/171019697/" title="Girl on fire Lyric Video">Girl on fire Lyric Video</a><div class="thumbnail-creator"><a href="/users/doggiecake/">doggiecake</a></div></div></div></div></div></div></div></div></div><div class="title-banner beta-middle-banner"><div class="flex-row beta-middle-container column"><h2 class="beta-header"><span>The Next Generation of Scratch</span></h2><h3 class="beta-copy"><span>Scratch 3.0 is coming in January! Try the Beta version now.</span></h3><a class="beta-try-it button" href="https://beta.scratch.mit.edu/"><span>Try it!</span></a></div><div class="beta-banner-images"><div class="beta-banner-image right"><img src="/images/beta/right-illustration.png"></div></div></div><div class="box"><div class="box-header"><h4>Scratch Design Studio - Create Your Own Restaurant</h4><h5></h5><p><a href="/studios/5541632/">Visit the studio</a></p></div><div class="box-content"><div class="slick-initialized slick-slider carousel"><button type="button" data-role="none" class="slick-arrow slick-prev slick-disabled" style="display: block;"> Previous</button><div class="slick-list"><div class="slick-track" style="opacity: 1; transform: translate3d(0px, 0px, 0px); width: 5400px;"><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/254108161/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/254108161.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/254108161/" title="Make A Pizza! (UPDATED)">Make A Pizza! (UPDATED)</a><div class="thumbnail-creator"><a href="/users/cs874998/">cs874998</a></div></div></div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/253746788/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/253746788.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/253746788/" title="Burger Chef">Burger Chef</a><div class="thumbnail-creator"><a href="/users/Joyah67/">Joyah67</a></div></div></div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/260337046/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/260337046.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/260337046/" title="Hingey Thingey - Chef's Passer">Hingey Thingey - Chef's Passer</a><div class="thumbnail-creator"><a href="/users/semmiesem9/">semmiesem9</a></div></div></div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/254624124/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/254624124.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/254624124/" title="tem restaurant">tem restaurant</a><div class="thumbnail-creator"><a href="/users/bwahman64/">bwahman64</a></div></div></div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/256055495/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/256055495.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/256055495/" title="Quick, Food!">Quick, Food!</a><div class="thumbnail-creator"><a href="/users/qerrat/">qerrat</a></div></div></div></div><div data-index="5" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="6" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="7" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="8" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="9" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="10" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="11" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="12" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="13" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="14" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="15" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="16" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="17" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="18" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="19" class="slick-slide" tabindex="-1" style="outline: none;"></div></div></div><button type="button" data-role="none" class="slick-arrow slick-next" style="display: block;"> Next</button></div></div></div><div class="box"><div class="box-header"><h4>What the Community is Remixing</h4><h5></h5><p><a></a></p></div><div class="box-content"><div class="slick-initialized slick-slider carousel"><button type="button" data-role="none" class="slick-arrow slick-prev slick-disabled" style="display: block;"> Previous</button><div class="slick-list"><div class="slick-track" style="opacity: 1; transform: translate3d(0px, 0px, 0px); width: 5400px;"><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/256098001/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/256098001.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/256098001/" title="Restaurant Rampage">Restaurant Rampage</a><div class="thumbnail-creator"><a href="/users/-Auron-/">-Auron-</a></div></div></div><div class="thumbnail-remixes" title="30 remixes">30</div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/257021687/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/257021687.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/257021687/" title="||Catch me Meme | Kokichi Ouma ||">||Catch me Meme | Kokichi Ouma ||</a><div class="thumbnail-creator"><a href="/users/patchouli-/">patchouli-</a></div></div></div><div class="thumbnail-remixes" title="20 remixes">20</div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/260154874/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/260154874.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/260154874/" title="Give me an OC then I will Simpluman 2.0-ify it!">Give me an OC then I will Simpluman 2.0-ify it!</a><div class="thumbnail-creator"><a href="/users/YDBSA/">YDBSA</a></div></div></div><div class="thumbnail-remixes" title="52 remixes">52</div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/259223793/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/259223793.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/259223793/" title="How I Got All My Candy ( ͡° ͜ʖ ͡°)">How I Got All My Candy ( ͡° ͜ʖ ͡°)</a><div class="thumbnail-creator"><a href="/users/-BoyMcBoy-/">-BoyMcBoy-</a></div></div></div><div class="thumbnail-remixes" title="24 remixes">24</div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/255215984/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/255215984.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/255215984/" title="Missile Launcher!">Missile Launcher!</a><div class="thumbnail-creator"><a href="/users/skidsteerloader/">skidsteerloader</a></div></div></div><div class="thumbnail-remixes" title="26 remixes">26</div></div><div data-index="5" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="6" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="7" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="8" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="9" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="10" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="11" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="12" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="13" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="14" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="15" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="16" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="17" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="18" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="19" class="slick-slide" tabindex="-1" style="outline: none;"></div></div></div><button type="button" data-role="none" class="slick-arrow slick-next" style="display: block;"> Next</button></div></div></div><div class="box"><div class="box-header"><h4>What the Community is Loving</h4><h5></h5><p><a></a></p></div><div class="box-content"><div class="slick-initialized slick-slider carousel"><button type="button" data-role="none" class="slick-arrow slick-prev slick-disabled" style="display: block;"> Previous</button><div class="slick-list"><div class="slick-track" style="opacity: 1; transform: translate3d(0px, 0px, 0px); width: 5400px;"><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/261532838/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/261532838.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/261532838/" title="Rest in Peace, Stan Lee">Rest in Peace, Stan Lee</a><div class="thumbnail-creator"><a href="/users/-Cinematic-/">-Cinematic-</a></div></div></div><div class="thumbnail-loves" title="293 loves">293</div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/259888200/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/259888200.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/259888200/" title="Scratch goes to KFC.">Scratch goes to KFC.</a><div class="thumbnail-creator"><a href="/users/ZadeStuff/">ZadeStuff</a></div></div></div><div class="thumbnail-loves" title="229 loves">229</div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/259067403/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/259067403.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/259067403/" title="Lancer (Deltarune) --In Note Blocks--">Lancer (Deltarune) --In Note Blocks--</a><div class="thumbnail-creator"><a href="/users/The_Illuminator/">The_Illuminator</a></div></div></div><div class="thumbnail-loves" title="200 loves">200</div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/253492848/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/253492848.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/253492848/" title="Super Scratch Party v1.1_02">Super Scratch Party v1.1_02</a><div class="thumbnail-creator"><a href="/users/akinyemi08/">akinyemi08</a></div></div></div><div class="thumbnail-loves" title="248 loves">248</div></div><div class="thumbnail project slick-slide slick-active"><a class="thumbnail-image" href="/projects/257135294/"><img alt="" src="//uploads.scratch.mit.edu/projects/thumbnails/257135294.png"></a><div class="thumbnail-info"><div class="thumbnail-title"><a href="/projects/257135294/" title="what's new, pussycat? // complete map">what's new, pussycat? // complete map</a><div class="thumbnail-creator"><a href="/users/kirah201/">kirah201</a></div></div></div><div class="thumbnail-loves" title="152 loves">152</div></div><div data-index="5" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="6" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="7" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="8" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="9" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="10" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="11" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="12" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="13" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="14" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="15" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="16" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="17" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="18" class="slick-slide" tabindex="-1" style="outline: none;"></div><div data-index="19" class="slick-slide" tabindex="-1" style="outline: none;"></div></div></div><button type="button" data-role="none" class="slick-arrow slick-next" style="display: block;"> Next</button></div></div></div></div></div></div><div id="footer"><div class="inner"><div class="lists"><dl><dt><span>About</span></dt><dd><a href="/about"><span>About Scratch</span></a></dd><dd><a href="/parents/"><span>For Parents</span></a></dd><dd><a href="/educators"><span>For Educators</span></a></dd><dd><a href="/developers"><span>For Developers</span></a></dd><dd><a href="/info/credits"><span>Credits</span></a></dd><dd><a href="/jobs"><span>Jobs</span></a></dd><dd><a href="https://www.scratchfoundation.org/media-kit/"><span>Press</span></a></dd></dl><dl><dt><span>Community</span></dt><dd><a href="/community_guidelines"><span>Community Guidelines</span></a></dd><dd><a href="/discuss/"><span>Discussion Forums</span></a></dd><dd><a href="https://en.scratch-wiki.info/"><span>Scratch Wiki</span></a></dd><dd><a href="/statistics/"><span>Statistics</span></a></dd></dl><dl><dt><span>Support</span></dt><dd><a href="/tips"><span>Tips</span></a></dd><dd><a href="/info/faq"><span>FAQ</span></a></dd><dd><a href="/download"><span>Offline Editor</span></a></dd><dd><a href="/contact-us/"><span>Contact Us</span></a></dd><dd><a href="/store"><span>Scratch Store</span></a></dd><dd><a href="https://secure.donationpay.org/scratchfoundation/"><span>Donate</span></a></dd></dl><dl><dt><span>Legal</span></dt><dd><a href="/terms_of_use"><span>Terms of Use</span></a></dd><dd><a href="/privacy_policy"><span>Privacy Policy</span></a></dd><dd><a href="/DMCA"><span>DMCA</span></a></dd></dl><dl><dt><span>Scratch Family</span></dt><dd><a href="http://scratched.gse.harvard.edu/"><span>ScratchEd</span></a></dd><dd><a href="http://www.scratchjr.org/"><span>ScratchJr</span></a></dd><dd><a href="http://day.scratch.mit.edu/">Scratch Day</a></dd><dd><a href="/conference"><span>Scratch Conference</span></a></dd><dd><a href="http://www.scratchfoundation.org/"><span>Scratch Foundation</span></a></dd></dl></div><form class="language-chooser" novalidate=""><div class="select"><div class="form-group row"><label class="control-label col-sm-3" data-required="true" for="frc-language-1088"><span class="required-symbol"> *</span></label><div class="col-sm-9"><select class="form-control" required="" name="language" id="frc-language-1088"><option value="ab">Аҧсшәа</option><option value="ar">العربية</option><option value="an">Aragonés</option><option value="ast">Asturianu</option><option value="id">Bahasa Indonesia</option><option value="ms">Bahasa Melayu</option><option value="be">Беларуская</option><option value="bg">Български</option><option value="ca">Català</option><option value="cs">Česky</option><option value="cy">Cymraeg</option><option value="da">Dansk</option><option value="de">Deutsch</option><option value="yum">Edible Scratch</option><option value="et">Eesti</option><option value="el">Ελληνικά</option><option value="en">English</option><option value="eo">Esperanto</option><option value="es">Español</option><option value="eu">Euskara</option><option value="fa">فارسی</option><option value="fr">Français</option><option value="fur">Furlan</option><option value="ga">Gaeilge</option><option value="gd">Gàidhlig</option><option value="gl">Galego</option><option value="ko">한국어</option><option value="hy">Հայերեն</option><option value="he">עִבְרִית</option><option value="hi">हिन्दी</option><option value="hr">Hrvatski</option><option value="zu">isiZulu</option><option value="is">Íslenska</option><option value="it">Italiano</option><option value="kn">ಭಾಷೆ-ಹೆಸರು</option><option value="kk">Қазақша</option><option value="rw">Kinyarwanda</option><option value="ht">Kreyòl</option><option value="ku">Kurdî</option><option value="la">Latina</option><option value="lv">Latviešu</option><option value="lt">Lietuvių</option><option value="mk">Македонски</option><option value="hu">Magyar</option><option value="ml">മലയാളം</option><option value="mt">Malti</option><option value="cat">Meow</option><option value="mr">मराठी</option><option value="mn">Монгол хэл</option><option value="my">မြန်မာဘာသာ</option><option value="nl">Nederlands</option><option value="ja">日本語</option><option value="nb">Norsk Bokmål</option><option value="nn">Norsk Nynorsk</option><option value="uz">Oʻzbekcha</option><option value="th">ไทย</option><option value="pl">Polski</option><option value="pt">Português</option><option value="pt-br">Português Brasileiro</option><option value="ro">Română</option><option value="ru">Русский</option><option value="sc">Sardu</option><option value="sq">Shqip</option><option value="sk">Slovenčina</option><option value="sl">Slovenščina</option><option value="sr">Српски</option><option value="fi">Suomi</option><option value="sv">Svenska</option><option value="te">తెలుగు</option><option value="vi">Tiếng Việt</option><option value="tr">Türkçe</option><option value="uk">Українська</option><option value="zh-cn">简体中文</option><option value="zh-tw">繁體中文</option></select></div></div></div></form><div class="copyright"><p><span>Scratch is a project of the Lifelong Kindergarten Group at the MIT Media Lab</span></p></div></div></div></div></div>
+
+        <!-- Vendor & Initialize (Session & Localization)-->
+        <script src="/js/common.bundle.js"></script>
+
+        <!-- Scripts -->
+        <script src="/js/splash.intl.js"></script>
+        <script src="/js/splash.bundle.js"></script><div class="ReactModalPortal"></div>
+
+        <!-- Translate title element -->
+        <script>
+            var loc = window._locale || 'en';
+            if (typeof window._messages !== 'undefined' && loc !== 'en') {
+                if (typeof window._messages[loc] === 'undefined') {
+                    loc = loc.split('-')[0];
+                }
+                if (typeof window._messages[loc] !== 'undefined') {
+                    var localizedTitle = window._messages[loc]['general.' + 'Imagine, Program, Share'.toLowerCase()] || '';
+                    if (localizedTitle.length > 0) {
+                        document.title = 'Scratch - ' + localizedTitle;
+                    }
+                }
+            }
+        </script>
+    
+
+<div class="ReactModalPortal"></div><div class="ReactModalPortal"></div><div class="ReactModalPortal"></div></body></html>

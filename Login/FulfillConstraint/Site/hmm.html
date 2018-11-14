@@ -2,7 +2,8 @@
 <button href="/Homepage" onclick="javascript:return validatePass()">M</button><button href="/Homepage" onclick="javascript:return validatePass2()">I</button><button href="/Homepage" onclick="javascript:return validatePass3()">N</button><button href="/Homepage" onclick="javascript:return validatePass4()">E</button>
 <script>
 function validatePass(){
-    if(document.getElementById('password').value == 'AdminCode5'){
+	var c2 = '5'
+    if(document.getElementById('password').value == ('Ad'+('M'.toLowerCase())+'in'+('c'.toUpperCase())+'o'+'de'+c2)){
     	window.location.href='/Homepage'
         return true;
     }else{
@@ -11,7 +12,9 @@ function validatePass(){
     }
 }
 function validatePass2(){
-    if(document.getElementById('password').value == 'Tester8thCode'){
+	var s = 'r'
+    var T = 'h'
+    if(document.getElementById('password').value == ('Te'+('S'.toLowerCase())+'te'+(s)+'8'+'th'+('c'.toUpperCase())+'o'+'de')){
     	window.location.href='/Homepage'
         return true;
     }else{

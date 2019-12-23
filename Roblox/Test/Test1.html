@@ -1,2 +1,22 @@
-<html class="gr__minejulrbx_github_io"><head></head><body data-gr-c-s-loaded="true"><pre style="word-wrap: break-word; white-space: pre-wrap;">2543</pre>
-</body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("button").click(function(){
+    $.get("https://catalog.roblox.com/v1/favorites/assets/4528705382/count", function(data, status){
+    	var data2 = data.substr(7, 6);
+        var sln = data.length;
+      	alert("Data: " + data);
+    });
+  });
+});
+</script>
+</head>
+<body>
+
+<button>Send an HTTP GET request to a page and get the result back</button>
+
+</body>
+</html>

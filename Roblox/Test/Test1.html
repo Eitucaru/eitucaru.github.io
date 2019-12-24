@@ -8,7 +8,8 @@ $(document).ready(function(){
     $.get("https://catalog.rprxy.xyz//v1/favorites/assets/4528705382/count", function(data, status){
     	var data2 = data.substr(7, 6);
         var sln = data.length;
-      	alert("Data: " + data);
+        document.write(data);
+      	
     });
   });
 });

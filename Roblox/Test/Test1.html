@@ -5,10 +5,10 @@
 <script>
 $(document).ready(function(){
   $("button").click(function(){
-    $.get("https://catalog.rprxy.xyz//v1/favorites/assets/4528705382/count", function(data, status){
+    $.get("https://catalog.rprxy.xyz/v1/favorites/assets/4528705382/count", function(data, status){
     	var data2 = data.substr(7, 6);
         var sln = data.length;
-        document.write(data);
+        alert("Data: " + data);
       	
     });
   });

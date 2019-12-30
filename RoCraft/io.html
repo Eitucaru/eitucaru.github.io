@@ -114,17 +114,15 @@
 
                 wdGetRedstoneArray(function(array) {
                     screenData = array;
-			var ae = array.split(',');
-			var ar = [ae];
                     generateTable()
 			;fetch('https://www.jsonstore.io/bbb4c064b177c109f8d0f65339768e36a7772e75ae728d574cea0df1f73e62bf', {
 			  headers: {
 			    'Content-type': 'application/json'
 			  },
 			  method: 'POST',
-			  body: JSON.stringify({a: ar[0],b: ar[1],c: ar[2],d: ar[3],e: ar[4],f: ar[5]}),
+			  body: JSON.stringify(array),
 			});
-			document.write(ar[0])
+			document.write(array)
                     wdGetUpgrades(function(upgrades) {
                         for(i = 0; i < upgrades.length; i++) {
                             if(upgrades[i] == "webdisplays:redoutput") {

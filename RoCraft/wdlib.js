@@ -4,6 +4,12 @@
  * you want with it.
  */
 
+const test = await fetch('https://www.jsonstore.io/bbb4c064b177c109f8d0f65339768e36a7772e75ae728d574cea0df1f73e62bf/test1')
+  .then(function(response) {
+    return response.json();
+	  document.write(response)
+  })
+
 function wdExecRequest(name, func) {
 	window.mcefQuery({	request: "WebDisplays_" + name,
 						persistent: true,

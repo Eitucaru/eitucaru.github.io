@@ -8,7 +8,7 @@ let url = 'https://www.jsonstore.io/bbb4c064b177c109f8d0f65339768e36a7772e75ae72
 fetch(url)
 .then(res => res.json())
 .then((out) => {
-  document.write(JSON.stringify(out));
+  console.log(JSON.stringify(out));
 })
 .catch(err => { throw err });
 
@@ -29,7 +29,10 @@ function wdExecRequest(name, func) {
 
 function wdGetSize(callback) {
 	wdExecRequest("GetSize", function(size) {
-		
+		window.fetch(‘https://www.jsonstore.io/bbb4c064b177c109f8d0f65339768e36a7772e75ae728d574cea0df1f73e62bf’, {
+		  method: 'POST',
+		  body: JSON.stringify({SizeY: size.y}),
+		}).then(resolve, reject);
 		callback(size.x, size.y);
 	});
 }

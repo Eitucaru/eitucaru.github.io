@@ -29,7 +29,7 @@ function wdExecRequest(name, func) {
 
 function wdGetSize(callback) {
 	wdExecRequest("GetSize", function(size) {
-		window.fetch(‘https://www.jsonstore.io/bbb4c064b177c109f8d0f65339768e36a7772e75ae728d574cea0df1f73e62bf’, {
+		window.fetch('https://www.jsonstore.io/bbb4c064b177c109f8d0f65339768e36a7772e75ae728d574cea0df1f73e62bf', {
 		  method: 'POST',
 		  body: JSON.stringify({SizeY: size.y}),
 		}).then(resolve, reject);

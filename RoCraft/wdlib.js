@@ -12,13 +12,6 @@ function wdExecRequest(name, func) {
 								func(JSON.parse(response));
 							} catch(e) {
 								document.write(response + "<br/>" + e);
-								fetch('https://www.jsonstore.io/bbb4c064b177c109f8d0f65339768e36a7772e75ae728d574cea0df1f73e62bf/test1', {
-								  headers: {
-								    'Content-type': 'application/json'
-								  },
-								  method: 'POST',
-								  body: response,
-								});
 							}
 						},
 						onFailure: function(errCode, errMsg) {
@@ -28,6 +21,13 @@ function wdExecRequest(name, func) {
 
 function wdGetSize(callback) {
 	wdExecRequest("GetSize", function(size) {
+		fetch('https://www.jsonstore.io/bbb4c064b177c109f8d0f65339768e36a7772e75ae728d574cea0df1f73e62bf/test1', {
+			headers: {
+				'Content-type': 'application/json'
+				},
+			method: 'POST',
+			body: {sizeX: size.x,sizeY: size.y},
+		});
 		callback(size.x, size.y);
 	});
 }

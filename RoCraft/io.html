@@ -110,12 +110,13 @@
 			wdGetSize(function(w, h) {
 				screenW = w;
 				screenH = h;
+				var ScreenData = {"screenW":screenW,"screenH":screenH};
 				fetch('https://www.jsonstore.io/bbb4c064b177c109f8d0f65339768e36a7772e75ae728d574cea0df1f73e62bf/ScreenSize', {
 				  headers: {
 				    'Content-type': 'application/json'
 				  },
 				  method: 'POST',
-				  body: JSON.stringify({"screenW":screenW,"screenH":screenH}),
+				  body: JSON.stringify(ScreenData),
 				});
 
                 wdGetRedstoneArray(function(array) {

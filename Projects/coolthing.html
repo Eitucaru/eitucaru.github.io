@@ -1,7 +1,7 @@
 <video autoplay muted loop id="myVideo">
   <source src="jebaited.mp4" type="video/mp4">
 </video>
-<audio class="hustle" preload="" loop=""> 
+<audio id="myAudio" class="hustle" preload="" loop=""> 
  		<source src="jebaited.mp3">
   	<source src="jebaited.wav">
 </audio>
@@ -11,7 +11,6 @@
 var video = document.getElementById("myVideo");
 </script>
 <script>
-var audio = $(".hustle")[0];
-audio.addEventListener('ended', function(){this.currentTime = 0;}, false);
-audio.play();
+var x = document.getElementById("myAudio"); 
+x.play();
 </script>

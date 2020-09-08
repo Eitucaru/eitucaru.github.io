@@ -1,0 +1,6 @@
+for i,v in pairs(game.Players:GetChildren()) do
+  if game.ReplicatedStorage:FindFirstChild(v.Name.."URL").Value == "https://minejulrbx.github.io/Chatto/Webpages/main.txt" then
+    local Frame = v.PlayerGui.Chatto.Frame.Frame
+    local Frame1 = Instance.new("Frame",Frame)
+  end
+end

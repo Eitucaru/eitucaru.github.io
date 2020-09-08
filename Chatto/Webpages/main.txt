@@ -1,7 +1,7 @@
 for i,v in pairs(game.Players:GetChildren()) do
   print(v.PlayerGui.Chatto.Frame.LocalScript.URL.Value)
   print("https://minejulrbx.github.io/Chatto/Webpages/main.txt")
-  if v.PlayerGui.Chatto.Frame.LocalScript.URL.Value == "https://minejulrbx.github.io/Chatto/Webpages/main.txt" then
+  if game.ReplicatedStorage:FindFirstChild(v.Name.."URL").Value == "https://minejulrbx.github.io/Chatto/Webpages/main.txt" then
     print("h")
     local Frame = v.PlayerGui.Chatto.Frame.Frame
     local Frame1 = Instance.new("Frame",Frame)

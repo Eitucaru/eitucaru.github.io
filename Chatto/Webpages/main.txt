@@ -1,5 +1,4 @@
 for i,v in pairs(game.Players:GetChildren()) do
-  print("ree")
   if v.PlayerGui.Chatto.Frame.LocalScript.URL.Value == "https://minejulrbx.github.io/Chatto/Webpages/main.txt" then
     print("h")
     local Frame = v.PlayerGui.Chatto.Frame.Frame

@@ -1,3 +1,30 @@
+<?php
+
+$tdir=getdir($_SERVER['REQUEST_URI']);
+
+if($tdir != false) {
+  header("HTTP/1.1 301 Moved Permanently");
+  header( 'Location: https://minejulrbx.github.io'.$tdir );
+
+} else {
+  die('YOUR PERSONAL MESSAGE FOR 404');
+
+}
+
+function getdir($tfile) {
+  $startloc="/Projects".dirname($tfile);
+
+  if (file_exists($startloc) && $handle = opendir($startloc)) {
+    while (false !== ($file = readdir($handle))) {
+      if ($file != "." && $file != ".." && strcasecmp($file,basename($tfile))==0) {            
+        return dirname($tfile).DIRECTORY_SEPARATOR.$file;
+      }
+    }
+    closedir($handle);
+  }
+  return false;
+}
+?>
 <html>
   <head>
     <title>404 - Site Was Not Found</title>

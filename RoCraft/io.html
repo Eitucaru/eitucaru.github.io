@@ -110,8 +110,8 @@
 			wdGetSize(function(w, h) {
 				screenW = w;
 				screenH = h;
-				var ScreenData = {"ScreenSize":{"screenW":screenW,"screenH":screenH},"RedArray":{}};
-				fetch('https://api.npoint.io/bbe9c7a70f7fb93e2e6d', {
+				var ScreenData = {"screenW":screenW,"screenH":screenH};
+				fetch('https://api.npoint.io/bbe9c7a70f7fb93e2e6d/ScreenSize', {
 				  headers: {
 				    'Content-type': 'application/json'
 				  },

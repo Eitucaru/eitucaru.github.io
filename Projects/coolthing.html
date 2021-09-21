@@ -13,15 +13,21 @@
 </style>
 </head>
 <body>
+<form>
+  <input type="checkbox" id="myCheck" onmouseover="myFunction()" onclick="alert('click event occured')">
+</form>
 <video autoplay loop id="myVideo">
   <source src="jebaited.mp4" type="video/mp4">
 </video>
 
-
 <script>
-// Get the video
-var video = document.getElementById("myVideo");
+function myFunction() {
+  document.getElementById("myCheck").click();
+}
+function videoFunction() {
+  var video = document.getElementById("myVideo");
+}
 </script>
-
 </body>
 </html>
+

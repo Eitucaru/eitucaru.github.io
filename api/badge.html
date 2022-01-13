@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+<head>
+<script type="text/javascript" src="https://minejulrbx.github.io/RoCraft/jquery.js"></script>
+</head>
 <body>
 
 <h1>The input element</h1>
@@ -9,9 +12,13 @@
 <button id="lol" onclick="myFunction()">Start</button>
 
 <script>
-function myFunction() {
-  document.getElementById("lol").style.color = "red";
-}
+$.getJSON('https://badges.roblox.com/v1/users/73884919/badges?limit=100', function(data) {
+
+        var text = `Data: ${data.data}<br>`
+
+
+        $(".mypanel").html(text);
+    });
 </script>
 </body>
 </html>

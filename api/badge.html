@@ -4,19 +4,13 @@
 <script type="text/javascript" src="https://minejulrbx.github.io/RoCraft/jquery.js"></script>
 </head>
 <body>
-
-<h1>The input element</h1>
-
-<label for="fname">UserId:</label>
-<input type="text" id="fname" name="fname"><br><br>
-<button id="lol" onclick="myFunction()">Start</button>
-
+<pre style="word-wrap: break-word; white-space: pre-wrap;"></pre>
 <script>
-fetch('https://badges.roblox.com/v1/users/73884919/badges?limit=100')
-    .then(res => res.json())
-    .then((out) => {
-        console.log('Output: ', out);
-}).catch(err => console.error(err));
+ $.getJSON('https://badges.roblox.com/v1/users/73884919/badges?limit=100', function(data) {
+
+        document.write(JSON.stringify(data));
+
+    });
 </script>
 </body>
 </html>

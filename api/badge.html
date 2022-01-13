@@ -12,13 +12,11 @@
 <button id="lol" onclick="myFunction()">Start</button>
 
 <script>
-$.getJSON('https://badges.roblox.com/v1/users/73884919/badges?limit=100', function(data) {
-
-        var text = `Data: ${data.data}<br>`
-
-
-        $(".mypanel").html(text);
-    });
+fetch('https://badges.roblox.com/v1/users/73884919/badges?limit=100')
+    .then(res => res.json())
+    .then((out) => {
+        console.log('Output: ', out);
+}).catch(err => console.error(err));
 </script>
 </body>
 </html>

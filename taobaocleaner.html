@@ -41,6 +41,288 @@
             box-sizing: border-box;
         }
         textarea {
+            height: 80px;
+            resize: vertical;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        button {
+            background-color: #ff5000;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+            margin: 0 auto;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #e04800;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border-left: 4px solid #ff5000;
+            display: none;
+        }
+        .result h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .copy-btn {
+            background-color: #4CAF50;
+            padding: 8px 15px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .copy-btn:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: #d32f2f;
+            margin-top: 10px;
+            display: none;
+            padding: 10px;
+            background-color: #ffebee;
+            border-radius: 5px;
+            border-left: 4px solid #d32f2f;
+        }
+        .info {
+            color: #666;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Taobao Link Cleaner</h1>
+        
+        <div class="input-group">
+            <label for="taobaoLink">Paste Taobao Share Link:</label>
+            <input type="text" id="taobaoLink" placeholder="https://e.tb.cn/xxxxx or https://s.click.taobao.com/xxxxx" />
+            <div class="info">Works with e.tb.cn, s.click.taobao.com, and other Taobao/Tmall share links</div>
+        </div>
+        
+        <button onclick="processLink()">Clean Link</button>
+        
+        <div id="error" class="error"></div>
+        
+        <div id="result" class="result">
+            <h3>Cleaned Link:</h3>
+            <textarea id="cleanedLink" readonly></textarea>
+            <button class="copy-btn" onclick="copyToClipboard()">Copy to Clipboard</button>
+        </div>
+
+        <div style="margin-top: 30px; padding: 15px; background: #fff3e0; border-radius: 5px;">
+            <h4>How to use:</h4>
+            <ol>
+                <li>Copy the share link from Taobao app (long press on product → Share → Copy Link)</li>
+                <li>Paste it in the input field above</li>
+                <li>Click "Clean Link" to get the direct product URL</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function processLink() {
+            const originalLink = document.getElementById('taobaoLink').value.trim();
+            const errorDiv = document.getElementById('error');
+            const resultDiv = document.getElementById('result');
+            
+            // Hide previous results/errors
+            errorDiv.style.display = 'none';
+            resultDiv.style.display = 'none';
+            
+            if (!originalLink) {
+                showError('Please enter a Taobao link');
+                return;
+            }
+            
+            try {
+                // Extract item ID directly from the URL patterns
+                const cleanLink = extractItemIdFromShareLink(originalLink);
+                
+                if (cleanLink) {
+                    document.getElementById('cleanedLink').value = cleanLink;
+                    resultDiv.style.display = 'block';
+                } else {
+                    showError('Could not extract item ID from the link. Please make sure it\'s a valid Taobao/Tmall share link.');
+                }
+                
+            } catch (error) {
+                showError('Error processing link: ' + error.message);
+            }
+        }
+        
+        function extractItemIdFromShareLink(url) {
+            console.log('Processing URL:', url);
+            
+            // Decode URL if it's encoded
+            let decodedUrl = url;
+            try {
+                decodedUrl = decodeURIComponent(url);
+            } catch (e) {
+                // If decoding fails, use original URL
+                console.log('URL decode failed, using original');
+            }
+            
+            // Common Taobao/Tmall share link patterns and their parameter extraction
+            const patterns = [
+                // New e.tb.cn pattern
+                {
+                    regex: /https?:\/\/e\.tb\.cn\/[^?]+\?[^&]*([^=]+)=([^&]+)/,
+                    extractor: (match) => {
+                        const params = new URLSearchParams(decodedUrl.split('?')[1]);
+                        // Try common parameter names
+                        for (let param of ['e', 'union_lens', 'ul', 'id', 'item_id']) {
+                            const value = params.get(param);
+                            if (value && /^\d+$/.test(value)) {
+                                return value;
+                            }
+                            // Check if parameter contains id in encoded form
+                            if (value && value.includes('id=')) {
+                                const idMatch = value.match(/id=(\d+)/);
+                                if (idMatch) return idMatch[1];
+                            }
+                        }
+                        return null;
+                    }
+                },
+                
+                // s.click.taobao.com pattern
+                {
+                    regex: /https?:\/\/s\.click\.taobao\.com\/[^?]+\?(.*)/,
+                    extractor: (match) => {
+                        const params = new URLSearchParams(decodedUrl.split('?')[1]);
+                        for (let param of ['id', 'item_id', 'e']) {
+                            const value = params.get(param);
+                            if (value && /^\d+$/.test(value)) return value;
+                        }
+                        return null;
+                    }
+                },
+                
+                // Direct item.taobao.com pattern
+                {
+                    regex: /https?:\/\/item\.taobao\.com\/item\.htm\?id=(\d+)/,
+                    extractor: (match) => match[1]
+                },
+                
+                // Direct detail.tmall.com pattern
+                {
+                    regex: /https?:\/\/detail\.tmall\.com\/item\.htm\?id=(\d+)/,
+                    extractor: (match) => match[1]
+                },
+                
+                // m.tb.cn pattern
+                {
+                    regex: /https?:\/\/m\.tb\.cn\/[^?]+\?[^&]*([^=]+)=([^&]+)/,
+                    extractor: (match) => {
+                        const params = new URLSearchParams(decodedUrl.split('?')[1]);
+                        for (let param of ['e', 'id', 'item_id', 'sm', 'scm']) {
+                            const value = params.get(param);
+                            if (value && /^\d+$/.test(value)) return value;
+                            if (value && value.includes('id=')) {
+                                const idMatch = value.match(/id=(\d+)/);
+                                if (idMatch) return idMatch[1];
+                            }
+                        }
+                        return null;
+                    }
+                },
+                
+                // Generic pattern for any URL containing item ID
+                {
+                    regex: /[?&](?:id|item_id)=(\d+)/,
+                    extractor: (match) => match[1]
+                },
+                
+                // Pattern for encoded URLs in parameters
+                {
+                    regex: /(?:url|ul)=([^&]+)/,
+                    extractor: (match) => {
+                        try {
+                            const decoded = decodeURIComponent(match[1]);
+                            const idMatch = decoded.match(/id=(\d+)/);
+                            return idMatch ? idMatch[1] : null;
+                        } catch (e) {
+                            return null;
+                        }
+                    }
+                }
+            ];
+            
+            for (let pattern of patterns) {
+                const match = decodedUrl.match(pattern.regex);
+                if (match) {
+                    console.log('Matched pattern:', pattern.regex);
+                    const itemId = pattern.extractor(match);
+                    if (itemId && /^\d+$/.test(itemId)) {
+                        console.log('Found item ID:', itemId);
+                        return `https://item.taobao.com/item.htm?id=${itemId}`;
+                    }
+                }
+            }
+            
+            // Last resort: try to find any numeric ID in the URL
+            const numericMatch = decodedUrl.match(/\b(\d{8,15})\b/);
+            if (numericMatch) {
+                console.log('Found numeric ID:', numericMatch[1]);
+                return `https://item.taobao.com/item.htm?id=${numericMatch[1]}`;
+            }
+            
+            return null;
+        }
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+        
+        function copyToClipboard() {
+            const textarea = document.getElementById('cleanedLink');
+            textarea.select();
+            document.execCommand('copy');
+            
+            // Show temporary feedback
+            const copyBtn = document.querySelector('.copy-btn');
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = 'Copied!';
+            copyBtn.style.backgroundColor = '#2196F3';
+            
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+                copyBtn.style.backgroundColor = '#4CAF50';
+            }, 2000);
+        }
+        
+        // Allow pressing Enter to process the link
+        document.getElementById('taobaoLink').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                processLink();
+            }
+        });
+        
+        // Example links for testing
+        console.log('Test examples:');
+        console.log('e.tb.cn:', extractItemIdFromShareLink('https://e.tb.cn/h.gI9tM3gx2ZPJX0U?tk=8PQ63Wq4RfS'));
+        console.log('s.click.taobao.com:', extractItemIdFromShareLink('https://s.click.taobao.com/xxxxx?id=123456789'));
+    </script>
+</body>
+</html>            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        textarea {
             height: 100px;
             resize: vertical;
             font-family: monospace;

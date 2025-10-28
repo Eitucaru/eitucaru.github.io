@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taobao Link Cleaner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #ff5000;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+            font-family: monospace;
+        }
+        button {
+            background-color: #ff5000;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+            margin: 0 auto;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #e04800;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border-left: 4px solid #ff5000;
+            display: none;
+        }
+        .result h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .copy-btn {
+            background-color: #4CAF50;
+            padding: 8px 15px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .copy-btn:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: #d32f2f;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Taobao Link Cleaner</h1>
+        
+        <div class="input-group">
+            <label for="taobaoLink">Paste Taobao Share Link:</label>
+            <input type="text" id="taobaoLink" placeholder="https://s.click.taobao.com/xxxxx" />
+        </div>
+        
+        <button onclick="processLink()">Clean Link</button>
+        
+        <div id="error" class="error"></div>
+        
+        <div id="result" class="result">
+            <h3>Cleaned Link:</h3>
+            <textarea id="cleanedLink" readonly></textarea>
+            <button class="copy-btn" onclick="copyToClipboard()">Copy to Clipboard</button>
+        </div>
+    </div>
+
+    <script>
+        async function processLink() {
+            const originalLink = document.getElementById('taobaoLink').value.trim();
+            const errorDiv = document.getElementById('error');
+            const resultDiv = document.getElementById('result');
+            
+            // Hide previous results/errors
+            errorDiv.style.display = 'none';
+            resultDiv.style.display = 'none';
+            
+            if (!originalLink) {
+                showError('Please enter a Taobao link');
+                return;
+            }
+            
+            try {
+                // Extract the final URL by following redirects
+                const finalUrl = await getFinalUrl(originalLink);
+                
+                // Extract item ID and create clean link
+                const cleanLink = extractItemId(finalUrl);
+                
+                if (cleanLink) {
+                    document.getElementById('cleanedLink').value = cleanLink;
+                    resultDiv.style.display = 'block';
+                } else {
+                    showError('Could not extract item ID from the link');
+                }
+                
+            } catch (error) {
+                showError('Error processing link: ' + error.message);
+            }
+        }
+        
+        async function getFinalUrl(url) {
+            try {
+                // Use a CORS proxy to avoid cross-origin issues
+                const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+                const response = await fetch(proxyUrl + url, {
+                    method: 'HEAD',
+                    redirect: 'follow'
+                });
+                
+                return response.url;
+            } catch (error) {
+                // If CORS proxy fails, try to extract from the redirect URL pattern
+                console.log('CORS proxy failed, trying URL pattern extraction');
+                return extractFromUrlPattern(url);
+            }
+        }
+        
+        function extractFromUrlPattern(url) {
+            // Common Taobao redirect patterns
+            const patterns = [
+                /url=([^&]+)/,
+                /e\.(taobao|tmall)\.com\/[^?]+\?([^&]+)&?/,
+                /redirect\.simba\.taobao\.com\/[^?]+\?([^&]+)&?/
+            ];
+            
+            for (let pattern of patterns) {
+                const match = url.match(pattern);
+                if (match) {
+                    try {
+                        const decoded = decodeURIComponent(match[1] || match[2]);
+                        if (decoded.includes('taobao.com') || decoded.includes('tmall.com')) {
+                            return decoded;
+                        }
+                    } catch (e) {
+                        console.log('URL decode failed for match:', match[1]);
+                    }
+                }
+            }
+            
+            // If no pattern matches, return original URL
+            return url;
+        }
+        
+        function extractItemId(url) {
+            // Remove URL parameters and fragment
+            const cleanUrl = url.split('?')[0].split('#')[0];
+            
+            // Pattern for Taobao/Tmall item IDs
+            const patterns = [
+                /(?:item|detail)\.(?:taobao|tmall)\.(?:com|hk)\/(?:item\.htm\?id=|item\/)?(\d+)/,
+                /id=(\d+)/,
+                /\/(\d+)\.html/,
+                /\?id=(\d+)/
+            ];
+            
+            for (let pattern of patterns) {
+                const match = cleanUrl.match(pattern);
+                if (match && match[1]) {
+                    return `https://item.taobao.com/item.htm?id=${match[1]}`;
+                }
+            }
+            
+            return null;
+        }
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+        
+        function copyToClipboard() {
+            const textarea = document.getElementById('cleanedLink');
+            textarea.select();
+            document.execCommand('copy');
+            
+            // Show temporary feedback
+            const copyBtn = document.querySelector('.copy-btn');
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = 'Copied!';
+            copyBtn.style.backgroundColor = '#2196F3';
+            
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+                copyBtn.style.backgroundColor = '#4CAF50';
+            }, 2000);
+        }
+        
+        // Allow pressing Enter to process the link
+        document.getElementById('taobaoLink').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                processLink();
+            }
+        });
+    </script>
+</body>
+</html>

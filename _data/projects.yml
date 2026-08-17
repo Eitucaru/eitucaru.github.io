@@ -1,0 +1,51 @@
+# Add a project by copying one entry and editing it.
+# category must be exactly "roblox" or "bricks" to show up on that page.
+# demo is optional — leave it out if there isn't one.
+
+- id: RBX-001
+  name: "Rojo Watchtower"
+  category: roblox
+  description: "Watches a Rojo project's filesystem tree and flags sync conflicts before they hit Studio, instead of after."
+  tags: ["Rojo", "CLI"]
+  repo: "https://github.com/yourusername/rojo-watchtower"
+  demo: ""
+
+- id: RBX-002
+  name: "Instance Diff"
+  category: roblox
+  description: "A Studio plugin that diffs two instance trees and shows exactly what changed — properties, children, order."
+  tags: ["Plugin", "Studio"]
+  repo: "https://github.com/yourusername/instance-diff"
+  demo: ""
+
+- id: RBX-003
+  name: "Luau Layout Kit"
+  category: roblox
+  description: "A small library of layout primitives for building responsive Roblox UI without hand-tuning offsets."
+  tags: ["Library", "UI"]
+  repo: "https://github.com/yourusername/luau-layout-kit"
+  demo: ""
+
+- id: LDR-001
+  name: "Studio2LDraw"
+  category: bricks
+  description: "Exports BrickLink Studio 2.0 models to clean LDraw files, keeping part colors and step groups intact."
+  tags: ["Studio 2.0", "LDraw", "Exporter"]
+  repo: "https://github.com/yourusername/studio2ldraw"
+  demo: ""
+
+- id: LDR-002
+  name: "Part Bin"
+  category: bricks
+  description: "A searchable offline index of LDraw parts by shape, size, and color — for when the online catalog is slow or down."
+  tags: ["LDraw", "Tool"]
+  repo: "https://github.com/yourusername/part-bin"
+  demo: "https://yourusername.github.io/part-bin"
+
+- id: LDR-003
+  name: "Instruction Sheet"
+  category: bricks
+  description: "Turns a step-numbered LDraw model into a printable, page-by-page instruction booklet."
+  tags: ["LDraw", "PDF"]
+  repo: "https://github.com/yourusername/instruction-sheet"
+  demo: ""

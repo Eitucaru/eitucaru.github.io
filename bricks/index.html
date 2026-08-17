@@ -1,0 +1,36 @@
+---
+layout: default
+title: Studio 2.0 & LDraw
+---
+{% assign projects = site.data.projects | where: "category", "bricks" %}
+
+<div class="wrap">
+  <p class="breadcrumb"><a href="{{ '/' | relative_url }}">home</a> / bricks</p>
+
+  <div class="cat-header">
+    <h1>Studio 2.0 &amp; LDraw</h1>
+    <p>General-purpose tools for the brick-building CAD ecosystem — BrickLink Studio 2.0, LDraw, and the formats around them. Not tied to any one brand of brick.</p>
+    <div class="callout">
+      Looking for builds and content using non-LEGO-compatible bricks? That's over on <a href="{{ site.bricks_site_url }}">{{ site.bricks_site_name }}</a> — a separate site. This page is just the dev tools.
+    </div>
+  </div>
+
+  <div class="manifest-list" style="--page-accent: var(--blue);">
+    {% for p in projects %}
+    <div class="project">
+      <div class="id">{{ p.id }}</div>
+      <div>
+        <h3>{{ p.name }}</h3>
+        <p>{{ p.description }}</p>
+        <div class="tags">
+          {% for t in p.tags %}<span>{{ t }}</span>{% endfor %}
+        </div>
+        <div class="links">
+          <a href="{{ p.repo }}">repo ↗</a>
+          {% if p.demo and p.demo != "" %}<a href="{{ p.demo }}">demo ↗</a>{% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

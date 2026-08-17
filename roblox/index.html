@@ -1,0 +1,33 @@
+---
+layout: default
+title: Roblox & Rojo
+---
+{% assign projects = site.data.projects | where: "category", "roblox" %}
+
+<div class="wrap">
+  <p class="breadcrumb"><a href="{{ '/' | relative_url }}">home</a> / roblox</p>
+
+  <div class="cat-header">
+    <h1>Roblox &amp; Rojo</h1>
+    <p>Plugins, libraries, and command-line tools for Roblox development — mostly built around Rojo, for people who'd rather edit code in a real editor than in Studio.</p>
+  </div>
+
+  <div class="manifest-list" style="--page-accent: var(--amber);">
+    {% for p in projects %}
+    <div class="project">
+      <div class="id">{{ p.id }}</div>
+      <div>
+        <h3>{{ p.name }}</h3>
+        <p>{{ p.description }}</p>
+        <div class="tags">
+          {% for t in p.tags %}<span>{{ t }}</span>{% endfor %}
+        </div>
+        <div class="links">
+          <a href="{{ p.repo }}">repo ↗</a>
+          {% if p.demo and p.demo != "" %}<a href="{{ p.demo }}">demo ↗</a>{% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

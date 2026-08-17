@@ -1,0 +1,273 @@
+/* ---- tokens ---- */
+:root {
+  --bg: #14181f;
+  --surface: #1b212a;
+  --surface-2: #222a34;
+  --line: #2e3742;
+  --text: #e9edf2;
+  --text-muted: #8b96a5;
+  --blue: #6f9dc6;   /* schematic ink — bricks */
+  --amber: #e2a33c;  /* brass — roblox */
+  --radius: 3px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Inter", -apple-system, sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.wrap {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---- nav ---- */
+.site-nav {
+  border-bottom: 1px solid var(--line);
+  background: rgba(20, 24, 31, 0.85);
+  backdrop-filter: blur(6px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.site-nav .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+.site-nav .mark {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  font-size: 1.05rem;
+}
+.site-nav .mark span { color: var(--amber); }
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.82rem;
+  text-transform: lowercase;
+}
+.site-nav ul a { text-decoration: none; color: var(--text-muted); }
+.site-nav ul a:hover { color: var(--text); }
+
+/* ---- hero ---- */
+.hero {
+  padding: 88px 0 56px;
+  border-bottom: 1px solid var(--line);
+}
+.eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  color: var(--amber);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 14px;
+}
+.hero h1 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2.1rem, 5vw, 3.1rem);
+  line-height: 1.12;
+  margin: 0 0 18px;
+  max-width: 14ch;
+}
+.hero p {
+  color: var(--text-muted);
+  max-width: 54ch;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+/* ---- bins (category cards on homepage) ---- */
+.bins {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 56px 0;
+}
+@media (max-width: 680px) {
+  .bins { grid-template-columns: 1fr; }
+}
+.bin {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 28px 26px 24px;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.bin:hover { border-color: var(--bin-accent, var(--amber)); transform: translateY(-2px); }
+.bin.roblox { --bin-accent: var(--amber); }
+.bin.bricks { --bin-accent: var(--blue); }
+.bin .tag {
+  display: inline-block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  color: var(--bin-accent, var(--amber));
+  border: 1px solid var(--bin-accent, var(--amber));
+  border-radius: 20px;
+  padding: 2px 10px;
+  margin-bottom: 14px;
+}
+.bin h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.4rem;
+  margin: 0 0 8px;
+}
+.bin p {
+  color: var(--text-muted);
+  font-size: 0.94rem;
+  margin: 0 0 16px;
+}
+.bin .manifest {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.bin .manifest strong { color: var(--text); }
+
+/* ---- elsewhere / footer callout ---- */
+.elsewhere {
+  border-top: 1px solid var(--line);
+  padding: 40px 0 80px;
+}
+.elsewhere h3 {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 12px;
+}
+.elsewhere a.link-out {
+  text-decoration: none;
+  color: var(--text);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+}
+.elsewhere a.link-out:hover { border-color: var(--amber); }
+
+/* ---- category pages ---- */
+.breadcrumb {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding-top: 40px;
+}
+.breadcrumb a { text-decoration: none; color: var(--text-muted); }
+.breadcrumb a:hover { color: var(--text); }
+
+.cat-header { padding: 14px 0 44px; border-bottom: 1px solid var(--line); }
+.cat-header h1 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  margin: 0 0 10px;
+}
+.cat-header p { color: var(--text-muted); max-width: 60ch; margin: 0; }
+
+.callout {
+  margin-top: 20px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+.callout a { color: var(--blue); text-decoration: none; border-bottom: 1px solid transparent; }
+.callout a:hover { border-color: var(--blue); }
+
+.manifest-list {
+  padding: 44px 0 90px;
+  display: grid;
+  gap: 16px;
+}
+.project {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 20px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+@media (max-width: 600px) {
+  .project { grid-template-columns: 1fr; gap: 8px; }
+}
+.project .id {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  color: var(--page-accent, var(--amber));
+  padding-top: 3px;
+}
+.project h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.15rem;
+  margin: 0 0 8px;
+}
+.project p {
+  color: var(--text-muted);
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  max-width: 62ch;
+}
+.project .tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.project .tags span {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 2px 9px;
+}
+.project .links a {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: var(--page-accent, var(--amber));
+  margin-right: 18px;
+}
+.project .links a:hover { text-decoration: underline; }
+
+/* ---- footer ---- */
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 24px 0 40px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.site-footer a { color: var(--text-muted); text-decoration: none; }
+.site-footer a:hover { color: var(--text); }

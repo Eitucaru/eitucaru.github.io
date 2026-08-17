@@ -1,4 +1,39 @@
-<h1>404 File Not Found</h1>
+---
+layout: default
+title: Home
+---
+{% assign roblox_projects = site.data.projects | where: "category", "roblox" %}
+{% assign bricks_projects = site.data.projects | where: "category", "bricks" %}
 
-File Not Found
- 
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Project index</p>
+    <h1>Tools for people who build things.</h1>
+    <p>I write small, focused tools for two communities I build in: Roblox development with Rojo, and brick-based CAD work with BrickLink Studio 2.0 and LDraw. Pick a bin below.</p>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="bins">
+    <a class="bin roblox" href="{{ '/roblox/' | relative_url }}">
+      <span class="tag">roblox</span>
+      <h2>Roblox &amp; Rojo</h2>
+      <p>Plugins, libraries, and CLI tools for working outside Studio and syncing back in.</p>
+      <p class="manifest"><strong>{{ roblox_projects | size }}</strong> project{% if roblox_projects.size != 1 %}s{% endif %} in this bin →</p>
+    </a>
+
+    <a class="bin bricks" href="{{ '/bricks/' | relative_url }}">
+      <span class="tag">bricks</span>
+      <h2>Studio 2.0 &amp; LDraw</h2>
+      <p>Tools for the BrickLink Studio 2.0 and LDraw ecosystem — export, conversion, and catalog utilities.</p>
+      <p class="manifest"><strong>{{ bricks_projects | size }}</strong> project{% if bricks_projects.size != 1 %}s{% endif %} in this bin →</p>
+    </a>
+  </div>
+</section>
+
+<section class="elsewhere">
+  <div class="wrap">
+    <h3>Elsewhere</h3>
+    <p>For content and builds using non-LEGO-compatible bricks, that lives on a dedicated site: <a class="link-out" href="{{ site.bricks_site_url }}">{{ site.bricks_site_name }}</a>. It's separate from the general-purpose tools listed here.</p>
+  </div>
+</section>

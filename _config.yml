@@ -1,0 +1,11 @@
+title: "Build Log"
+description: "Tools for people who build things — in Roblox Studio and out of bricks."
+baseurl: ""
+url: ""
+
+# Your GitHub + external links — edit these
+github_url: "https://github.com/yourusername"
+bricks_site_url: "https://minibrickcraze.com"
+bricks_site_name: "minibrickcraze.com"
+
+markdown: kramdown

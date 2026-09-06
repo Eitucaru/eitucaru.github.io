@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Configure your own library — Guide | Eitucaru</title>
+<script>
+  // Set the theme before first paint (follows the system unless the user has toggled it)
+  (function () {
+    try {
+      var saved = localStorage.getItem('theme');
+      var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+  })();
+</script>
+<meta name="description" content="Configure your own Studio Library Manager library — what a library contains and how to build and manage your own. Step-by-step guide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="../../../assets/tailwind.config.js"></script>
+<link rel="stylesheet" href="../../../assets/css/base.css">
+<link rel="stylesheet" href="../../../assets/css/theme.css">
+<style>
+  /* Guide-page styles (the shared theme lives in ../assets/css/theme.css) */
+
+  /* ================= Table of contents ================= */
+  .toc-link {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.5rem 0.75rem; border-radius: 0.75rem;
+    color: #5a5488; font-weight: 700;
+  }
+  .toc-bar { width: 4px; height: 1.1em; border-radius: 9999px; background: transparent; flex: none; }
+  .toc-num { width: 1.25rem; flex: none; text-align: right; font-variant-numeric: tabular-nums; opacity: 0.7; }
+  .toc-link:hover { color: #7b2ff7; }
+  .toc-link.active { background: #ece5ff; color: #2b2450; }
+  .toc-link.active .toc-bar { background: #7b2ff7; }
+  html[data-theme="dark"] .toc-link { color: #a9a3c9; }
+  html[data-theme="dark"] .toc-link:hover { color: #b18cff; }
+  html[data-theme="dark"] .toc-link.active { background: #2a2155; color: #eceaf7; }
+
+  /* Inline code chips (`.exe` etc.) stay legible in dark mode */
+  html[data-theme="dark"] .bg-candy-purple-soft { background-color: #2a2155 !important; }
+  html[data-theme="dark"] .text-candy-purple-deep { color: #cbb8ff !important; }
+
+  /* "You are here" current-part card stays legible in dark mode */
+  html[data-theme="dark"] .bg-white\/70 { background-color: #2a2155 !important; border-color: #4b4580 !important; }
+</style>
+</head>
+
+<body class="bg-[#f7f8fa] font-candy text-candy-ink">
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- ================= Header / nav ================= -->
+  <header class="sticky top-0 z-50 border-b-2 border-candy-ink bg-white/80 backdrop-blur">
+    <nav class="mx-auto flex max-w-[88rem] items-center gap-2 px-3 py-3 sm:gap-4 sm:px-5 sm:py-4" aria-label="Main">
+      <a href="../../../" class="flex shrink-0 items-center gap-2 text-xl font-black">
+        <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg border-2 border-candy-ink bg-gradient-to-br from-candy-purple to-candy-pink text-sm font-black text-white shadow-lift-3 sm:h-9 sm:w-9 sm:text-base" aria-hidden="true">E</span>
+        <span class="hidden min-[360px]:inline">Eitu<span class="hidden min-[400px]:inline">caru</span></span>
+      </a>
+      <div class="ml-auto flex items-center gap-1 sm:gap-2">
+        <a href="../../" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">Guides</a>
+        <a href="../../../projects/" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">Projects</a>
+        <a href="../../../#about" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">About</a>
+        <button id="theme-toggle" type="button" aria-label="Toggle light / dark mode" title="Toggle light / dark mode" class="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-candy-ink bg-white text-candy-ink shadow-lift-3 transition hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:h-9 sm:w-9">
+          <svg id="icon-moon" class="h-3.5 w-3.5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+          <svg id="icon-sun" class="hidden h-3.5 w-3.5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="mx-auto max-w-[88rem] px-5 py-8 md:py-12">
+
+    <!-- ================= Guide header ================= -->
+    <a href="../" class="inline-flex items-center gap-1.5 text-base font-bold text-candy-muted transition hover:text-candy-purple">&larr; Install Studio Library Manager</a>
+
+    <h1 class="mt-3 max-w-3xl text-3xl font-black leading-tight md:text-[2.6rem]">Configure your own library</h1>
+
+    <!-- ================= Media + article, with a sticky actions / TOC rail ================= -->
+    <div class="mt-7 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
+
+      <!-- Left column: media frame, then the article -->
+      <div class="min-w-0">
+        <!-- video placeholder — replace with your video embed -->
+        <div id="media" class="relative h-64 w-full overflow-hidden rounded-2xl border-2 border-candy-ink bg-[#2b2440] sm:h-80 lg:h-[26rem]">
+          <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 p-4 text-center text-white">
+            <span class="grid h-16 w-16 place-items-center rounded-full bg-white/15 shadow-lift-3" aria-hidden="true">
+              <svg viewBox="0 0 24 24" class="ml-1 h-7 w-7" fill="currentColor"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg>
+            </span>
+            <p class="text-lg font-black">Video tutorial</p>
+            <p class="text-sm text-white/60">This is a placeholder — drop your video embed here.</p>
+          </div>
+        </div>
+
+        <!-- Download / Source — compact & horizontal on mobile, right under the video (the big buttons live in the rail on desktop) -->
+        <div class="mt-3 grid grid-cols-2 gap-3 lg:hidden">
+          <a href="#" class="flex items-center justify-center gap-2 rounded-xl border-2 border-candy-purple-deep bg-candy-purple px-3 py-2.5 text-white shadow-lift-2 transition active:translate-y-[2px] active:shadow-lift-1">
+            <svg viewBox="0 0 24 24" class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span class="flex flex-col leading-tight">
+              <span class="text-sm font-black">Download</span>
+              <span class="text-[11px] text-white/80">.exe &middot; 23 MB</span>
+            </span>
+          </a>
+          <a href="#" class="src-btn flex items-center justify-center gap-2 rounded-xl border-2 border-candy-ink bg-candy-ink px-3 py-2.5 text-white shadow-lift-2 transition active:translate-y-[2px] active:shadow-lift-1">
+            <svg viewBox="0 0 24 24" class="h-4 w-4 shrink-0" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            <span class="flex flex-col leading-tight">
+              <span class="text-sm font-black">Source</span>
+              <span class="text-[11px] text-white/70">GitHub</span>
+            </span>
+          </a>
+        </div>
+
+        <!-- article -->
+        <article class="mt-6 space-y-12 text-lg leading-relaxed text-candy-muted lg:mt-10">
+
+          <!-- 1. What a library contains -->
+          <section id="library-structure" class="scroll-mt-28">
+            <div class="flex items-center gap-3">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-candy-purple text-lg font-black text-white shadow-lift-2" aria-hidden="true">1</span>
+              <h2 class="text-2xl font-black text-candy-ink md:text-3xl">What a library contains</h2>
+            </div>
+            <div class="mt-4 space-y-3">
+              <p>Watch the video tutorial above for an easy follow-along, or just work through the steps here.</p>
+              <p><em>This guide is being written &mdash; folders, parts and how a library is structured.</em></p>
+            </div>
+          </section>
+
+          <!-- 2. Build your own library -->
+          <section id="build-library" class="scroll-mt-28">
+            <div class="flex items-center gap-3">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-candy-purple text-lg font-black text-white shadow-lift-2" aria-hidden="true">2</span>
+              <h2 class="text-2xl font-black text-candy-ink md:text-3xl">Build your own library</h2>
+            </div>
+            <div class="mt-4 space-y-3">
+              <p>Watch the video tutorial above for an easy follow-along, or just work through the steps here.</p>
+              <p><em>This chapter is being written &mdash; adding parts, packaging and managing the library over time.</em></p>
+            </div>
+          </section>
+
+        </article>
+      </div>
+
+      <!-- Right rail: actions up top (in line with the media), then the contents — sticks to the top on scroll -->
+      <aside class="flex flex-col gap-3 lg:sticky lg:top-24">
+        <a href="#" class="hidden items-center gap-4 rounded-2xl border-2 border-candy-purple-deep bg-candy-purple p-4 text-white shadow-lift-4 transition hover:-translate-y-0.5 hover:brightness-110 active:translate-y-[2px] active:shadow-lift-1 lg:flex">
+          <svg viewBox="0 0 24 24" class="h-7 w-7 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span class="flex flex-col leading-tight">
+            <span class="text-xl font-black">Download</span>
+            <span class="text-sm text-white/80">StudioLibraryManager.exe &middot; 23 MB</span>
+          </span>
+        </a>
+        <a href="#" class="src-btn hidden items-center gap-4 rounded-2xl border-2 border-candy-ink bg-candy-ink p-4 text-white shadow-lift-4 transition hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-lift-1 lg:flex">
+          <svg viewBox="0 0 24 24" class="h-7 w-7 shrink-0" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          <span class="flex flex-col leading-tight">
+            <span class="text-xl font-black">Source code</span>
+            <span class="text-sm text-white/70">github.com/eitucaru/rep</span>
+          </span>
+        </a>
+
+        <!-- Table of contents -->
+        <div class="rounded-2xl border-2 border-candy-ink bg-white p-4 shadow-lift-3">
+          <p class="px-1 pb-1 text-xs font-black uppercase tracking-widest text-candy-muted">On this page</p>
+          <nav class="flex flex-col gap-1" aria-label="Guide chapters" id="toc">
+            <a class="toc-link active" href="#library-structure"><span class="toc-bar" aria-hidden="true"></span><span class="toc-num">1</span><span>What a library contains</span></a>
+            <a class="toc-link" href="#build-library"><span class="toc-bar" aria-hidden="true"></span><span class="toc-num">2</span><span>Build your own library</span></a>
+          </nav>
+        </div>
+      </aside>
+    </div>
+
+      <!-- ================= More in this series ================= -->
+      <section class="mt-12 border-t-2 border-dashed border-candy-ink/20 pt-8" aria-labelledby="series-title">
+        <div class="flex flex-wrap items-end justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span class="h-3 w-10 rounded-full bg-candy-purple shadow-lift-2" aria-hidden="true"></span>
+            <h2 class="text-2xl font-black tracking-tight md:text-3xl" id="series-title">More from this guide</h2>
+          </div>
+          <a href="../../" class="text-base font-black text-candy-purple hover:underline">All guides &rarr;</a>
+        </div>
+        <p class="mt-2 max-w-2xl text-candy-muted">Install Studio Library Manager is a three-part guide &mdash; each part has its own tutorial video and steps. Jump between parts whenever you like.</p>
+
+        <div class="mt-6 grid gap-4 md:grid-cols-3">
+          <a href="../" class="group flex items-center gap-3 rounded-2xl border-2 border-candy-ink bg-white p-4 shadow-lift-2 transition hover:-translate-y-0.5 hover:border-candy-purple hover:shadow-lift-4">
+            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-candy-purple-soft text-sm font-black text-candy-purple-deep" aria-hidden="true">1</span>
+            <span class="min-w-0 flex-1">
+              <span class="block text-sm font-black text-candy-ink transition group-hover:text-candy-purple">Install Studio Library Manager</span>
+              <span class="block text-xs text-candy-muted">Express install</span>
+            </span>
+            <svg viewBox="0 0 24 24" class="h-4 w-4 shrink-0 text-candy-purple" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="../custom-options/" class="group flex items-center gap-3 rounded-2xl border-2 border-candy-ink bg-white p-4 shadow-lift-2 transition hover:-translate-y-0.5 hover:border-candy-purple hover:shadow-lift-4">
+            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-candy-purple-soft text-sm font-black text-candy-purple-deep" aria-hidden="true">2</span>
+            <span class="min-w-0 flex-1">
+              <span class="block text-sm font-black text-candy-ink transition group-hover:text-candy-purple">Custom install options</span>
+              <span class="block text-xs text-candy-muted">Express vs custom</span>
+            </span>
+            <svg viewBox="0 0 24 24" class="h-4 w-4 shrink-0 text-candy-purple" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <div class="flex items-center gap-3 rounded-2xl border-2 border-dashed border-candy-ink/50 bg-white/70 p-4">
+            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-candy-yellow text-sm font-black text-[#2b2450] shadow-lift-1" aria-hidden="true">3</span>
+            <span class="min-w-0">
+              <span class="block text-xs font-black uppercase tracking-wider text-candy-muted">You are here</span>
+              <span class="block text-sm font-black text-candy-ink">Configure your own library</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="mt-8 flex flex-wrap items-center justify-between gap-3">
+          <a href="../../" class="inline-flex items-center gap-1.5 rounded-full border-2 border-candy-ink bg-white px-4 py-1.5 text-sm font-black text-candy-purple shadow-lift-2 transition hover:bg-candy-yellow hover:text-[#2b2450] active:translate-y-[2px] active:shadow-lift-1">&larr; All guides</a>
+          <a href="../custom-options/" class="inline-flex items-center gap-1.5 rounded-full border-2 border-candy-ink bg-white px-4 py-2 text-base font-black text-candy-purple shadow-lift-2 transition hover:bg-candy-yellow hover:text-[#2b2450] active:translate-y-[2px] active:shadow-lift-1">&larr; Custom install options</a>
+        </div>
+      </section>
+  </main>
+
+  <!-- ================= Footer ================= -->
+  <footer class="mt-4 rounded-t-[1.75rem] bg-candy-ink-deep px-5 py-10 text-candy-footer-text">
+    <div class="mx-auto flex max-w-[88rem] flex-wrap justify-between gap-8">
+      <div class="max-w-sm">
+        <h2 class="text-lg font-black text-candy-yellow">Eitucaru</h2>
+        <p class="mt-2">Tools, games and open source projects for various software and hobbies.</p>
+      </div>
+      <nav aria-label="Popular">
+        <h2 class="text-lg font-black text-candy-yellow">Popular</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Studio Library Manager</a></li>
+          <li><a href="../../../docs/" class="hover:text-candy-yellow hover:underline">BrickLink Studio 2.0 docs</a></li>
+          <li><a href="../../" class="hover:text-candy-yellow hover:underline">All guides</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Elsewhere">
+        <h2 class="text-lg font-black text-candy-yellow">Elsewhere</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">GitHub</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Scratch</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Roblox</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Site">
+        <h2 class="text-lg font-black text-candy-yellow">Site</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="../../../" class="hover:text-candy-yellow hover:underline">Home</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Accessibility statement</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Privacy</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="mx-auto mt-8 flex max-w-[88rem] justify-between border-t border-white/15 pt-4 text-sm text-candy-muted">
+      <span>&copy; 2026 Eitucaru &middot; Built for everyone.</span>
+      <a href="#main" class="hover:text-candy-yellow hover:underline">Back to top &uarr;</a>
+    </div>
+  </footer>
+
+<script src="../../../assets/js/theme.js"></script>
+
+<script>
+  // Table of contents — highlight the chapter currently in view
+  (function () {
+    var links = [].slice.call(document.querySelectorAll('.toc-link'));
+    var ids = links.map(function (a) { return a.getAttribute('href').slice(1); });
+    var sections = ids.map(function (id) { return document.getElementById(id); });
+    var lastSec = sections[sections.length - 1];
+
+    function activate(id) {
+      links.forEach(function (l) {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+      });
+    }
+
+    function onScroll() {
+      var offset = 130; // just below the sticky header
+      var current = ids[0];
+      for (var k = 0; k < sections.length; k++) {
+        if (sections[k] && sections[k].getBoundingClientRect().top - offset <= 0) current = ids[k];
+      }
+      // when the final chapter has scrolled up into view, settle on it
+      if (lastSec && lastSec.getBoundingClientRect().bottom <= window.innerHeight + 60) {
+        current = ids[ids.length - 1];
+      }
+      activate(current);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
+</body>
+</html>

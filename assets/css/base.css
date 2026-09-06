@@ -1,0 +1,56 @@
+/* ============================================================
+   MineJ — shared base styles
+   ------------------------------------------------------------
+   Global styles that aren't utility classes: focus rings,
+   the skip-to-content link, smooth scrolling and
+   prefers-reduced-motion support.
+
+   This file is plain CSS (no Tailwind build step needed).
+   Link it in every page:  <link rel="stylesheet" href="assets/base.css">
+   ============================================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Visible, high-contrast keyboard focus everywhere */
+:focus-visible {
+  outline: 3px solid #7b2ff7;
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+/* Skip link — hidden until focused (for keyboard / screen-reader users) */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: #7b2ff7;
+  color: #fff;
+  font-weight: 800;
+  padding: 0.75rem 1rem;
+  border-radius: 0 0 0.75rem 0;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* Respect users who ask for less motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

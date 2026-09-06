@@ -1,41 +1,536 @@
----
-layout: default
-title: Home
----
-{% assign roblox_projects = site.data.projects | where: "category", "roblox" %}
-{% assign bricks_projects = site.data.projects | where: "category", "bricks" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Eitucaru</title>
+<script>
+  // Set the theme before first paint (follows the system unless the user has toggled it)
+  (function () {
+    try {
+      var saved = localStorage.getItem('theme');
+      var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+  })();
+</script>
+<meta name="description" content="Eitucaru's homepage: LEGO tools, games and open source projects. Everything is a direct, easy download.">
+<!--
+  Homepage — Candy Pop theme.
+  Shared styles live in assets/css/ (base.css, theme.css);
+  page-specific styles stay in the <style> block below.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/tailwind.config.js"></script>
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/theme.css">
+<style>
+  /* Homepage-specific styles (the shared theme lives in assets/css/theme.css) */
 
-<section class="hero">
-  <div class="wrap">
-    <p class="eyebrow">Hey 👋</p>
-    <h1>Stuff I build, all in one place.</h1>
-    <p>Tools and little projects from two hobbies: Roblox development, and building with LEGO-compatible bricks — BrickLink Studio 2.0, LDraw, and friends. Pick a bin to poke around.</p>
-  </div>
-</section>
+  /* Carousel — the frame height eases to each screenshot's true aspect ratio */
+  #car-stage { transition: height 320ms cubic-bezier(0.22, 1, 0.36, 1); }
 
-<section class="wrap">
-  <div class="bins">
-    <a class="bin roblox" href="{{ '/roblox/' | relative_url }}">
-      <div class="studs"><span></span><span></span><span></span></div>
-      <h2>Roblox</h2>
-      <p>Plugins, libraries, and little tools for building in Roblox Studio and with Rojo.</p>
-      <p class="manifest">{{ roblox_projects | size }} project{% if roblox_projects.size != 1 %}s{% endif %} →</p>
-    </a>
+  /* Jump-to chips stay light pills with dark labels so they read on the dark page */
+  html[data-theme="dark"] #top ul a { color: #2b2450 !important; border-color: #4b4580 !important; }
+  html[data-theme="dark"] #top ul a span { background-color: #ffffff !important; color: #2b2450 !important; }
 
-    <a class="bin bricks" href="{{ '/bricks/' | relative_url }}">
-      <div class="studs"><span></span><span></span><span></span></div>
-      <h2>Bricks</h2>
-      <p>Tools for BrickLink Studio 2.0 and LDraw — exporting, converting, and browsing parts.</p>
-      <p class="manifest">{{ bricks_projects | size }} project{% if bricks_projects.size != 1 %}s{% endif %} →</p>
-    </a>
-  </div>
-</section>
+  /* Carousel: darker preview backdrop, active dot + restore hover affordances */
+  html[data-theme="dark"] #car-stage { background-image: linear-gradient(to bottom right, #2a1f57, #4a1c4e) !important; }
+  html[data-theme="dark"] #car-dots button.bg-candy-ink { background-color: #eceaf7 !important; }
+  html[data-theme="dark"] #guides li:hover, html[data-theme="dark"] #projects li:hover { border-color: #7b2ff7 !important; }
 
-<section class="elsewhere">
-  <div class="wrap">
-    <div class="elsewhere-card">
-      <h3>Also worth a look</h3>
-      <p>If you're into building with non-LEGO-compatible bricks, I've got a whole site for that: <a class="link-out" href="{{ site.bricks_site_url }}">{{ site.bricks_site_name }}</a>. It's a different vibe from the general-purpose tools here.</p>
+  /* Project-tile icons that use currentColor sit on light pastel tiles — keep them dark */
+  html[data-theme="dark"] #projects li span svg { color: #2b2450 !important; }
+</style>
+</head>
+
+<body class="bg-[#f7f8fa] font-candy text-candy-ink">
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- Hero screenshot spotlight: one focused shot with side peeks, arrows and gentle autoplay (hidden below large screens) -->
+  <div class="pointer-events-none absolute inset-x-0 top-14 z-10 hidden h-[42rem] overflow-x-clip xl:block xl:h-[46rem]">
+    <div class="absolute top-[2rem] w-[34rem] xl:w-[36rem] 2xl:w-[42rem]" style="right: max(1rem, calc((100% - 88rem) / 2));">
+      <div id="carousel" class="pointer-events-auto relative">
+        <!-- stage -->
+        <div class="relative w-full">
+          <!-- main frame -->
+          <div class="overflow-hidden rounded-xl border-[3px] border-candy-ink bg-white">
+            <div class="flex items-center gap-2 border-b-2 border-candy-ink bg-white px-3 py-1.5">
+              <span id="car-dot" class="h-2.5 w-2.5 shrink-0 rounded-full bg-candy-purple" aria-hidden="true"></span>
+              <span id="car-name" class="truncate text-sm font-bold text-candy-ink">3D Part Designer</span>
+            </div>
+            <div id="car-stage" class="relative overflow-hidden bg-gradient-to-br from-candy-purple-soft to-candy-pink-soft">
+              <!-- slides move inside this track (4th image is a clone of the first for a seamless loop) -->
+              <div id="car-track" class="flex h-full"></div>
+            </div>
+          </div>
+          <!-- arrows -->
+          <button id="car-prev" aria-label="Previous screenshot" class="absolute left-0 top-1/2 grid h-10 w-10 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-2 border-candy-ink bg-white text-xl font-black text-candy-ink shadow-lift-3 transition hover:bg-candy-yellow active:shadow-lift-1">‹</button>
+          <button id="car-next" aria-label="Next screenshot" class="absolute right-0 top-1/2 grid h-10 w-10 translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-2 border-candy-ink bg-white text-xl font-black text-candy-ink shadow-lift-3 transition hover:bg-candy-yellow active:shadow-lift-1">›</button>
+        </div>
+        <!-- dots -->
+        <div id="car-dots" class="mt-2 flex items-center justify-center gap-2"></div>
+      </div>
     </div>
   </div>
-</section>
+
+  <!-- ================= Header / nav ================= -->
+  <header class="sticky top-0 z-50 border-b-2 border-candy-ink bg-white/80 backdrop-blur">
+    <nav class="mx-auto flex max-w-[88rem] items-center gap-2 px-3 py-3 sm:gap-4 sm:px-5 sm:py-4" aria-label="Main">
+      <a href="#top" class="flex shrink-0 items-center gap-2 text-xl font-black">
+        <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg border-2 border-candy-ink bg-gradient-to-br from-candy-purple to-candy-pink text-sm font-black text-white shadow-lift-3 sm:h-9 sm:w-9 sm:text-base" aria-hidden="true">E</span>
+        <span class="hidden min-[360px]:inline">Eitu<span class="hidden min-[400px]:inline">caru</span></span>
+      </a>
+      <div class="ml-auto flex items-center gap-1 sm:gap-2">
+        <a href="guides/" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">Guides</a>
+        <a href="projects/" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">Projects</a>
+        <a href="#about" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">About</a>
+        <button id="theme-toggle" type="button" aria-label="Toggle light / dark mode" title="Toggle light / dark mode" class="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-candy-ink bg-white text-candy-ink shadow-lift-3 transition hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:h-9 sm:w-9">
+          <svg id="icon-moon" class="h-3.5 w-3.5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+          <svg id="icon-sun" class="hidden h-3.5 w-3.5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ================= Hero banner + compact jump bar ================= -->
+    <section aria-labelledby="hero-title" id="top">
+      <div class="mx-auto max-w-[88rem] px-5 py-14 md:py-16 xl:pb-16 2xl:pb-28">
+        <!-- Intro text — anchored to the left side -->
+        <div class="max-w-[34rem]">
+          <h1 class="text-xl font-black leading-[1.05] tracking-tight sm:text-2xl md:text-[2.2rem]" id="hero-title">Tools, docs, generators, games<br>&amp; the gate to funkytown.</h1>
+          <p class="mt-4 max-w-xl text-lg font-semibold text-candy-muted">Check out all the games I've crunched through on game jams, or read up on the cool things I've made to make my life easier and cooler, maybe they are of use to you too :3</p>
+        </div>
+
+        <!-- Compact jump bar: project shortcuts merged into the hero (kept left so it stays clear of the showcase) -->
+        <div class="mt-8 max-w-[40rem] md:mt-10">
+          <p class="text-xs font-black uppercase tracking-widest text-candy-muted">Jump to</p>
+          <ul class="mt-3 flex flex-wrap gap-2.5">
+            <li><a href="#lego-tools" class="inline-flex items-center gap-2 rounded-full border-2 border-candy-ink bg-candy-yellow-soft py-1.5 pl-1.5 pr-4 text-base font-extrabold shadow-lift-3 transition hover:translate-y-[2px] hover:shadow-lift-1 active:translate-y-[2px] active:shadow-lift-1"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-candy-ink bg-white" aria-hidden="true"><img src="assets/icons/studio-128.png" alt="" width="128" height="128" class="h-5 w-5 rounded-md"></span>LEGO tools</a></li>
+            <li><a href="#scratch" class="inline-flex items-center gap-2 rounded-full border-2 border-candy-ink bg-candy-pink-soft py-1.5 pl-1.5 pr-4 text-base font-extrabold shadow-lift-3 transition hover:translate-y-[2px] hover:shadow-lift-1 active:translate-y-[2px] active:shadow-lift-1"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-candy-ink bg-white" aria-hidden="true"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="#f6a21e"><path d="M11.406 11.312c-.78-.123-1.198-.654-.99-2.295l.023-.198c.175-1.426.321-1.743.996-1.706.198.013.426.14.654.33.211.247.68.568.945 1.204.19.466.254.77.281 1.098l.042.402v-.002a.68.68 0 0 0 1.342-.007c.008-.044.176-4.365.176-4.436 0-.38-.302-.69-.68-.696a.685.685 0 0 0-.682.688c0 .009-.001.605-.014 1.206-.536-.592-1.223-1.123-1.994-1.17-2.058-.11-2.283 1.811-2.419 2.918l-.02.196c-.278 2.189.441 3.569 2.13 3.837 1.838.293 3.063.72 3.074 1.868.007.446-.224.903-.627 1.254a2.163 2.163 0 0 1-1.749.507 3.233 3.233 0 0 1-.539-.141c-.24-.136-.847-.51-1.154-.942-.26-.364-.35-.937-.378-1.3.004-.163.005-.27.005-.283a.69.69 0 0 0-.669-.703.689.689 0 0 0-.696.682c0 .013-.017 1.367-.066 2.183-.07 1.313 0 2.426 0 2.474.028.382.35.67.727.644a.681.681 0 0 0 .635-.733c0-.006-.033-.545-.029-1.29a5.21 5.21 0 0 0 1.938.773 3.451 3.451 0 0 0 2.856-.82c.713-.619 1.122-1.464 1.11-2.32-.024-2.555-2.865-3.004-4.228-3.222M14.174 0a5.51 5.51 0 0 0-2.724.723h-.112c-2.637 0-4.937 1.392-6.15 3.728-.728 1.393-.9 2.75-.999 3.579-.012.089-.018.17-.028.262-.12.974-.123 1.904-.01 2.772a5.824 5.824 0 0 0-.625 2.529v.016a58.919 58.919 0 0 1-.057 1.95 29.72 29.72 0 0 0-.008 2.94l.013.209C3.698 21.676 6.159 24 9.083 24a5.516 5.516 0 0 0 3.463-1.21 8.357 8.357 0 0 0 5.195-2.08c1.826-1.587 2.859-3.845 2.83-6.19-.013-1.362-.346-2.638-.978-3.763.117-1.273.221-4.996.221-5.03 0-3.103-2.484-5.67-5.539-5.727zm.056 2.675c1.642.03 2.978 1.412 2.978 3.081 0 .038-.145 4.497-.215 4.883a3.152 3.152 0 0 1-.203.69c.756.89 1.165 2 1.175 3.256.021 1.555-.681 3.076-1.926 4.16a5.763 5.763 0 0 1-3.8 1.444 5.986 5.986 0 0 1-.718-.048 3.386 3.386 0 0 1-.172.215 2.97 2.97 0 0 1-2.264 1.038c-1.573 0-2.897-1.255-3.013-2.856l-.008-.122a27.366 27.366 0 0 1 .005-2.662c.039-.679.06-1.831.062-2.08a3.124 3.124 0 0 1 .783-2.025c-.237-.835-.312-1.836-.167-3.02l.024-.212c.083-.695.208-1.72.72-2.7.765-1.473 2.168-2.318 3.848-2.318a4.568 4.568 0 0 1 .824.07c.546-.5 1.27-.81 2.067-.794Z"/></svg></span>Scratch games</a></li>
+            <li><a href="#roblox-games" class="inline-flex items-center gap-2 rounded-full border-2 border-candy-ink bg-candy-orange-soft py-1.5 pl-1.5 pr-4 text-base font-extrabold shadow-lift-3 transition hover:translate-y-[2px] hover:shadow-lift-1 active:translate-y-[2px] active:shadow-lift-1"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-candy-ink bg-white" aria-hidden="true"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="#e2231a"><path d="M18.926 23.998 0 18.892 5.075.002 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg></span>Roblox games</a></li>
+            <li><a href="#roblox-tools" class="inline-flex items-center gap-2 rounded-full border-2 border-candy-ink bg-candy-sky-soft py-1.5 pl-1.5 pr-4 text-base font-extrabold shadow-lift-3 transition hover:translate-y-[2px] hover:shadow-lift-1 active:translate-y-[2px] active:shadow-lift-1"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-candy-ink bg-white text-candy-ink" aria-hidden="true"><svg viewBox="0 0 257 256" class="h-5 w-auto" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M26.4794 106.601L55.0563 0L256.949 54.1081L237.456 126.808L108.29 92.193L99.2063 126.067L26.4794 106.601ZM20.4417 129.165L149.607 163.78L158.692 129.907L231.419 149.399L202.842 256L0.948975 201.892L20.4417 129.165Z"/></svg></span>Roblox tools</a></li>
+            <li><a href="#web-generators" class="inline-flex items-center gap-2 rounded-full border-2 border-candy-ink bg-candy-lav-soft py-1.5 pl-1.5 pr-4 text-base font-extrabold shadow-lift-3 transition hover:translate-y-[2px] hover:shadow-lift-1 active:translate-y-[2px] active:shadow-lift-1"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-candy-ink bg-white text-candy-ink" aria-hidden="true"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09zM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456z"/></svg></span>Web generators</a></li>
+            <li><a href="#open-source" class="inline-flex items-center gap-2 rounded-full border-2 border-candy-ink bg-candy-teal-soft py-1.5 pl-1.5 pr-4 text-base font-extrabold shadow-lift-3 transition hover:translate-y-[2px] hover:shadow-lift-1 active:translate-y-[2px] active:shadow-lift-1"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-candy-ink bg-white" aria-hidden="true"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="#181717"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span>Open source</a></li>
+            <li><a href="#other" class="inline-flex items-center gap-2 rounded-full border-2 border-candy-ink bg-candy-cream-soft py-1.5 pl-1.5 pr-4 text-base font-extrabold shadow-lift-3 transition hover:translate-y-[2px] hover:shadow-lift-1 active:translate-y-[2px] active:shadow-lift-1"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-candy-ink bg-white text-candy-ink" aria-hidden="true"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg></span>Other</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Bulletin board: Guides & posts + All projects ================= -->
+    <section class="mx-auto max-w-[88rem] px-5 py-12 md:py-8" aria-labelledby="guides-title">
+      <div class="relative rounded-[2rem] border-[3px] border-candy-ink bg-white p-6 pt-10 shadow-lift-5 md:p-10 md:pt-12">
+
+        <!-- Guides & posts -->
+        <div id="guides" class="scroll-mt-24">
+          <div class="flex items-center gap-3">
+            <span class="h-3 w-10 rounded-full bg-candy-purple shadow-lift-2" aria-hidden="true"></span>
+            <h2 class="text-2xl font-black tracking-tight md:text-3xl" id="guides-title">Resources</h2>
+          </div>
+
+          <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" id="guides-grid">
+        <!-- Featured guide -->
+        <li class="flex flex-col rounded-3xl border-[3px] border-candy-ink bg-white shadow-lift-5 transition hover:-translate-y-1 hover:border-candy-purple hover:shadow-lift-8">
+          <a href="guides/install-studio-library-manager/" class="flex flex-1 flex-col p-5">
+            <span class="inline-block self-start rounded-full border-2 border-candy-purple bg-candy-purple-soft px-3 py-0.5 text-[11px] font-black uppercase tracking-wider text-candy-purple-deep">Guide · Featured</span>
+            <h3 class="mt-3 text-lg font-black">Install Studio Library Manager</h3>
+            <p class="mt-1 text-sm text-candy-muted">Step-by-step: download, install and use of Studio Library Manager with BrickLink Studio 2.0 (stud.io).</p>
+            <span class="mt-3 text-sm font-black text-candy-purple">Read more →</span>
+          </a>
+        </li>
+
+        <!-- Docs -->
+        <li class="flex flex-col rounded-3xl border-[3px] border-candy-ink bg-white shadow-lift-5 transition hover:-translate-y-1 hover:border-candy-purple hover:shadow-lift-8">
+          <a href="docs/" class="flex flex-1 flex-col p-5">
+            <span class="inline-block self-start rounded-full border-2 border-candy-teal bg-candy-teal-soft px-3 py-0.5 text-[11px] font-black uppercase tracking-wider text-[#166b5f]">Documentation</span>
+            <h3 class="mt-3 text-lg font-black">BrickLink Studio 2.0 documentation</h3>
+            <p class="mt-1 text-sm text-candy-muted">In-depth docs for stud.io connectivity binary file format, stud.io systems, and my personal tools.</p>
+            <span class="mt-3 text-sm font-black text-candy-purple">Read more →</span>
+          </a>
+        </li>
+
+        <!-- Post -->
+        <li class="flex flex-col rounded-3xl border-[3px] border-candy-ink bg-white shadow-lift-5 transition hover:-translate-y-1 hover:border-candy-purple hover:shadow-lift-8">
+          <a href="#" class="flex flex-1 flex-col p-5">
+            <span class="inline-block self-start rounded-full border-2 border-candy-teal bg-candy-teal-soft px-3 py-0.5 text-[11px] font-black uppercase tracking-wider text-[#166b5f]">Insights</span>
+            <h3 class="mt-3 text-lg font-black">Why I built a Glitchcore filter generator</h3>
+            <p class="mt-1 text-sm text-candy-muted">I love the visual style of glitchcore, eyesore/eyestrain and scenecore, but it took creative design and manual work, I wanted to simplify it.</p>
+            <span class="mt-3 text-sm font-black text-candy-purple">Read more →</span>
+          </a>
+        </li>
+      </ul>
+
+        <!-- Browse all resources — fills a free card slot when one exists, otherwise sits below the grid -->
+        <div id="browse-resources-below" class="mt-8 hidden justify-center">
+          <a href="guides/" class="inline-flex items-center gap-2 rounded-full border-2 border-candy-ink bg-candy-yellow px-6 py-2.5 text-lg font-black text-[#2b2450] shadow-lift-4 transition hover:-translate-y-0.5 hover:brightness-105 active:translate-y-[2px] active:shadow-lift-1">
+            Browse all resources
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+        </div>
+
+        <!-- All projects -->
+        <div id="projects" class="mt-12 scroll-mt-24">
+          <div class="flex items-center gap-3">
+            <span class="h-3 w-10 rounded-full bg-candy-teal shadow-lift-2" aria-hidden="true"></span>
+            <h2 class="text-2xl font-black tracking-tight md:text-3xl" id="projects-title">All projects</h2>
+          </div>
+
+          <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" id="lego-tools">
+        <li class="flex flex-col gap-1 rounded-3xl border-[3px] border-candy-ink bg-white p-6 shadow-lift-4 transition hover:-translate-y-1 hover:shadow-lift-6 scroll-mt-24">
+          <span class="grid h-12 w-12 place-items-center rounded-xl border-2 border-candy-ink bg-candy-purple-soft" aria-hidden="true"><img src="assets/icons/studio-128.png" alt="" class="h-6 w-6 rounded-md"></span>
+          <h3 class="text-lg font-black">LEGO tools</h3>
+          <p class="text-sm text-candy-muted">Utilities for BrickLink Studio 2.0, part lists and building.</p>
+          <ul class="mt-1 list-none">
+            <li><a href="#" class="text-sm font-extrabold text-candy-purple hover:underline">Studio Library Manager</a></li>
+            <li><a href="#" class="text-sm font-extrabold text-candy-purple hover:underline">Part List Cleaner</a></li>
+          </ul>
+          <a href="projects/lego-tools/" class="mt-2 text-sm font-black text-candy-purple hover:underline">See all LEGO tools →</a>
+        </li>
+        <li class="flex flex-col gap-1 rounded-3xl border-[3px] border-candy-ink bg-white p-6 shadow-lift-4 transition hover:-translate-y-1 hover:shadow-lift-6 scroll-mt-24" id="scratch">
+          <span class="grid h-12 w-12 place-items-center rounded-xl border-2 border-candy-ink bg-candy-pink-soft" aria-hidden="true"><svg viewBox="0 0 24 24" class="h-6 w-6" fill="#f6a21e"><path d="M11.406 11.312c-.78-.123-1.198-.654-.99-2.295l.023-.198c.175-1.426.321-1.743.996-1.706.198.013.426.14.654.33.211.247.68.568.945 1.204.19.466.254.77.281 1.098l.042.402v-.002a.68.68 0 0 0 1.342-.007c.008-.044.176-4.365.176-4.436 0-.38-.302-.69-.68-.696a.685.685 0 0 0-.682.688c0 .009-.001.605-.014 1.206-.536-.592-1.223-1.123-1.994-1.17-2.058-.11-2.283 1.811-2.419 2.918l-.02.196c-.278 2.189.441 3.569 2.13 3.837 1.838.293 3.063.72 3.074 1.868.007.446-.224.903-.627 1.254a2.163 2.163 0 0 1-1.749.507 3.233 3.233 0 0 1-.539-.141c-.24-.136-.847-.51-1.154-.942-.26-.364-.35-.937-.378-1.3.004-.163.005-.27.005-.283a.69.69 0 0 0-.669-.703.689.689 0 0 0-.696.682c0 .013-.017 1.367-.066 2.183-.07 1.313 0 2.426 0 2.474.028.382.35.67.727.644a.681.681 0 0 0 .635-.733c0-.006-.033-.545-.029-1.29a5.21 5.21 0 0 0 1.938.773 3.451 3.451 0 0 0 2.856-.82c.713-.619 1.122-1.464 1.11-2.32-.024-2.555-2.865-3.004-4.228-3.222M14.174 0a5.51 5.51 0 0 0-2.724.723h-.112c-2.637 0-4.937 1.392-6.15 3.728-.728 1.393-.9 2.75-.999 3.579-.012.089-.018.17-.028.262-.12.974-.123 1.904-.01 2.772a5.824 5.824 0 0 0-.625 2.529v.016a58.919 58.919 0 0 1-.057 1.95 29.72 29.72 0 0 0-.008 2.94l.013.209C3.698 21.676 6.159 24 9.083 24a5.516 5.516 0 0 0 3.463-1.21 8.357 8.357 0 0 0 5.195-2.08c1.826-1.587 2.859-3.845 2.83-6.19-.013-1.362-.346-2.638-.978-3.763.117-1.273.221-4.996.221-5.03 0-3.103-2.484-5.67-5.539-5.727zm.056 2.675c1.642.03 2.978 1.412 2.978 3.081 0 .038-.145 4.497-.215 4.883a3.152 3.152 0 0 1-.203.69c.756.89 1.165 2 1.175 3.256.021 1.555-.681 3.076-1.926 4.16a5.763 5.763 0 0 1-3.8 1.444 5.986 5.986 0 0 1-.718-.048 3.386 3.386 0 0 1-.172.215 2.97 2.97 0 0 1-2.264 1.038c-1.573 0-2.897-1.255-3.013-2.856l-.008-.122a27.366 27.366 0 0 1 .005-2.662c.039-.679.06-1.831.062-2.08a3.124 3.124 0 0 1 .783-2.025c-.237-.835-.312-1.836-.167-3.02l.024-.212c.083-.695.208-1.72.72-2.7.765-1.473 2.168-2.318 3.848-2.318a4.568 4.568 0 0 1 .824.07c.546-.5 1.27-.81 2.067-.794Z"/></svg></span>
+          <h3 class="text-lg font-black">Scratch games</h3>
+          <p class="text-sm text-candy-muted">Playable in your browser — no installs.</p>
+          <ul class="mt-1 list-none">
+            <li><a href="#" class="text-sm font-extrabold text-candy-purple hover:underline">Sky Runner</a></li>
+            <li><a href="#" class="text-sm font-extrabold text-candy-purple hover:underline">Puzzle Quest</a></li>
+          </ul>
+          <a href="projects/scratch-games/" class="mt-2 text-sm font-black text-candy-purple hover:underline">See all Scratch games →</a>
+        </li>
+        <li class="flex flex-col gap-1 rounded-3xl border-[3px] border-candy-ink bg-white p-6 shadow-lift-4 transition hover:-translate-y-1 hover:shadow-lift-6 scroll-mt-24" id="roblox-games">
+          <span class="grid h-12 w-12 place-items-center rounded-xl border-2 border-candy-ink bg-candy-teal-soft" aria-hidden="true"><svg viewBox="0 0 24 24" class="h-6 w-6" fill="#e2231a"><path d="M18.926 23.998 0 18.892 5.075.002 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg></span>
+          <h3 class="text-lg font-black">Roblox games</h3>
+          <p class="text-sm text-candy-muted">Games I've built — jump in on Roblox.</p>
+          <ul class="mt-1 list-none">
+            <li><a href="#" class="text-sm font-extrabold text-candy-purple hover:underline">Obby Galaxy</a></li>
+          </ul>
+          <a href="projects/roblox-games/" class="mt-2 text-sm font-black text-candy-purple hover:underline">See all Roblox games →</a>
+        </li>
+        <li class="flex flex-col gap-1 rounded-3xl border-[3px] border-candy-ink bg-white p-6 shadow-lift-4 transition hover:-translate-y-1 hover:shadow-lift-6 scroll-mt-24" id="roblox-tools">
+          <span class="grid h-12 w-12 place-items-center rounded-xl border-2 border-candy-ink bg-candy-purple-soft" aria-hidden="true"><svg viewBox="0 0 257 256" class="h-6 w-auto" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M26.4794 106.601L55.0563 0L256.949 54.1081L237.456 126.808L108.29 92.193L99.2063 126.067L26.4794 106.601ZM20.4417 129.165L149.607 163.78L158.692 129.907L231.419 149.399L202.842 256L0.948975 201.892L20.4417 129.165Z"/></svg></span>
+          <h3 class="text-lg font-black">Roblox tools</h3>
+          <p class="text-sm text-candy-muted">Scripts and builders for Roblox creators.</p>
+          <ul class="mt-1 list-none">
+            <li><a href="#" class="text-sm font-extrabold text-candy-purple hover:underline">Model Packer</a></li>
+          </ul>
+          <a href="projects/roblox-tools/" class="mt-2 text-sm font-black text-candy-purple hover:underline">See all Roblox tools →</a>
+        </li>
+        <li class="flex flex-col gap-1 rounded-3xl border-[3px] border-candy-ink bg-white p-6 shadow-lift-4 transition hover:-translate-y-1 hover:shadow-lift-6 scroll-mt-24" id="web-generators">
+          <span class="grid h-12 w-12 place-items-center rounded-xl border-2 border-candy-ink bg-candy-pink-soft" aria-hidden="true"><svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09zM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456z"/></svg></span>
+          <h3 class="text-lg font-black">Web generators</h3>
+          <p class="text-sm text-candy-muted">Little online tools that make things for you.</p>
+          <ul class="mt-1 list-none">
+            <li><a href="#" class="text-sm font-extrabold text-candy-purple hover:underline">Name Generator</a></li>
+            <li><a href="#" class="text-sm font-extrabold text-candy-purple hover:underline">Banner Maker</a></li>
+          </ul>
+          <a href="projects/web-generators/" class="mt-2 text-sm font-black text-candy-purple hover:underline">See all generators →</a>
+        </li>
+        <li class="flex flex-col gap-1 rounded-3xl border-[3px] border-candy-ink bg-white p-6 shadow-lift-4 transition hover:-translate-y-1 hover:shadow-lift-6 scroll-mt-24" id="open-source">
+          <span class="grid h-12 w-12 place-items-center rounded-xl border-2 border-candy-ink bg-candy-teal-soft" aria-hidden="true"><svg viewBox="0 0 24 24" class="h-6 w-6" fill="#181717"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span>
+          <h3 class="text-lg font-black">Open source</h3>
+          <p class="text-sm text-candy-muted">Libraries and repos on GitHub — read, fork, contribute.</p>
+          <ul class="mt-1 list-none">
+            <li><a href="#" class="text-sm font-extrabold text-candy-purple hover:underline">lego-parts-js</a></li>
+            <li><a href="#" class="text-sm font-extrabold text-candy-purple hover:underline">studio-file-parser</a></li>
+          </ul>
+          <a href="projects/open-source/" class="mt-2 text-sm font-black text-candy-purple hover:underline">See GitHub →</a>
+        </li>
+        <li class="flex flex-col gap-1 rounded-3xl border-[3px] border-candy-ink bg-white p-6 shadow-lift-4 transition hover:-translate-y-1 hover:shadow-lift-6 scroll-mt-24" id="other">
+          <span class="grid h-12 w-12 place-items-center rounded-xl border-2 border-candy-ink bg-candy-purple-soft" aria-hidden="true"><svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg></span>
+          <h3 class="text-lg font-black">Other</h3>
+          <p class="text-sm text-candy-muted">Everything that doesn't fit in a box yet.</p>
+          <ul class="mt-1 list-none">
+            <li><a href="#" class="text-sm font-extrabold text-candy-purple hover:underline">Wallpaper packs</a></li>
+          </ul>
+          <a href="projects/other/" class="mt-2 text-sm font-black text-candy-purple hover:underline">See everything →</a>
+        </li>
+          </ul>
+
+        <!-- Browse all projects — fills a free grid slot when one exists, otherwise sits below the grid -->
+        <div id="browse-projects-below" class="mt-8 hidden justify-center">
+          <a href="projects/" class="inline-flex items-center gap-2 rounded-full border-2 border-candy-ink bg-candy-yellow px-6 py-2.5 text-lg font-black text-[#2b2450] shadow-lift-4 transition hover:-translate-y-0.5 hover:brightness-105 active:translate-y-[2px] active:shadow-lift-1">
+            Browse all projects
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= About ================= -->
+    <section class="mx-auto max-w-[88rem] px-5 pb-14 md:pb-20" aria-labelledby="about-title" id="about">
+      <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <div class="flex items-center gap-3">
+          <span class="h-3 w-10 rounded-full bg-candy-pink shadow-lift-2" aria-hidden="true"></span>
+          <h2 class="text-2xl font-black tracking-tight md:text-3xl" id="about-title">About me</h2>
+        </div>
+        <p class="max-w-2xl font-semibold text-candy-muted">I need to write this at some point</p>
+      </div>
+      <!-- <p class="mt-3"><a href="#" class="font-black text-candy-purple hover:underline">Read my full story →</a></p> -->
+    </section>
+
+  </main>
+
+  <!-- ================= Footer ================= -->
+  <footer class="mt-4 rounded-t-[1.75rem] bg-candy-ink-deep px-5 py-10 text-candy-footer-text">
+    <div class="mx-auto flex max-w-[88rem] flex-wrap justify-between gap-8">
+      <div class="max-w-sm">
+        <h2 class="text-lg font-black text-candy-yellow">Eitucaru</h2>
+        <p class="mt-2">Tools, games and open source projects for various software and hobbies.</p>
+      </div>
+      <nav aria-label="Popular">
+        <h2 class="text-lg font-black text-candy-yellow">Popular</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Studio Library Manager</a></li>
+          <li><a href="docs/" class="hover:text-candy-yellow hover:underline">BrickLink Studio 2.0 docs</a></li>
+          <li><a href="guides/" class="hover:text-candy-yellow hover:underline">All guides</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Elsewhere">
+        <h2 class="text-lg font-black text-candy-yellow">Elsewhere</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">GitHub</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Scratch</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Roblox</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Site">
+        <h2 class="text-lg font-black text-candy-yellow">Site</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Accessibility statement</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Privacy</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="mx-auto mt-8 flex max-w-[88rem] justify-between border-t border-white/15 pt-4 text-sm text-candy-muted">
+      <span>© 2026 Eitucaru · Built for everyone.</span>
+    </div>
+  </footer>
+
+<script>
+  // Hero screenshot spotlight — lightweight carousel (no dependencies)
+  (function () {
+    var slides = [
+      { img: 'assets/screenshots/hero-1.png', alt: '3D Part Designer screenshot', name: "Eitucaru's Part Editor", color: '#7b2ff7', tag: 'Design and optimize custom parts for your builds.' },
+      { img: 'assets/screenshots/hero-3.png', alt: 'Part List Cleaner screenshot', name: 'Studio Library Manager', color: '#00b8a9', tag: 'Install and manage custom libraries for Studio 2.0.' },
+      { img: 'assets/screenshots/hero-2.png', alt: 'Studio Library Manager screenshot', name: 'Brick Builder in Scratch', color: '#ff4fa3', tag: '3d rendered Brick builder in Scratch' }
+    ];
+    var DURATION = 5000; // autoplay interval
+    var ANIM = 600;      // slide duration (ms)
+    var EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var car = document.getElementById('carousel');
+    var track = document.getElementById('car-track');
+    var stage = document.getElementById('car-stage');
+    var FALLBACK_RATIO = [1036 / 649, 811 / 666, 817 / 628]; // slide order: hero-1, hero-3, hero-2
+    var el = {
+      dot: document.getElementById('car-dot'),
+      name: document.getElementById('car-name'),
+      dots: document.getElementById('car-dots')
+    };
+    var i = 0, pos = 0, timer = null, loopTimer = null, looping = false;
+
+    // Build the slide track + a clone of the first slide for a seamless loop
+    function makeImg(s) {
+      var im = document.createElement('img');
+      im.src = s.img;
+      im.alt = s.alt;
+      im.className = 'h-full w-full shrink-0 object-contain';
+      return im;
+    }
+    slides.forEach(function (s) { track.appendChild(makeImg(s)); });
+    track.appendChild(makeImg(slides[0]));
+
+    function setPos(p, animate) {
+      track.style.transition = (animate && !reduced) ? ('transform ' + ANIM + 'ms ' + EASE) : 'none';
+      track.style.transform = 'translateX(' + (-p * 100) + '%)';
+      if (!animate) { void track.offsetWidth; } // commit the jump before any animation
+    }
+
+    // Match the frame height to the active screenshot's aspect ratio (no crop).
+    // A height cap keeps the near-square shots from rendering oversized; object-contain
+    // mats them horizontally inside the frame instead of cropping.
+    function setStageHeight() {
+      var w = stage.clientWidth || 0;
+      if (!w) return;
+      var maxH = window.innerWidth >= 1536 ? 425 : 380;
+      var im = track.children[i];
+      var r = (im && im.naturalWidth && im.naturalHeight) ? im.naturalWidth / im.naturalHeight : FALLBACK_RATIO[i];
+      stage.style.height = Math.min(w / r, maxH) + 'px';
+    }
+
+    function paintDots() {
+      el.dots.innerHTML = '';
+      slides.forEach(function (s, idx) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', 'Show ' + s.name);
+        b.className = 'h-2.5 w-2.5 rounded-full border-2 border-candy-ink transition ' + (idx === i ? 'bg-candy-ink' : 'bg-white');
+        b.addEventListener('click', function () { go(idx); });
+        el.dots.appendChild(b);
+      });
+    }
+
+    function render() {
+      var s = slides[i];
+      el.name.textContent = s.name;
+      el.dot.style.backgroundColor = s.color;
+      paintDots();
+      setStageHeight();
+    }
+
+    function go(n) {
+      n = (n + slides.length) % slides.length;
+      if (n === i) return;
+      var forward = n === (i + 1) % slides.length;
+      // if a wrap is still finishing, snap back to the real first slide first
+      // (the clone looks identical to slide 1, so there is no visual jump)
+      if (looping) {
+        looping = false;
+        clearTimeout(loopTimer);
+        setPos(0, false);
+        pos = 0;
+      }
+      if (forward) {
+        if (i === slides.length - 1) {
+          // last -> first: slide onto the clone, then snap back seamlessly
+          pos = 3;
+          looping = true;
+          setPos(pos, true);
+          loopTimer = setTimeout(finishWrap, ANIM + 120);
+        } else {
+          pos = n;
+          setPos(pos, true);
+        }
+      } else {
+        if (i === 0) {
+          // first -> last: jump to the clone (same image), then slide back
+          setPos(3, false);
+          pos = 2;
+          setPos(pos, true);
+        } else {
+          pos = n;
+          setPos(pos, true);
+        }
+      }
+      i = n;
+      render();
+      start();
+    }
+
+    // finish a wrap: snap the track back to the real first slide (clone looks identical, so no jump)
+    function finishWrap() {
+      if (looping) { looping = false; clearTimeout(loopTimer); setPos(0, false); }
+    }
+    track.addEventListener('transitionend', function (e) {
+      if (e.propertyName !== 'transform') return;
+      finishWrap();
+    });
+
+    function start() {
+      stop();
+      if (reduced) return;
+      timer = setTimeout(function () { go(i + 1); }, DURATION);
+    }
+    function stop() {
+      if (timer) { clearTimeout(timer); timer = null; }
+    }
+
+    document.getElementById('car-prev').addEventListener('click', function () { go(i - 1); });
+    document.getElementById('car-next').addEventListener('click', function () { go(i + 1); });
+
+    car.addEventListener('mouseenter', stop);
+    car.addEventListener('mouseleave', start);
+    car.addEventListener('focusin', stop);
+    car.addEventListener('focusout', start);
+    document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
+
+    // initial size (no transition on first paint)
+    stage.style.transition = 'none';
+    setStageHeight();
+    void stage.offsetWidth;
+    stage.style.transition = '';
+
+    window.addEventListener('load', function () { setStageHeight(); });
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        stage.style.transition = 'none';
+        setStageHeight();
+        void stage.offsetWidth;
+        stage.style.transition = '';
+      }, 150);
+    });
+
+    setPos(0, false);
+    render();
+    start();
+  })();
+</script>
+
+<script src="assets/js/theme.js"></script>
+
+<script>
+  // Browse buttons — keep the usual yellow pill, but sit it INSIDE the card grid when a
+  // slot is free; drop it below the grid only when the rows fill evenly / completely.
+  (function () {
+    function pillHTML(href, label) {
+      return '<a href="' + href + '" class="inline-flex items-center gap-2 rounded-full border-2 border-candy-ink bg-candy-yellow px-6 py-2.5 text-lg font-black text-[#2b2450] shadow-lift-4 transition hover:-translate-y-0.5 hover:brightness-105 active:translate-y-[2px] active:shadow-lift-1">' + label +
+        '<svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>';
+    }
+
+    function setup(ul, below, content, colCount) {
+      if (!ul || !below) return;
+      var total = ul.querySelectorAll(':scope > li').length;
+
+      var cell = document.createElement('li');
+      cell.className = 'flex items-center justify-center py-4';
+      cell.innerHTML = content;
+
+      function place() {
+        var c = colCount(window.innerWidth);
+        var rem = total % c;
+        if (c === 1 || rem === 0) {
+          // rows are full / even → show the pill below the grid
+          if (cell.parentNode === ul) ul.removeChild(cell);
+          below.classList.remove('hidden');
+          below.classList.add('flex');
+        } else {
+          // a slot is free → sit inside the grid, one card wide (like the other cards)
+          cell.style.gridColumn = '';
+          if (cell.parentNode !== ul) ul.appendChild(cell);
+          below.classList.add('hidden');
+          below.classList.remove('flex');
+        }
+      }
+
+      var t;
+      window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(place, 120); });
+      place();
+    }
+
+    setup(document.getElementById('lego-tools'),
+          document.getElementById('browse-projects-below'),
+          pillHTML('projects/', 'Browse all projects'),
+          function (w) { return w >= 1024 ? 3 : w >= 640 ? 2 : 1; });
+
+    setup(document.getElementById('guides-grid'),
+          document.getElementById('browse-resources-below'),
+          pillHTML('guides/', 'Browse all resources'),
+          function (w) { return w >= 1024 ? 4 : w >= 640 ? 2 : 1; });
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+{
+  "_help": "Edit this file to add/remove project categories and projects. The homepage 'All projects' area is static, but projects/index.html and the per-category pages (projects/*.html) render from this file. 'accent' is one of purple | teal | pink. 'icon' is an emoji shown in the tile. Per project: name, tagline, href (page/github link, or leave null for a draft), status ('live' | 'draft').",
+  "categories": [
+    {
+      "id": "lego-tools",
+      "name": "LEGO tools",
+      "tagline": "Utilities for BrickLink Studio 2.0, part lists and building.",
+      "description": "Small but mighty helpers that make BrickLink Studio 2.0 and your part collection work the way you want.",
+      "accent": "purple",
+      "icon": "lego",
+      "projects": [
+        { "name": "Studio Library Manager", "tagline": "Install and manage custom libraries for Studio 2.0 with one tool.", "href": "../guides/install-studio-library-manager/", "status": "live", "note": "Guide available" },
+        { "name": "Part List Cleaner", "tagline": "Tidy up and de-duplicate your BrickLink part lists.", "href": null, "status": "draft", "note": "In the works" },
+        { "name": "Connectivity file inspector", "tagline": "Open and inspect .conn connectivity files without Studio.", "href": null, "status": "draft", "note": "Idea" }
+      ]
+    },
+    {
+      "id": "scratch-games",
+      "name": "Scratch games",
+      "tagline": "Playable in your browser — no installs.",
+      "description": "Little games made in Scratch, embedded right on the page.",
+      "accent": "pink",
+      "icon": "scratch",
+      "projects": [
+        { "name": "Sky Runner", "tagline": "Endless runner — dodge, jump, beat your high score.", "href": null, "status": "draft", "note": "Draft" },
+        { "name": "Puzzle Quest", "tagline": "A cozy brain-teaser adventure.", "href": null, "status": "draft", "note": "Draft" },
+        { "name": "Card Catcher", "tagline": "Catch the right cards before time runs out.", "href": null, "status": "draft", "note": "Idea" }
+      ]
+    },
+    {
+      "id": "roblox-games",
+      "name": "Roblox games",
+      "tagline": "Games I've built — jump in on Roblox.",
+      "description": "Experiences I've put together, from obbies to mini-worlds.",
+      "accent": "teal",
+      "icon": "roblox",
+      "projects": [
+        { "name": "Obby Galaxy", "tagline": "A space-themed obby with floating checkpoints.", "href": null, "status": "draft", "note": "Draft" },
+        { "name": "Tycoon World", "tagline": "Build your base, upgrade, climb the leaderboard.", "href": null, "status": "draft", "note": "Idea" }
+      ]
+    },
+    {
+      "id": "roblox-tools",
+      "name": "Roblox tools",
+      "tagline": "Scripts and builders for Roblox creators.",
+      "description": "Utilities that speed up building and scripting on Roblox.",
+      "accent": "purple",
+      "icon": "roblox-tools",
+      "projects": [
+        { "name": "Model Packer", "tagline": "Bundle and organize models for easy reuse.", "href": null, "status": "draft", "note": "Draft" },
+        { "name": "Module script scaffolder", "tagline": "Generate tidy module scripts with one click.", "href": null, "status": "draft", "note": "Idea" }
+      ]
+    },
+    {
+      "id": "web-generators",
+      "name": "Web generators",
+      "tagline": "Little online tools that make things for you.",
+      "description": "One-page tools that create names, banners, palettes and more.",
+      "accent": "pink",
+      "icon": "web",
+      "projects": [
+        { "name": "Name Generator", "tagline": "Fresh names for characters, projects and games.", "href": null, "status": "draft", "note": "Draft" },
+        { "name": "Banner Maker", "tagline": "Punchy banners for your profiles in a few clicks.", "href": null, "status": "draft", "note": "Draft" },
+        { "name": "Glitchcore filter generator", "tagline": "Add that eyesore/scenecore look to any image.", "href": null, "status": "draft", "note": "Coming soon" }
+      ]
+    },
+    {
+      "id": "open-source",
+      "name": "Open source",
+      "tagline": "Libraries and repos on GitHub — read, fork, contribute.",
+      "description": "Code I've shared for the Studio 2.0 and LEGO community.",
+      "accent": "teal",
+      "icon": "github",
+      "projects": [
+        { "name": "lego-parts-js", "tagline": "Parse and inspect LDraw parts in JavaScript.", "href": null, "status": "draft", "note": "Draft" },
+        { "name": "studio-file-parser", "tagline": "Read Studio 2.0 project files outside the app.", "href": null, "status": "draft", "note": "Draft" },
+        { "name": "conn-tools", "tagline": "CLI + docs for .conn connectivity files.", "href": null, "status": "draft", "note": "Planned" }
+      ]
+    },
+    {
+      "id": "other",
+      "name": "Other",
+      "tagline": "Everything that doesn't fit in a box yet.",
+      "description": "Misc bits — wallpapers, experiments and one-off projects.",
+      "accent": "purple",
+      "icon": "other",
+      "projects": [
+        { "name": "Wallpaper packs", "tagline": "Clean wallpapers for phones and desktops.", "href": null, "status": "draft", "note": "Draft" },
+        { "name": "Theme experiments", "tagline": "A gallery of playful web themes I've explored.", "href": null, "status": "draft", "note": "Idea" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "_help": "Edit this file to add/remove resources. Each object in 'items' becomes a card on guides/index.html. 'type' drives the Type filter at the top (e.g. Guide, Documentation, Post). 'href' is relative to the guides/ folder (use '../docs/…' for docs, '#' for not-written-yet).",
+  "items": [
+    {
+      "id": "install-studio-library-manager",
+      "type": "Guide",
+      "kicker": "Guide · Featured",
+      "title": "Install Studio Library Manager",
+      "excerpt": "Step-by-step: download, install and use Studio Library Manager with BrickLink Studio 2.0 (stud.io).",
+      "href": "install-studio-library-manager/",
+      "external": false,
+      "meta": "3-part guide"
+    },
+    {
+      "id": "studio-docs",
+      "type": "Documentation",
+      "kicker": "Documentation",
+      "title": "BrickLink Studio 2.0 documentation",
+      "excerpt": "In-depth docs for the stud.io connectivity binary file format, stud.io systems, and my personal tools.",
+      "href": "../docs/",
+      "external": false,
+      "meta": "Docs hub"
+    },
+    {
+      "id": "conn-file-format",
+      "type": "Documentation",
+      "kicker": "Reference",
+      "title": ".conn file format — Complete reference",
+      "excerpt": "The definitive spec for reading, writing and editing .conn connectivity files — binary record layout, connector types, stud/hole grids, coordinates and scaling.",
+      "href": "../docs/conn-file-format.html",
+      "external": false,
+      "meta": "Live from GitHub"
+    },
+    {
+      "id": "glitchcore-generator",
+      "type": "Post",
+      "kicker": "Insights",
+      "title": "Why I built a Glitchcore filter generator",
+      "excerpt": "I love the visual style of glitchcore, eyesore/eyestrain and scenecore, but it took creative design and manual work — I wanted to simplify it.",
+      "href": "#",
+      "external": false,
+      "meta": "Coming soon"
+    },
+    {
+      "id": "whats-next",
+      "type": "Post",
+      "kicker": "Insights",
+      "title": "What am I working on?",
+      "excerpt": "I don't even know myself.",
+      "href": "#",
+      "external": false,
+      "meta": "Coming soon"
+    }
+  ]
+}

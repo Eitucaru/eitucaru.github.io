@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Scratch games | Eitucaru</title>
+<script>
+  // Set the theme before first paint (follows the system unless the user has toggled it)
+  (function () {
+    try {
+      var saved = localStorage.getItem('theme');
+      var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+  })();
+</script>
+<meta name="description" content="Scratch games by Eitucaru — playable in your browser, no installs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="../../assets/tailwind.config.js"></script>
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/theme.css">
+<style>
+  /* Category page styles (the shared theme lives in ../assets/css/theme.css) */
+  html[data-theme="dark"] .bg-candy-purple-soft { background-color: #2a2155 !important; }
+  html[data-theme="dark"] .bg-candy-teal-soft { background-color: #0c3d37 !important; }
+  html[data-theme="dark"] .bg-candy-pink-soft { background-color: #4a1d33 !important; }
+  html[data-theme="dark"] .hover\:bg-candy-purple-soft:hover { background-color: #2a2155 !important; }
+
+  /* Draft cards/chips stay legible in both themes */
+  .draft-card { border: 3px dashed rgba(43, 36, 80, 0.35); background: rgba(255, 255, 255, 0.7); }
+  .draft-chip { border: 2px dashed rgba(43, 36, 80, 0.45); background: #ffffff; }
+  html[data-theme="dark"] .draft-card { border-color: rgba(236, 234, 247, 0.32); background: rgba(27, 24, 56, 0.55); }
+  html[data-theme="dark"] .draft-chip { border-color: rgba(236, 234, 247, 0.4); background: #1b1838; }
+</style>
+</head>
+
+<body class="bg-[#f7f8fa] font-candy text-candy-ink">
+
+  <a href="#list" class="skip-link">Skip to content</a>
+
+  <!-- ================= Header / nav ================= -->
+  <header class="sticky top-0 z-50 border-b-2 border-candy-ink bg-white/80 backdrop-blur">
+    <nav class="mx-auto flex max-w-[88rem] items-center gap-2 px-3 py-3 sm:gap-4 sm:px-5 sm:py-4" aria-label="Main">
+      <a href="../../index.html" class="flex shrink-0 items-center gap-2 text-xl font-black">
+        <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg border-2 border-candy-ink bg-gradient-to-br from-candy-purple to-candy-pink text-sm font-black text-white shadow-lift-3 sm:h-9 sm:w-9 sm:text-base" aria-hidden="true">E</span>
+        <span class="hidden min-[360px]:inline">Eitu<span class="hidden min-[400px]:inline">caru</span></span>
+      </a>
+      <div class="ml-auto flex items-center gap-1 sm:gap-2">
+        <a href="../../guides/" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">Guides</a>
+        <a href="../index.html" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base" aria-current="page">Projects</a>
+        <a href="../../index.html#about" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">About</a>
+        <button id="theme-toggle" type="button" aria-label="Toggle light / dark mode" title="Toggle light / dark mode" class="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-candy-ink bg-white text-candy-ink shadow-lift-3 transition hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:h-9 sm:w-9">
+          <svg id="icon-moon" class="h-3.5 w-3.5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+          <svg id="icon-sun" class="hidden h-3.5 w-3.5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="mx-auto max-w-[88rem] px-5 py-8 md:py-12">
+
+    <!-- ================= Category header ================= -->
+    <a href="../index.html" class="inline-flex items-center gap-1.5 text-base font-bold text-candy-muted transition hover:text-candy-purple">&larr; All projects</a>
+
+    <!-- Sibling category jump -->
+    <div id="cat-nav" class="mt-4 flex flex-wrap items-center gap-2">
+      <span class="text-xs font-black uppercase tracking-widest text-candy-muted">Browse</span>
+      <span id="cat-chips" class="flex flex-wrap gap-2"></span>
+    </div>
+
+    <div class="mt-6 flex items-center gap-3">
+      <span id="hero-icon" class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border-2 border-candy-ink bg-candy-purple-soft text-2xl shadow-lift-2" aria-hidden="true"></span>
+      <div>
+        <h1 id="cat-name" class="text-3xl font-black leading-tight md:text-[2.6rem]">Scratch games</h1>
+      </div>
+    </div>
+    <p id="cat-desc" class="mt-3 max-w-3xl text-lg text-candy-muted">Small but mighty helpers that make BrickLink Studio 2.0 and your part collection work the way you want.</p>
+
+    <!-- ================= Projects ================= -->
+    <section class="mt-8 rounded-[2rem] border-[3px] border-candy-ink bg-white p-6 pt-8 shadow-lift-5 md:p-10" aria-labelledby="list-title">
+
+      <div class="flex items-center gap-3">
+        <span id="accent-bar" class="h-3 w-10 rounded-full bg-candy-purple shadow-lift-2" aria-hidden="true"></span>
+        <h2 class="text-2xl font-black tracking-tight md:text-3xl" id="list-title">Projects</h2>
+      </div>
+
+      <!-- Loading state -->
+      <div id="loading" class="flex flex-col items-center justify-center gap-4 py-16 text-center" role="status">
+        <span class="grid h-14 w-14 place-items-center rounded-full border-[3px] border-candy-ink bg-candy-purple-soft" aria-hidden="true">
+          <svg viewBox="0 0 24 24" class="h-7 w-7 animate-spin text-candy-purple-deep" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 10 10"/></svg>
+        </span>
+        <p class="text-lg font-black text-candy-ink">Loading projects&hellip;</p>
+      </div>
+
+      <ul id="list" class="mt-8 grid list-none gap-6 sm:grid-cols-2 lg:grid-cols-3"></ul>
+
+      <div id="empty" class="hidden py-14 text-center">
+        <p class="text-lg font-black text-candy-ink">No projects here yet</p>
+        <p class="mt-1 text-sm text-candy-muted">Add some to <code class="rounded bg-candy-purple-soft px-1.5 py-0.5 font-bold text-candy-purple-deep">projects/projects.json</code>.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= Footer ================= -->
+  <footer class="mt-4 rounded-t-[1.75rem] bg-candy-ink-deep px-5 py-10 text-candy-footer-text">
+    <div class="mx-auto flex max-w-[88rem] flex-wrap justify-between gap-8">
+      <div class="max-w-sm">
+        <h2 class="text-lg font-black text-candy-yellow">Eitucaru</h2>
+        <p class="mt-2">Tools, games and open source projects for various software and hobbies.</p>
+      </div>
+      <nav aria-label="Popular">
+        <h2 class="text-lg font-black text-candy-yellow">Popular</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="../index.html" class="hover:text-candy-yellow hover:underline">All projects</a></li>
+          <li><a href="../../guides/" class="hover:text-candy-yellow hover:underline">Guides &amp; resources</a></li>
+          <li><a href="../../docs/" class="hover:text-candy-yellow hover:underline">BrickLink Studio 2.0 docs</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Elsewhere">
+        <h2 class="text-lg font-black text-candy-yellow">Elsewhere</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">GitHub</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Scratch</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Roblox</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Site">
+        <h2 class="text-lg font-black text-candy-yellow">Site</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="../../index.html" class="hover:text-candy-yellow hover:underline">Home</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Accessibility statement</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Privacy</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="mx-auto mt-8 flex max-w-[88rem] justify-between border-t border-white/15 pt-4 text-sm text-candy-muted">
+      <span>&copy; 2026 Eitucaru &middot; Built for everyone.</span>
+      <a href="#main" class="hover:text-candy-yellow hover:underline">Back to top &uarr;</a>
+    </div>
+  </footer>
+
+<script>window.ICON_ROOT='../../';</script>
+<script src="../../assets/js/theme.js"></script>
+<script src="../../assets/js/icons.js"></script>
+
+<script>
+  // ================= Category page =================
+  // Renders ONE category (CAT) from projects/projects.json.
+  (function () {
+    var CAT = 'scratch-games';
+
+    var nameEl = document.getElementById('cat-name');
+    var descEl = document.getElementById('cat-desc');
+    var iconEl = document.getElementById('hero-icon');
+    var barEl = document.getElementById('accent-bar');
+    var chipsEl = document.getElementById('cat-chips');
+    var listEl = document.getElementById('list');
+    var emptyEl = document.getElementById('empty');
+    var loadingEl = document.getElementById('loading');
+
+    var ACCENTS = {
+      purple: { bar: 'bg-candy-purple',     soft: 'bg-candy-purple-soft', text: 'text-candy-purple-deep' },
+      teal:   { bar: 'bg-candy-teal',       soft: 'bg-candy-teal-soft' },
+      pink:   { bar: 'bg-candy-pink',       soft: 'bg-candy-pink-soft' }
+    };
+    function accent(c) { return ACCENTS[c] || ACCENTS.purple; }
+
+    function esc(s) { return String(s == null ? '' : s); }
+
+    function chip(label, page, current) {
+      var a = document.createElement('a');
+      a.href = page;
+      a.className = 'rounded-full border-2 px-3 py-1 text-sm font-extrabold transition active:translate-y-[2px] active:shadow-lift-1 ' +
+        (current
+          ? 'border-candy-ink bg-candy-yellow text-[#2b2450] shadow-lift-2 cursor-default'
+          : 'border-candy-ink bg-white text-candy-purple shadow-lift-2 hover:bg-candy-yellow hover:text-[#2b2450]');
+      a.textContent = label;
+      if (current) { a.setAttribute('aria-current', 'page'); a.removeAttribute('href'); }
+      return a;
+    }
+
+    function cardHTML(p) {
+      var a = accent(p.accent || 'purple');
+      var live = p.status === 'live';
+      var status = live
+        ? '<span class="inline-block rounded-full border-2 border-candy-purple bg-candy-purple-soft px-2.5 py-0.5 text-[11px] font-black uppercase tracking-wider text-candy-purple-deep">Live</span>'
+        : '<span class="draft-chip inline-block rounded-full px-2.5 py-0.5 text-[11px] font-black uppercase tracking-wider text-candy-muted">Draft</span>';
+      var head = '<div class="flex items-start justify-between gap-2">' +
+        '<span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl border-2 border-candy-ink ' + a.soft + ' text-xl font-black shadow-lift-1" aria-hidden="true">' + esc((p.name || '·').trim().charAt(0).toUpperCase()) + '</span>' + status + '</div>';
+      var body = '<h3 class="mt-3 text-lg font-black text-candy-ink">' + esc(p.name) + '</h3>' +
+        '<p class="mt-1 flex-1 text-sm leading-relaxed text-candy-muted">' + esc(p.tagline) + '</p>';
+      var foot;
+      if (p.href) {
+        foot = '<span class="inline-flex items-center gap-2 self-start rounded-full border-2 border-candy-ink bg-white px-3 py-1 text-sm font-black text-candy-purple shadow-lift-2 transition group-hover:bg-candy-yellow group-active:translate-y-[2px] group-active:shadow-lift-1">' + (p.note || 'Open') +
+          '<svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>';
+      } else {
+        foot = '<span class="text-xs font-bold text-candy-muted">' + (p.note || 'Coming soon') + '</span>';
+      }
+      var tag = p.href
+        ? '<a href="' + esc('../' + p.href) + '" class="group flex h-full flex-col rounded-3xl border-[3px] border-candy-ink bg-white p-5 shadow-lift-4 transition hover:-translate-y-1 hover:border-candy-purple hover:shadow-lift-6">'
+        : '<div class="draft-card flex h-full flex-col rounded-3xl p-5 shadow-lift-1">';
+      var end = p.href ? '</a>' : '</div>';
+      return '<li>' + tag + head + body + '<div class="mt-4 flex items-center justify-between gap-2">' + foot + '</div>' + end + '</li>';
+    }
+
+    function render(cats, cat) {
+      document.title = cat.name + ' | Eitucaru';
+      nameEl.textContent = cat.name;
+      descEl.textContent = cat.description || '';
+      iconEl.innerHTML = (window.CANDY_ICONS && window.CANDY_ICONS[cat.icon]) || (window.CANDY_ICONS ? window.CANDY_ICONS.other : '');
+      iconEl.classList.remove('bg-candy-purple-soft', 'bg-candy-teal-soft', 'bg-candy-pink-soft');
+      iconEl.classList.add(accent(cat.accent).soft);
+      barEl.className = 'h-3 w-10 rounded-full shadow-lift-2 ' + accent(cat.accent).bar;
+      // category jump chips
+      chipsEl.innerHTML = '';
+      cats.forEach(function (c) { chipsEl.appendChild(chip(c.name, '../' + c.id + '/', c.id === CAT)); });
+      // projects
+      listEl.innerHTML = (cat.projects || []).map(cardHTML).join('');
+      emptyEl.classList.toggle('hidden', (cat.projects || []).length !== 0);
+    }
+
+    fetch('../projects.json')
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (data) {
+        var cats = (data && data.categories) || [];
+        var cat = cats.filter(function (c) { return c.id === CAT; })[0];
+        loadingEl.classList.add('hidden');
+        if (!cat) { emptyEl.classList.remove('hidden'); emptyEl.innerHTML = '<p class="text-lg font-black text-candy-ink">Category not found</p>'; return; }
+        render(cats, cat);
+      })
+      .catch(function (e) {
+        loadingEl.classList.add('hidden');
+        emptyEl.classList.remove('hidden');
+        emptyEl.innerHTML = '<p class="text-lg font-black text-candy-ink">Couldn\u2019t load projects.json</p>' +
+          '<p class="mt-1 text-sm text-candy-muted">' + (e && e.message ? e.message : String(e)) + '</p>';
+      });
+  })();
+</script>
+
+</body>
+</html>

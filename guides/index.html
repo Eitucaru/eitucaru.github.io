@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Guides &amp; resources | Eitucaru</title>
+<script>
+  // Set the theme before first paint (follows the system unless the user has toggled it)
+  (function () {
+    try {
+      var saved = localStorage.getItem('theme');
+      var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+  })();
+</script>
+<meta name="description" content="Guides, documentation and posts from Eitucaru — tutorials for Studio 2.0 tools, file-format references and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="../assets/tailwind.config.js"></script>
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/theme.css">
+<style>
+  /* Guides hub styles (the shared theme lives in ../assets/css/theme.css) */
+
+  /* Soft chip tints keep their pastel look + readable accent text on dark */
+  html[data-theme="dark"] .bg-candy-purple-soft { background-color: #2a2155 !important; }
+  html[data-theme="dark"] .bg-candy-pink-soft { background-color: #4a1d33 !important; }
+  html[data-theme="dark"] .bg-candy-sky-soft { background-color: #0d2b52 !important; }
+  html[data-theme="dark"] .text-\[\#1d56bd\] { color: #8ab6ff !important; }
+  html[data-theme="dark"] .text-\[\#c2186f\] { color: #ff8ac6 !important; }
+
+  /* Filter chips (checkbox-style) */
+  .filter-chip {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    cursor: pointer; user-select: none;
+    border: 2px solid #2b2450; border-radius: 9999px;
+    background: #ffffff; color: #5a5488;
+    padding: 0.3rem 0.85rem; font-weight: 800; font-size: 0.875rem;
+    box-shadow: 0 2px 0 #2b2450;
+    transition: background 120ms, color 120ms, box-shadow 120ms, transform 120ms;
+  }
+  .filter-chip:hover { transform: translateY(1px); box-shadow: 0 1px 0 #2b2450; }
+  .filter-chip.on { background: #ffcf00; color: #2b2450; }
+  html[data-theme="dark"] .filter-chip { background: #1b1838; color: #a9a3c9; }
+  html[data-theme="dark"] .filter-chip.on { background: #ffcf00; color: #2b2450; }
+
+  /* Card entrance — subtle */
+  .r-card { transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease, opacity 200ms ease; }
+  .r-card.hide { display: none; }
+</style>
+</head>
+
+<body class="bg-[#f7f8fa] font-candy text-candy-ink">
+
+  <a href="#list" class="skip-link">Skip to content</a>
+
+  <!-- ================= Header / nav ================= -->
+  <header class="sticky top-0 z-50 border-b-2 border-candy-ink bg-white/80 backdrop-blur">
+    <nav class="mx-auto flex max-w-[88rem] items-center gap-2 px-3 py-3 sm:gap-4 sm:px-5 sm:py-4" aria-label="Main">
+      <a href="../index.html" class="flex shrink-0 items-center gap-2 text-xl font-black">
+        <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg border-2 border-candy-ink bg-gradient-to-br from-candy-purple to-candy-pink text-sm font-black text-white shadow-lift-3 sm:h-9 sm:w-9 sm:text-base" aria-hidden="true">E</span>
+        <span class="hidden min-[360px]:inline">Eitu<span class="hidden min-[400px]:inline">caru</span></span>
+      </a>
+      <div class="ml-auto flex items-center gap-1 sm:gap-2">
+        <a href="index.html" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">Guides</a>
+        <a href="../projects/" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">Projects</a>
+        <a href="../index.html#about" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">About</a>
+        <button id="theme-toggle" type="button" aria-label="Toggle light / dark mode" title="Toggle light / dark mode" class="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-candy-ink bg-white text-candy-ink shadow-lift-3 transition hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:h-9 sm:w-9">
+          <svg id="icon-moon" class="h-3.5 w-3.5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+          <svg id="icon-sun" class="hidden h-3.5 w-3.5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="mx-auto max-w-[88rem] px-5 py-8 md:py-12">
+
+    <!-- ================= Page header ================= -->
+    <a href="../index.html#guides" class="inline-flex items-center gap-1.5 text-base font-bold text-candy-muted transition hover:text-candy-purple">&larr; Back to Home</a>
+
+    <h1 class="mt-3 max-w-3xl text-3xl font-black leading-tight md:text-[2.6rem]">Guides &amp; resources</h1>
+    <p class="mt-3 max-w-3xl text-lg text-candy-muted">Step-by-step guides, file-format documentation and the occasional post &mdash; all in one place.</p>
+
+    <!-- ================= Resource board ================= -->
+    <section class="mt-8 rounded-[2rem] border-[3px] border-candy-ink bg-white p-6 pt-8 shadow-lift-5 md:p-10" aria-labelledby="list-title">
+
+      <div class="flex flex-wrap items-end justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <span class="h-3 w-10 rounded-full bg-candy-purple shadow-lift-2" aria-hidden="true"></span>
+          <h2 class="text-2xl font-black tracking-tight md:text-3xl" id="list-title">All resources</h2>
+        </div>
+        <button id="filter-reset" type="button" class="rounded-full border-2 border-candy-ink bg-white px-4 py-1 text-sm font-black text-candy-purple shadow-lift-2 transition hover:bg-candy-yellow hover:text-candy-ink active:translate-y-[2px] active:shadow-lift-1">Reset filters</button>
+      </div>
+
+      <!-- Filters -->
+      <div id="filters" class="mt-6">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-widest text-candy-muted">Type</span>
+          <span id="type-filters" class="flex flex-wrap gap-2"></span>
+        </div>
+      </div>
+
+      <div class="mt-2 h-px bg-candy-ink/15" aria-hidden="true"></div>
+
+      <!-- Loading state -->
+      <div id="loading" class="flex flex-col items-center justify-center gap-4 py-20 text-center" role="status">
+        <span class="grid h-14 w-14 place-items-center rounded-full border-[3px] border-candy-ink bg-candy-purple-soft" aria-hidden="true">
+          <svg viewBox="0 0 24 24" class="h-7 w-7 animate-spin text-candy-purple-deep" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 10 10"/></svg>
+        </span>
+        <p class="text-lg font-black text-candy-ink">Loading resources&hellip;</p>
+      </div>
+
+      <!-- Cards -->
+      <ul id="list" class="mt-6 grid list-none gap-6 sm:grid-cols-2 lg:grid-cols-3"></ul>
+
+      <!-- Empty state -->
+      <div id="empty" class="hidden py-14 text-center">
+        <p class="text-lg font-black text-candy-ink">Nothing matches those filters</p>
+        <p class="mt-1 text-sm text-candy-muted">Try a different combination, or hit &ldquo;Reset filters&rdquo;.</p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ================= Footer ================= -->
+  <footer class="mt-4 rounded-t-[1.75rem] bg-candy-ink-deep px-5 py-10 text-candy-footer-text">
+    <div class="mx-auto flex max-w-[88rem] flex-wrap justify-between gap-8">
+      <div class="max-w-sm">
+        <h2 class="text-lg font-black text-candy-yellow">Eitucaru</h2>
+        <p class="mt-2">Tools, games and open source projects for various software and hobbies.</p>
+      </div>
+      <nav aria-label="Popular">
+        <h2 class="text-lg font-black text-candy-yellow">Popular</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="index.html" class="hover:text-candy-yellow hover:underline">Guides &amp; resources</a></li>
+          <li><a href="../docs/" class="hover:text-candy-yellow hover:underline">BrickLink Studio 2.0 docs</a></li>
+          <li><a href="install-studio-library-manager/" class="hover:text-candy-yellow hover:underline">Install Studio Library Manager</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Elsewhere">
+        <h2 class="text-lg font-black text-candy-yellow">Elsewhere</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">GitHub</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Scratch</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Roblox</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Site">
+        <h2 class="text-lg font-black text-candy-yellow">Site</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="../index.html" class="hover:text-candy-yellow hover:underline">Home</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Accessibility statement</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Privacy</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="mx-auto mt-8 flex max-w-[88rem] justify-between border-t border-white/15 pt-4 text-sm text-candy-muted">
+      <span>&copy; 2026 Eitucaru &middot; Built for everyone.</span>
+      <a href="#main" class="hover:text-candy-yellow hover:underline">Back to top &uarr;</a>
+    </div>
+  </footer>
+
+<script src="../assets/js/theme.js"></script>
+
+<script>
+  // ================= Guides & resources =================
+  // Loads guides/resources.json, renders the filter checkboxes and the cards.
+  (function () {
+    var state = { items: [], selType: [] };
+
+    var listEl = document.getElementById('list');
+    var typeEl = document.getElementById('type-filters');
+    var emptyEl = document.getElementById('empty');
+    var loadingEl = document.getElementById('loading');
+
+    // Card accent styles per type
+    var TYPE_STYLE = {
+      'Guide':         { chip: 'border-candy-purple bg-candy-purple-soft text-candy-purple-deep', tile: 'from-candy-purple to-candy-pink' },
+      'Documentation': { chip: 'border-[#2b6fe0] bg-candy-sky-soft text-[#1d56bd]',                tile: 'from-[#2b6fe0] to-[#6a9bff]' },
+      'Post':          { chip: 'border-candy-pink bg-candy-pink-soft text-[#c2186f]',              tile: 'from-candy-pink to-candy-orange' }
+    };
+    function styleFor(t) { return TYPE_STYLE[t] || TYPE_STYLE.Documentation; }
+
+    function uniq(arr) { return arr.filter(function (v, i, a) { return a.indexOf(v) === i; }); }
+
+    function chip(label) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'filter-chip';
+      b.setAttribute('role', 'checkbox');
+      b.setAttribute('aria-checked', 'false');
+      b.textContent = label;
+      b.addEventListener('click', function () {
+        var on = b.classList.toggle('on');
+        b.setAttribute('aria-checked', on ? 'true' : 'false');
+        var arr = state.selType;
+        var i = arr.indexOf(label);
+        if (on && i === -1) arr.push(label);
+        if (!on && i !== -1) arr.splice(i, 1);
+        render();
+      });
+      return b;
+    }
+
+    function buildFilters() {
+      typeEl.innerHTML = '';
+      var types = uniq(state.items.map(function (i) { return i.type; }));
+      types.forEach(function (t) { typeEl.appendChild(chip(t)); });
+    }
+
+    function matches(it) {
+      if (state.selType.length && state.selType.indexOf(it.type) === -1) return false;
+      return true;
+    }
+
+    function cardHTML(it) {
+      var s = styleFor(it.type);
+      var external = it.external ? ' target="_blank" rel="noopener"' : '';
+      var isPlaceholder = it.href === '#';
+      return '' +
+        '<li>' +
+        '<a href="' + it.href + '"' + external + ' class="group flex h-full flex-col rounded-3xl border-[3px] border-candy-ink bg-white p-5 shadow-lift-4 transition hover:-translate-y-1 hover:border-candy-purple hover:shadow-lift-6">' +
+          '<div class="flex items-start justify-between gap-2">' +
+            '<span class="inline-block rounded-full border-2 ' + s.chip + ' px-3 py-0.5 text-[11px] font-black uppercase tracking-wider">' + (it.kicker || it.type) + '</span>' +
+            '<span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-to-br ' + s.tile + ' text-white shadow-lift-1" aria-hidden="true">' +
+              '<svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' +
+            '</span>' +
+          '</div>' +
+          '<h3 class="mt-3 text-lg font-black text-candy-ink transition group-hover:text-candy-purple">' + it.title + '</h3>' +
+          '<p class="mt-1 flex-1 text-sm leading-relaxed text-candy-muted">' + it.excerpt + '</p>' +
+          '<div class="mt-4 flex items-center justify-between gap-2">' +
+            '<span class="text-xs font-bold text-candy-muted">' + (isPlaceholder ? 'Draft' : (it.meta || 'Read')) + '</span>' +
+            '<span class="inline-flex items-center gap-1 text-sm font-black ' + (isPlaceholder ? 'text-candy-muted' : 'text-candy-purple') + '">' +
+              (isPlaceholder ? 'Soon' : (external ? 'Open' : 'Read')) +
+              '<svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>' +
+            '</span>' +
+          '</div>' +
+        '</a>' +
+        '</li>';
+    }
+
+    function render() {
+      var shown = state.items.filter(matches);
+      listEl.innerHTML = shown.map(cardHTML).join('');
+      emptyEl.classList.toggle('hidden', shown.length !== 0);
+    }
+
+    function reset() {
+      state.selType = [];
+      var chips = [].slice.call(document.querySelectorAll('.filter-chip'));
+      chips.forEach(function (c) { c.classList.remove('on'); c.setAttribute('aria-checked', 'false'); });
+      render();
+    }
+    document.getElementById('filter-reset').addEventListener('click', reset);
+
+    fetch('resources.json')
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (data) {
+        state.items = (data && data.items) || [];
+        loadingEl.classList.add('hidden');
+        buildFilters();
+        render();
+      })
+      .catch(function (e) {
+        loadingEl.classList.add('hidden');
+        listEl.innerHTML = '';
+        emptyEl.classList.remove('hidden');
+        emptyEl.innerHTML = '<p class="text-lg font-black text-candy-ink">Couldn\u2019t load resources.json</p>' +
+          '<p class="mt-1 text-sm text-candy-muted">' + (e && e.message ? e.message : String(e)) + '</p>';
+      });
+  })();
+</script>
+
+</body>
+</html>

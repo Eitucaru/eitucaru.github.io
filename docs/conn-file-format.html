@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>.conn file format &mdash; Reference | Eitucaru</title>
+<script>
+  // Set the theme before first paint (follows the system unless the user has toggled it)
+  (function () {
+    try {
+      var saved = localStorage.getItem('theme');
+      var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+  })();
+</script>
+<meta name="description" content="The complete reference for the BrickLink Studio 2.0 .conn connectivity file format — binary record layout, connector types, stud/hole grids, coordinates, scaling and parsing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="../assets/tailwind.config.js"></script>
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/theme.css">
+
+<!-- Live-rendering libraries: markdown -> sanitised HTML, with KaTeX for the math -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+
+<style>
+  /* Document-page styles (the shared theme lives in ../assets/css/theme.css) */
+
+  /* Soft accent surfaces used in the doc header + loading state — readable on dark */
+  html[data-theme="dark"] .bg-candy-purple-soft { background-color: #2a2155 !important; }
+
+  /* ================= Rendered markdown (.md-body) ================= */
+  .md-body {
+    color: #443e6b;
+    line-height: 1.75;
+    font-size: 1.02rem;
+    overflow-wrap: break-word;
+  }
+  html[data-theme="dark"] .md-body { color: #d8d4ee; }
+
+  .md-body > *:first-child { margin-top: 0 !important; }
+  .md-body h1, .md-body h2, .md-body h3, .md-body h4, .md-body h5, .md-body h6 {
+    scroll-margin-top: 6.5rem;
+    color: #2b2450;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+  }
+  html[data-theme="dark"] .md-body h1, html[data-theme="dark"] .md-body h2,
+  html[data-theme="dark"] .md-body h3, html[data-theme="dark"] .md-body h4,
+  html[data-theme="dark"] .md-body h5, html[data-theme="dark"] .md-body h6 { color: #eceaf7; }
+
+  .md-body h1 { font-size: 1.9rem; margin: 2.2rem 0 1rem; }
+  .md-body h2 { font-size: 1.6rem; margin: 2.6rem 0 1rem; padding-bottom: 0.4rem; border-bottom: 2px solid rgba(43, 36, 80, 0.12); }
+  .md-body h3 { font-size: 1.28rem; margin: 2rem 0 0.7rem; }
+  .md-body h4 { font-size: 1.12rem; margin: 1.6rem 0 0.6rem; }
+  .md-body h5, .md-body h6 { font-size: 1rem; margin: 1.4rem 0 0.5rem; }
+  html[data-theme="dark"] .md-body h2 { border-bottom-color: rgba(236, 234, 247, 0.14); }
+
+  .md-body p { margin: 0.9rem 0; }
+  .md-body a { color: #7b2ff7; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+  .md-body a:hover { color: #ff4fa3; }
+  html[data-theme="dark"] .md-body a { color: #b18cff; }
+  html[data-theme="dark"] .md-body a:hover { color: #ff8ac6; }
+
+  .md-body strong { color: #2b2450; font-weight: 800; }
+  html[data-theme="dark"] .md-body strong { color: #eceaf7; }
+
+  .md-body ul, .md-body ol { margin: 0.9rem 0; padding-left: 1.4rem; }
+  .md-body ul { list-style: disc; }
+  .md-body ol { list-style: decimal; }
+  .md-body li { margin: 0.3rem 0; }
+  .md-body li > ul, .md-body li > ol { margin: 0.2rem 0; }
+  .md-body li::marker { color: #7b2ff7; font-weight: 700; }
+
+  .md-body hr { border: 0; border-top: 2px solid rgba(43, 36, 80, 0.14); margin: 2.2rem 0; }
+  html[data-theme="dark"] .md-body hr { border-top-color: rgba(236, 234, 247, 0.16); }
+
+  .md-body blockquote {
+    margin: 1.1rem 0; padding: 0.6rem 1rem 0.6rem 1.1rem;
+    border-left: 5px solid #7b2ff7; border-radius: 0 0.75rem 0.75rem 0;
+    background: #f4f0ff; color: inherit;
+  }
+  html[data-theme="dark"] .md-body blockquote { background: #241c4a; border-left-color: #b18cff; }
+
+  .md-body code {
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    font-size: 0.88em; font-weight: 700;
+    background: #ece5ff; color: #5a17c9;
+    padding: 0.12em 0.4em; border-radius: 0.4rem;
+  }
+  html[data-theme="dark"] .md-body code { background: #2a2155; color: #cbb8ff; }
+
+  .md-body pre {
+    margin: 1.2rem 0; padding: 1rem 1.1rem;
+    background: #1f1a3f; color: #e9e5ff;
+    border: 2px solid rgba(43, 36, 80, 0.35); border-radius: 0.9rem;
+    overflow-x: auto; line-height: 1.55;
+    font-size: 0.86rem;
+  }
+  .md-body pre code {
+    background: transparent; color: inherit; padding: 0; font-weight: 500;
+    font-size: inherit;
+  }
+  html[data-theme="dark"] .md-body pre { background: #0e0c22; border-color: #3a3568; }
+
+  .md-body table { width: 100%; border-collapse: collapse; font-size: 0.94rem; }
+  .md-table-wrap { margin: 1.2rem 0; overflow-x: auto; border-radius: 0.75rem; border: 2px solid rgba(43, 36, 80, 0.18); }
+  html[data-theme="dark"] .md-table-wrap { border-color: #3a3568; }
+  .md-body thead th {
+    background: #ece5ff; color: #2b2450;
+    text-align: left; font-weight: 800; white-space: nowrap;
+    padding: 0.55rem 0.8rem;
+    border-bottom: 2px solid rgba(43, 36, 80, 0.25);
+  }
+  .md-body tbody td {
+    padding: 0.5rem 0.8rem; vertical-align: top;
+    border-bottom: 1px solid rgba(43, 36, 80, 0.12);
+  }
+  .md-body tbody tr:nth-child(even) { background: rgba(123, 47, 247, 0.045); }
+  .md-body tbody tr:last-child td { border-bottom: 0; }
+  html[data-theme="dark"] .md-body thead th { background: #2a2155; color: #eceaf7; border-bottom-color: #4a4180; }
+  html[data-theme="dark"] .md-body tbody td { border-bottom-color: rgba(236, 234, 247, 0.1); }
+  html[data-theme="dark"] .md-body tbody tr:nth-child(even) { background: rgba(177, 140, 255, 0.06); }
+  .md-body th code, .md-body td code { white-space: nowrap; }
+
+  .md-body img { max-width: 100%; height: auto; border-radius: 0.75rem; }
+  .md-body .katex-display { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; padding-bottom: 2px; }
+</style>
+</head>
+
+<body class="bg-[#f7f8fa] font-candy text-candy-ink">
+
+  <a href="#doc-frame" class="skip-link">Skip to content</a>
+
+  <!-- ================= Header / nav ================= -->
+  <header class="sticky top-0 z-50 border-b-2 border-candy-ink bg-white/80 backdrop-blur">
+    <nav class="mx-auto flex max-w-[88rem] items-center gap-2 px-3 py-3 sm:gap-4 sm:px-5 sm:py-4" aria-label="Main">
+      <a href="../index.html" class="flex shrink-0 items-center gap-2 text-xl font-black">
+        <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg border-2 border-candy-ink bg-gradient-to-br from-candy-purple to-candy-pink text-sm font-black text-white shadow-lift-3 sm:h-9 sm:w-9 sm:text-base" aria-hidden="true">E</span>
+        <span class="hidden min-[360px]:inline">Eitu<span class="hidden min-[400px]:inline">caru</span></span>
+      </a>
+      <div class="ml-auto flex items-center gap-1 sm:gap-2">
+        <a href="../guides/" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">Guides</a>
+        <a href="../projects/" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">Projects</a>
+        <a href="../index.html#about" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">About</a>
+        <button id="theme-toggle" type="button" aria-label="Toggle light / dark mode" title="Toggle light / dark mode" class="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-candy-ink bg-white text-candy-ink shadow-lift-3 transition hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:h-9 sm:w-9">
+          <svg id="icon-moon" class="h-3.5 w-3.5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+          <svg id="icon-sun" class="hidden h-3.5 w-3.5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="mx-auto max-w-[88rem] px-5 py-8 md:py-12">
+
+    <!-- ================= Document header ================= -->
+    <a href="index.html" class="inline-flex items-center gap-1.5 text-base font-bold text-candy-muted transition hover:text-candy-purple">&larr; All documents</a>
+
+    <!-- ================= Document (live-rendered from GitHub) ================= -->
+    <div id="doc-frame" class="mt-8 scroll-mt-24 rounded-[2rem] border-[3px] border-candy-ink bg-white p-5 shadow-lift-5 sm:p-8 md:p-10">
+
+      <!-- In-card header — keeps the title attached to the document body -->
+      <div class="border-b-2 border-dashed border-candy-ink/25 pb-6">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span class="inline-block rounded-full border-2 border-candy-teal bg-candy-teal-soft px-3 py-0.5 text-[11px] font-black uppercase tracking-wider text-[#166b5f]">Reference &middot; File format</span>
+          <a id="link-source" href="https://github.com/Eitucaru/Part-Designer-additionals/blob/main/CONN_FILE_FORMAT_REFERENCE.md" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs font-bold text-candy-muted underline-offset-2 transition hover:text-candy-purple hover:underline">
+            <svg viewBox="0 0 24 24" class="h-4 w-4 shrink-0" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            Source &middot; Part-Designer-additionals
+          </a>
+        </div>
+        <h1 id="doc-title" class="mt-4 text-2xl font-black leading-tight sm:text-3xl md:text-[2.5rem]">.conn file format &mdash; Complete reference</h1>
+        <p class="mt-3 max-w-3xl text-base text-candy-muted sm:text-lg">How BrickLink Studio 2.0 (stud.io) stores physical connectivity &mdash; studs, tubes, axles, clips, hinges and more &mdash; in <code class="rounded bg-candy-purple-soft px-1.5 py-0.5 font-bold text-candy-purple-deep">.conn</code> files. The document below is rendered live from its markdown source on GitHub.</p>
+      </div>
+
+      <!-- Loading state -->
+      <div id="loading" class="flex flex-col items-center justify-center gap-4 py-20 text-center" role="status">
+        <span class="grid h-14 w-14 place-items-center rounded-full border-[3px] border-candy-ink bg-candy-purple-soft" aria-hidden="true">
+          <svg viewBox="0 0 24 24" class="h-7 w-7 animate-spin text-candy-purple-deep" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 10 10"/></svg>
+        </span>
+        <div>
+          <p class="text-lg font-black text-candy-ink">Fetching the document&hellip;</p>
+          <p class="text-sm text-candy-muted">Rendering the .conn reference from GitHub.</p>
+        </div>
+      </div>
+
+      <!-- Rendered markdown -->
+      <article id="doc-body" class="md-body hidden" aria-live="polite"></article>
+
+      <!-- Error state -->
+      <div id="error" class="hidden py-16 text-center">
+        <span class="mx-auto grid h-14 w-14 place-items-center rounded-full border-[3px] border-candy-ink bg-candy-orange-soft text-candy-ink" aria-hidden="true">
+          <svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </span>
+        <p class="mt-4 text-lg font-black text-candy-ink">Couldn&rsquo;t load the document</p>
+        <p id="err-msg" class="mx-auto mt-1 max-w-md text-sm text-candy-muted"></p>
+        <p class="mt-4 text-base"><a id="err-link" href="#" target="_blank" rel="noopener" class="font-black text-candy-purple underline underline-offset-2 hover:text-candy-pink">Open the raw file directly &rarr;</a></p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ================= Footer ================= -->
+  <footer class="mt-4 rounded-t-[1.75rem] bg-candy-ink-deep px-5 py-10 text-candy-footer-text">
+    <div class="mx-auto flex max-w-[88rem] flex-wrap justify-between gap-8">
+      <div class="max-w-sm">
+        <h2 class="text-lg font-black text-candy-yellow">Eitucaru</h2>
+        <p class="mt-2">Tools, games and open source projects for various software and hobbies.</p>
+      </div>
+      <nav aria-label="Popular">
+        <h2 class="text-lg font-black text-candy-yellow">Popular</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="index.html" class="hover:text-candy-yellow hover:underline">BrickLink Studio 2.0 docs</a></li>
+          <li><a href="../guides/install-studio-library-manager/" class="hover:text-candy-yellow hover:underline">Install Studio Library Manager</a></li>
+          <li><a href="../guides/" class="hover:text-candy-yellow hover:underline">All guides</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Elsewhere">
+        <h2 class="text-lg font-black text-candy-yellow">Elsewhere</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">GitHub</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Scratch</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Roblox</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Site">
+        <h2 class="text-lg font-black text-candy-yellow">Site</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="../index.html" class="hover:text-candy-yellow hover:underline">Home</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Accessibility statement</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Privacy</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="mx-auto mt-8 flex max-w-[88rem] justify-between border-t border-white/15 pt-4 text-sm text-candy-muted">
+      <span>&copy; 2026 Eitucaru &middot; Built for everyone.</span>
+      <a href="#main" class="hover:text-candy-yellow hover:underline">Back to top &uarr;</a>
+    </div>
+  </footer>
+
+<script src="../assets/js/theme.js"></script>
+
+<script>
+  // ================= Live document rendering =================
+  // The document source lives on GitHub; we fetch the raw markdown and render it
+  // client-side so the page always mirrors the latest version.
+  (function () {
+    var DOC = {
+      raw: 'https://raw.githubusercontent.com/Eitucaru/Part-Designer-additionals/refs/heads/main/CONN_FILE_FORMAT_REFERENCE.md',
+      source: 'https://github.com/Eitucaru/Part-Designer-additionals/blob/main/CONN_FILE_FORMAT_REFERENCE.md'
+    };
+
+    var loading = document.getElementById('loading');
+    var bodyEl = document.getElementById('doc-body');
+    var errEl = document.getElementById('error');
+    var linkSource = document.getElementById('link-source');
+    var errLink = document.getElementById('err-link');
+    var errMsg = document.getElementById('err-msg');
+
+    if (linkSource) linkSource.setAttribute('href', DOC.source);
+
+    // GitHub-style heading slug: lowercase, drop non [a-z0-9 _ -], spaces become "-"
+    function slugify(text) {
+      return String(text).toLowerCase().trim()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/ /g, '-');
+    }
+
+    function render(md) {
+      var lines = md.replace(/^\uFEFF/, '').split(/\r?\n/);
+      // drop the leading "# Title" (the page header already shows it)
+      if (lines.length && lines[0].trim().indexOf('# ') === 0) lines.shift();
+      md = lines.join('\n');
+
+      var html = md;
+      if (typeof marked !== 'undefined') html = marked.parse(html, { gfm: true, breaks: false });
+      if (typeof DOMPurify !== 'undefined') html = DOMPurify.sanitize(html);
+      bodyEl.innerHTML = html;
+
+      // anchor ids for every heading (matches GitHub, so the doc's own TOC works)
+      var hs = bodyEl.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      for (var i = 0; i < hs.length; i++) {
+        if (!hs[i].id) hs[i].id = slugify(hs[i].textContent);
+      }
+
+      // external links open in a new tab
+      var links = bodyEl.querySelectorAll('a');
+      for (var j = 0; j < links.length; j++) {
+        var href = links[j].getAttribute('href') || '';
+        if (/^https?:/i.test(href)) { links[j].target = '_blank'; links[j].rel = 'noopener noreferrer'; }
+      }
+
+      // wrap wide tables so they scroll instead of overflowing the card
+      var tables = bodyEl.querySelectorAll('table');
+      for (var k = 0; k < tables.length; k++) {
+        var t = tables[k];
+        var w = document.createElement('div');
+        w.className = 'md-table-wrap';
+        t.parentNode.insertBefore(w, t);
+        w.appendChild(t);
+      }
+
+      // render LaTeX math (KaTeX auto-render)
+      if (typeof renderMathInElement !== 'undefined') {
+        try {
+          renderMathInElement(bodyEl, {
+            delimiters: [
+              { left: '$$', right: '$$', display: true },
+              { left: '\\[', right: '\\]', display: true },
+              { left: '\\(', right: '\\)', display: false },
+              { left: '$', right: '$', display: false }
+            ],
+            throwOnError: false
+          });
+        } catch (e) { /* math is optional — prose still shows */ }
+      }
+    }
+
+    fetch(DOC.raw)
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+      .then(function (text) {
+        loading.classList.add('hidden');
+        bodyEl.classList.remove('hidden');
+        render(text);
+      })
+      .catch(function (e) {
+        loading.classList.add('hidden');
+        errEl.classList.remove('hidden');
+        errMsg.textContent = (e && e.message) ? e.message : String(e);
+        errLink.setAttribute('href', DOC.raw);
+      });
+  })();
+</script>
+
+</body>
+</html>

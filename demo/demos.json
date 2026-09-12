@@ -1,0 +1,16 @@
+{
+  "_help": "Add or remove entries here — each object in 'items' becomes a card on demo/index.html. 'href' is relative to the demo/ folder (use '../part-editor/' for a build hosted at /part-editor/). 'accent' picks the tile colour (purple | teal | pink | orange | sky | lav). 'icon' is a key from assets/js/icons.js. 'status' is 'live' (clickable) or 'soon' (shows as a dashed 'coming soon' card).",
+  "items": [
+    {
+      "id": "part-editor",
+      "title": "Part Editor",
+      "excerpt": "Design custom LEGO parts right in your browser — import an LDraw library, build and tweak geometry, then export back to LDraw.",
+      "href": "../part-editor/",
+      "tags": ["LEGO", "3D", "Studio 2.0"],
+      "accent": "purple",
+      "icon": "lego",
+      "meta": "Web app",
+      "status": "live"
+    }
+  ]
+}

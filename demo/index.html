@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Demos | Eitucaru</title>
+<script>
+  // Set the theme before first paint (follows the system unless the user has toggled it)
+  (function () {
+    try {
+      var saved = localStorage.getItem('theme');
+      var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+  })();
+</script>
+<meta name="description" content="Try Eitucaru's tools right in your browser — live web demos, generators and experiments. No install, no sign-up.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="../assets/tailwind.config.js"></script>
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/theme.css">
+<style>
+  /* Demos hub styles (the shared theme lives in ../assets/css/theme.css) */
+
+  /* Soft tint tiles keep their pastel look on dark */
+  html[data-theme="dark"] .bg-candy-purple-soft { background-color: #2a2155 !important; }
+  html[data-theme="dark"] .bg-candy-pink-soft { background-color: #4a1d33 !important; }
+  html[data-theme="dark"] .bg-candy-sky-soft { background-color: #0d2b52 !important; }
+  html[data-theme="dark"] .bg-candy-teal-soft { background-color: #0c3d37 !important; }
+  html[data-theme="dark"] .bg-candy-orange-soft { background-color: #4a2a15 !important; }
+  html[data-theme="dark"] .bg-candy-lav-soft { background-color: #2a2155 !important; }
+
+  /* Readable accent text on the softened dark tiles */
+  html[data-theme="dark"] .text-\[\#1d56bd\] { color: #8ab6ff !important; }
+  html[data-theme="dark"] .text-\[\#c2186f\] { color: #ff8ac6 !important; }
+  html[data-theme="dark"] .text-\[\#0b6b60\] { color: #5fe3d3 !important; }
+  html[data-theme="dark"] .text-\[\#a34a12\] { color: #ffb27a !important; }
+
+  /* Card entrance */
+  .d-card { transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease; }
+</style>
+</head>
+
+<body class="bg-[#f7f8fa] font-candy text-candy-ink">
+
+  <a href="#list" class="skip-link">Skip to content</a>
+
+  <!-- ================= Header / nav ================= -->
+  <header class="sticky top-0 z-50 border-b-2 border-candy-ink bg-white/80 backdrop-blur">
+    <nav class="mx-auto flex max-w-[88rem] flex-wrap items-center gap-2 px-3 py-3 sm:gap-4 sm:px-5 sm:py-4" aria-label="Main">
+      <a href="../index.html" class="flex shrink-0 items-center gap-2 text-xl font-black">
+        <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg border-2 border-candy-ink bg-gradient-to-br from-candy-purple to-candy-pink text-sm font-black text-white shadow-lift-3 sm:h-9 sm:w-9 sm:text-base" aria-hidden="true">E</span>
+        <span class="hidden min-[360px]:inline">Eitu<span class="hidden min-[400px]:inline">caru</span></span>
+      </a>
+      <div class="ml-auto flex flex-wrap items-center justify-end gap-1 sm:gap-2">
+        <a href="../guides/" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">Guides</a>
+        <a href="../projects/" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">Projects</a>
+        <a href="index.html" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base" aria-current="page">Demos</a>
+        <a href="../index.html#about" class="rounded-full border-2 border-candy-ink bg-white px-2.5 py-1 text-[13px] font-extrabold shadow-lift-3 transition hover:-translate-y-0.5 hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:px-4 sm:py-1.5 sm:text-base">About</a>
+        <button id="theme-toggle" type="button" aria-label="Toggle light / dark mode" title="Toggle light / dark mode" class="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-candy-ink bg-white text-candy-ink shadow-lift-3 transition hover:bg-candy-yellow active:translate-y-[2px] active:shadow-lift-1 sm:h-9 sm:w-9">
+          <svg id="icon-moon" class="h-3.5 w-3.5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+          <svg id="icon-sun" class="hidden h-3.5 w-3.5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="mx-auto max-w-[88rem] px-5 py-8 md:py-12">
+
+    <!-- ================= Page header ================= -->
+    <a href="../index.html" class="inline-flex items-center gap-1.5 text-base font-bold text-candy-muted transition hover:text-candy-purple">&larr; Back to Home</a>
+
+    <h1 class="mt-3 max-w-3xl text-3xl font-black leading-tight md:text-[2.6rem]">Demos</h1>
+    <p class="mt-3 max-w-3xl text-lg text-candy-muted">Little things you can try right here in your browser &mdash; no install, no sign-up. New experiments get dropped in here whenever they&rsquo;re ready.</p>
+
+    <!-- ================= Demo board ================= -->
+    <section class="mt-8 rounded-[2rem] border-[3px] border-candy-ink bg-white p-6 pt-8 shadow-lift-5 md:p-10" aria-labelledby="list-title">
+
+      <div class="flex items-center gap-3">
+        <span class="h-3 w-10 rounded-full bg-candy-orange shadow-lift-2" aria-hidden="true"></span>
+        <h2 class="text-2xl font-black tracking-tight md:text-3xl" id="list-title">Things to try</h2>
+      </div>
+
+      <!-- Loading state -->
+      <div id="loading" class="flex flex-col items-center justify-center gap-4 py-20 text-center" role="status">
+        <span class="grid h-14 w-14 place-items-center rounded-full border-[3px] border-candy-ink bg-candy-orange-soft" aria-hidden="true">
+          <svg viewBox="0 0 24 24" class="h-7 w-7 animate-spin text-[#a34a12]" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 10 10"/></svg>
+        </span>
+        <p class="text-lg font-black text-candy-ink">Loading demos&hellip;</p>
+      </div>
+
+      <!-- Cards -->
+      <ul id="list" class="mt-8 grid list-none gap-6 md:grid-cols-2 xl:grid-cols-3"></ul>
+
+      <!-- Empty state -->
+      <div id="empty" class="hidden py-14 text-center">
+        <p class="text-lg font-black text-candy-ink">No demos yet</p>
+        <p class="mt-1 text-sm text-candy-muted">Add some to <code class="rounded bg-candy-orange-soft px-1.5 py-0.5 font-bold text-[#a34a12]">demo/demos.json</code>.</p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ================= Footer ================= -->
+  <footer class="mt-4 rounded-t-[1.75rem] bg-candy-ink-deep px-5 py-10 text-candy-footer-text">
+    <div class="mx-auto flex max-w-[88rem] flex-wrap justify-between gap-8">
+      <div class="max-w-sm">
+        <h2 class="text-lg font-black text-candy-yellow">Eitucaru</h2>
+        <p class="mt-2">Tools, games and open source projects for various software and hobbies.</p>
+      </div>
+      <nav aria-label="Popular">
+        <h2 class="text-lg font-black text-candy-yellow">Popular</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="index.html" class="hover:text-candy-yellow hover:underline">Demos</a></li>
+          <li><a href="../projects/" class="hover:text-candy-yellow hover:underline">All projects</a></li>
+          <li><a href="../guides/" class="hover:text-candy-yellow hover:underline">Guides &amp; resources</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Elsewhere">
+        <h2 class="text-lg font-black text-candy-yellow">Elsewhere</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">GitHub</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Scratch</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Roblox</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Site">
+        <h2 class="text-lg font-black text-candy-yellow">Site</h2>
+        <ul class="mt-2 list-none">
+          <li><a href="../index.html" class="hover:text-candy-yellow hover:underline">Home</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Accessibility statement</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Privacy</a></li>
+          <li><a href="#" class="hover:text-candy-yellow hover:underline">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="mx-auto mt-8 flex max-w-[88rem] justify-between border-t border-white/15 pt-4 text-sm text-candy-muted">
+      <span>&copy; 2026 Eitucaru &middot; Built for everyone.</span>
+      <a href="#main" class="hover:text-candy-yellow hover:underline">Back to top &uarr;</a>
+    </div>
+  </footer>
+
+<script>window.ICON_ROOT='../';</script>
+<script src="../assets/js/theme.js"></script>
+<script src="../assets/js/icons.js"></script>
+
+<script>
+  // ================= Demos =================
+  // Renders the demo launchpad from demo/demos.json
+  (function () {
+    var listEl = document.getElementById('list');
+    var emptyEl = document.getElementById('empty');
+    var loadingEl = document.getElementById('loading');
+
+    var ACCENTS = {
+      purple: { bar: 'bg-candy-purple',   soft: 'bg-candy-purple-soft', text: 'text-candy-purple-deep' },
+      teal:   { bar: 'bg-candy-teal',     soft: 'bg-candy-teal-soft',   text: 'text-[#0b6b60]' },
+      pink:   { bar: 'bg-candy-pink',     soft: 'bg-candy-pink-soft',   text: 'text-[#c2186f]' },
+      orange: { bar: 'bg-candy-orange',   soft: 'bg-candy-orange-soft', text: 'text-[#a34a12]' },
+      sky:    { bar: 'bg-[#2b6fe0]',      soft: 'bg-candy-sky-soft',    text: 'text-[#1d56bd]' },
+      lav:    { bar: 'bg-[#7b2ff7]',      soft: 'bg-candy-lav-soft',    text: 'text-candy-purple-deep' }
+    };
+    function accent(k) { return ACCENTS[k] || ACCENTS.purple; }
+
+    function esc(s) { return String(s == null ? '' : s); }
+
+    function tagChip(t) {
+      return '<span class="inline-flex items-center rounded-full border-2 border-candy-ink/25 bg-white px-2.5 py-0.5 text-[11px] font-black uppercase tracking-wider text-candy-muted">' + esc(t) + '</span>';
+    }
+
+    function cardHTML(it) {
+      var a = accent(it.accent);
+      var soon = it.status !== 'live' || !it.href || it.href === '#';
+      var external = it.external ? ' target="_blank" rel="noopener"' : '';
+      var icon = (window.CANDY_ICONS && window.CANDY_ICONS[it.icon]) || (window.CANDY_ICONS ? window.CANDY_ICONS.other : '');
+      var tags = (it.tags || []).map(tagChip).join(' ');
+      var cta = soon
+        ? '<span class="mt-5 inline-flex items-center gap-2 self-start rounded-full border-2 border-dashed border-candy-ink/40 bg-white/70 px-4 py-1.5 text-base font-black text-candy-muted">Coming soon</span>'
+        : '<span class="mt-5 inline-flex items-center gap-2 self-start rounded-full border-2 border-candy-ink bg-white px-4 py-1.5 text-base font-black ' + a.text + ' shadow-lift-3 transition group-hover:-translate-y-0.5 group-hover:bg-candy-yellow group-hover:text-candy-ink group-hover:shadow-lift-1 group-active:translate-y-[2px]">Try it' +
+            '<svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>' +
+          '</span>';
+      var body =
+        '<li>' +
+        '<a href="' + esc(soon ? '#' : it.href) + '"' + (soon ? ' aria-disabled="true"' : external) + ' class="d-card group flex h-full flex-col rounded-3xl border-[3px] border-candy-ink bg-white p-6 shadow-lift-5 transition hover:-translate-y-1 ' + (soon ? 'opacity-75' : 'hover:border-candy-purple hover:shadow-lift-8') + '">' +
+          '<div class="flex items-start justify-between gap-3">' +
+            '<span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border-2 border-candy-ink ' + a.soft + ' shadow-lift-2" aria-hidden="true">' + icon + '</span>' +
+            '<span class="inline-block rounded-full border-2 border-candy-ink bg-white px-3 py-0.5 text-[11px] font-black uppercase tracking-wider text-candy-ink">' + (soon ? 'Soon' : esc(it.meta || 'Live')) + '</span>' +
+          '</div>' +
+          '<h3 class="mt-4 text-xl font-black text-candy-ink ' + (soon ? '' : 'transition group-hover:text-candy-purple') + '">' + esc(it.title) + '</h3>' +
+          '<p class="mt-2 flex-1 text-sm leading-relaxed text-candy-muted">' + esc(it.excerpt) + '</p>' +
+          (tags ? '<div class="mt-4 flex flex-wrap gap-2">' + tags + '</div>' : '') +
+          cta +
+        '</a>' +
+        '</li>';
+      return body;
+    }
+
+    function render(items) {
+      listEl.innerHTML = items.map(cardHTML).join('');
+      emptyEl.classList.toggle('hidden', items.length !== 0);
+    }
+
+    fetch('demos.json')
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (data) {
+        var items = (data && data.items) || [];
+        loadingEl.classList.add('hidden');
+        render(items);
+      })
+      .catch(function (e) {
+        loadingEl.classList.add('hidden');
+        emptyEl.classList.remove('hidden');
+        emptyEl.innerHTML = '<p class="text-lg font-black text-candy-ink">Couldn\u2019t load demos.json</p>' +
+          '<p class="mt-1 text-sm text-candy-muted">' + esc(e && e.message ? e.message : e) + '</p>';
+      });
+  })();
+</script>
+
+</body>
+</html>
